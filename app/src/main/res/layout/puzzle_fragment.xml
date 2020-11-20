@@ -3,7 +3,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:mathdoku="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/topLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000">
@@ -71,7 +70,6 @@
         <!-- on Android's default text size whether this will happen. -->
 
         <RelativeLayout
-            android:id="@+id/input_mode_and_timer_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/grid_player_relative_layout"

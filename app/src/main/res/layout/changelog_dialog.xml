@@ -41,7 +41,6 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/changelog_changes_body"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/changelog_changes_body"
