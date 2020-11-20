@@ -1,15 +1,5 @@
 package net.cactii.mathdoku.ui;
 
-import net.cactii.mathdoku.R;
-import net.cactii.mathdoku.developmentHelper.DevelopmentHelper;
-import net.cactii.mathdoku.developmentHelper.DevelopmentHelper.Mode;
-import net.cactii.mathdoku.grid.Grid;
-import net.cactii.mathdoku.grid.ui.GridViewerView;
-import net.cactii.mathdoku.painter.Painter;
-import net.cactii.mathdoku.storage.database.GridDatabaseAdapter;
-import net.cactii.mathdoku.storage.database.GridRow;
-import net.cactii.mathdoku.util.FeedbackEmail;
-import net.cactii.mathdoku.util.SharedPuzzle;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -22,197 +12,203 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import net.cactii.mathdoku.R;
+import net.cactii.mathdoku.grid.Grid;
+import net.cactii.mathdoku.grid.ui.GridViewerView;
+import net.cactii.mathdoku.painter.Painter;
+import net.cactii.mathdoku.storage.database.GridDatabaseAdapter;
+import net.cactii.mathdoku.storage.database.GridRow;
+import net.cactii.mathdoku.util.FeedbackEmail;
+import net.cactii.mathdoku.util.SharedPuzzle;
+
 public class SharedPuzzleActivity extends AppFragmentActivity {
 
-	@SuppressWarnings("unused")
-	private static final String TAG = "MathDoku.SharedPuzzleFragmentActivity";
+    public static final String RESTART_LAST_GAME_SHARED_PUZZLE = "RestartLastGame";
+    @SuppressWarnings("unused")
+    private static final String TAG = "MathDoku.SharedPuzzleFragmentActivity";
+    // The grid constructed from the share url
+    Grid mGrid;
 
-	public static final String RESTART_LAST_GAME_SHARED_PUZZLE = "RestartLastGame";
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-	// The grid constructed from the share url
-	Grid mGrid;
+        // First check whether the intent can be processed.
+        if (isValidIntent(getIntent()) == false) {
+            new AlertDialog.Builder(this)
+                    .setIcon(R.drawable.icon)
+                    .setTitle(R.string.dialog_invalid_share_url_title)
+                    .setMessage(R.string.dialog_invalid_share_url_body)
+                    .setCancelable(false)
+                    .setNeutralButton(R.string.dialog_general_button_close,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog,
+                                                    int whichButton) {
+                                    finish();
+                                }
+                            }).show();
+            return;
+        }
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+        // The format of the uri in the intent has the required format. Load the
+        // view with all data.
+        setContentView(R.layout.shared_puzzle_fragment);
 
-		// First check whether the intent can be processed.
-		if (isValidIntent(getIntent()) == false) {
-			new AlertDialog.Builder(this)
-					.setIcon(R.drawable.icon)
-					.setTitle(R.string.dialog_invalid_share_url_title)
-					.setMessage(R.string.dialog_invalid_share_url_body)
-					.setCancelable(false)
-					.setNeutralButton(R.string.dialog_general_button_close,
-							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									finish();
-								}
-							}).show();
-			return;
-		}
+        // Setup the action bar
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setTitle(getResources().getString(
+                    R.string.shared_puzzle_action_bar_title));
+        }
 
-		// The format of the uri in the intent has the required format. Load the
-		// view with all data.
-		setContentView(R.layout.shared_puzzle_fragment);
+        // Initialize the painter with the correct theme
+        Painter.getInstance().setTheme(mMathDokuPreferences.getTheme());
 
-		// Setup the action bar
-		ActionBar actionBar = getActionBar();
-		if (actionBar != null) {
-			actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-			actionBar.setDisplayHomeAsUpEnabled(false);
-			actionBar.setTitle(getResources().getString(
-					R.string.shared_puzzle_action_bar_title));
-		}
+        // set color
+        ((Button) findViewById(R.id.shared_puzzle_play_button))
+                .setBackgroundColor(Painter.getInstance()
+                        .getButtonBackgroundColor());
 
-		// Initialize the painter with the correct theme
-		Painter.getInstance().setTheme(mMathDokuPreferences.getTheme());
+        // Load the grid into the grid view.
+        ((GridViewerView) findViewById(R.id.grid_viewer_view))
+                .loadNewGrid(mGrid);
 
-		// set color
-		((Button) findViewById(R.id.shared_puzzle_play_button))
-				.setBackgroundColor(Painter.getInstance()
-						.getButtonBackgroundColor());
+        // Display the difficulty rating.
+        final VerticalRatingBar puzzleParameterDifficultyRatingBar = (VerticalRatingBar) findViewById(R.id.puzzleParameterDifficultyRatingBar);
+        puzzleParameterDifficultyRatingBar.setEnabled(false);
+        switch (mGrid.getPuzzleComplexity()) {
+            case VERY_EASY:
+                puzzleParameterDifficultyRatingBar.setNumStars(1);
+                break;
+            case EASY:
+                puzzleParameterDifficultyRatingBar.setNumStars(2);
+                break;
+            case NORMAL:
+                puzzleParameterDifficultyRatingBar.setNumStars(3);
+                break;
+            case DIFFICULT:
+                puzzleParameterDifficultyRatingBar.setNumStars(4);
+                break;
+            case VERY_DIFFICULT:
+                puzzleParameterDifficultyRatingBar.setNumStars(5);
+                break;
+        }
+    }
 
-		// Load the grid into the grid view.
-		((GridViewerView) findViewById(R.id.grid_viewer_view))
-				.loadNewGrid(mGrid);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.shared_puzzle_menu, menu);
+        return true;
+    }
 
-		// Display the difficulty rating.
-		final VerticalRatingBar puzzleParameterDifficultyRatingBar = (VerticalRatingBar) findViewById(R.id.puzzleParameterDifficultyRatingBar);
-		puzzleParameterDifficultyRatingBar.setEnabled(false);
-		switch (mGrid.getPuzzleComplexity()) {
-		case VERY_EASY:
-			puzzleParameterDifficultyRatingBar.setNumStars(1);
-			break;
-		case EASY:
-			puzzleParameterDifficultyRatingBar.setNumStars(2);
-			break;
-		case NORMAL:
-			puzzleParameterDifficultyRatingBar.setNumStars(3);
-			break;
-		case DIFFICULT:
-			puzzleParameterDifficultyRatingBar.setNumStars(4);
-			break;
-		case VERY_DIFFICULT:
-			puzzleParameterDifficultyRatingBar.setNumStars(5);
-			break;
-		}
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        int menuId = menuItem.getItemId();
+        switch (menuId) {
+            case R.id.action_send_feedback:
+                new FeedbackEmail(this).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(menuItem);
+        }
+    }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.shared_puzzle_menu, menu);
-		return true;
-	}
+    /**
+     * Checks whether the specified intent is valid an can be processed by this
+     * activity.
+     *
+     * @param intent The intent to be checked.
+     * @return True in case the intent contains a valid grid which can be
+     * processed.
+     */
+    private boolean isValidIntent(Intent intent) {
+        // The intent must exist.
+        if (intent == null) {
+            return false;
+        }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem menuItem) {
-		int menuId = menuItem.getItemId();
-		switch (menuId) {
-		case R.id.action_send_feedback:
-			new FeedbackEmail(this).show();
-			return true;
-		default:
-			return super.onOptionsItemSelected(menuItem);
-		}
-	}
+        // The intent should contain data.
+        Uri uri = intent.getData();
+        if (uri == null) {
+            return false;
+        }
 
-	/**
-	 * Checks whether the specified intent is valid an can be processed by this
-	 * activity.
-	 * 
-	 * @param intent
-	 *            The intent to be checked.
-	 * @return True in case the intent contains a valid grid which can be
-	 *         processed.
-	 */
-	private boolean isValidIntent(Intent intent) {
-		// The intent must exist.
-		if (intent == null) {
-			return false;
-		}
+        // Get the grid definition form the uri.
+        String gridDefinition = SharedPuzzle.getGridDefinitionFromUrl(uri);
+        if (gridDefinition == null) {
+            return false;
+        }
 
-		// The intent should contain data.
-		Uri uri = intent.getData();
-		if (uri == null) {
-			return false;
-		}
+        // Disable the grid as the user should not be able to click
+        // cells in the shared puzzle view
+        mGrid = new Grid();
+        if (mGrid.load(gridDefinition)) {
+            mGrid.setActive(false);
+            return true;
+        }
 
-		// Get the grid definition form the uri.
-		String gridDefinition = SharedPuzzle.getGridDefinitionFromUrl(uri);
-		if (gridDefinition == null) {
-			return false;
-		}
+        return false;
+    }
 
-		// Disable the grid as the user should not be able to click
-		// cells in the shared puzzle view
-		mGrid = new Grid();
-		if (mGrid.load(gridDefinition)) {
-			mGrid.setActive(false);
-			return true;
-		}
+    /**
+     * Load the shared puzzle as the active puzzle in MathDoku.
+     */
+    public void onClickPlayGame(View view) {
+        // First check if the puzzle already exists
+        GridRow gridRow = new GridDatabaseAdapter().getByGridDefinition(mGrid
+                .toGridDefinitionString());
+        if (gridRow == null) {
+            startPuzzleFragment();
+        } else {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.shared_puzzle_exists_title)
+                    .setMessage(
+                            getResources().getString(
+                                    R.string.shared_puzzle_exists_message,
+                                    gridRow.mId))
+                    .setNegativeButton(
+                            R.string.shared_puzzle_exists_negative_button,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog,
+                                                    int whichButton) {
+                                    // Finish the preview activity
+                                    finish();
+                                }
+                            })
+                    .setPositiveButton(
+                            R.string.shared_puzzle_exists_positive_button,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog,
+                                                    int whichButton) {
+                                    startPuzzleFragment();
+                                }
+                            }).show();
+        }
+    }
 
-		return false;
-	}
+    /**
+     * Start the puzzle fragment for the grid which is displayed.
+     */
+    private void startPuzzleFragment() {
+        // Activate and store the newly created grid so it will be played when
+        // the puzzle fragment activity is (re)started.
+        mGrid.setActive(true);
+        if (mGrid.insertInDatabase() && mGrid.save()) {
+            // Stop the preview activity.
+            finish();
 
-	/**
-	 * Load the shared puzzle as the active puzzle in MathDoku.
-	 */
-	public void onClickPlayGame(View view) {
-		// First check if the puzzle already exists
-		GridRow gridRow = new GridDatabaseAdapter().getByGridDefinition(mGrid
-				.toGridDefinitionString());
-		if (gridRow == null) {
-			startPuzzleFragment();
-		} else {
-			new AlertDialog.Builder(this)
-					.setTitle(R.string.shared_puzzle_exists_title)
-					.setMessage(
-							getResources().getString(
-									R.string.shared_puzzle_exists_message,
-									gridRow.mId))
-					.setNegativeButton(
-							R.string.shared_puzzle_exists_negative_button,
-							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									// Finish the preview activity
-									finish();
-								}
-							})
-					.setPositiveButton(
-							R.string.shared_puzzle_exists_positive_button,
-							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									startPuzzleFragment();
-								}
-							}).show();
-		}
-	}
-
-	/**
-	 * Start the puzzle fragment for the grid which is displayed.
-	 */
-	private void startPuzzleFragment() {
-		// Activate and store the newly created grid so it will be played when
-		// the puzzle fragment activity is (re)started.
-		mGrid.setActive(true);
-		if (mGrid.insertInDatabase() && mGrid.save()) {
-			// Stop the preview activity.
-			finish();
-
-			// Start the main activity of MathDoku
-			Intent intent = new Intent(this, PuzzleFragmentActivity.class)
-					.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-							+ Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			intent.putExtra(RESTART_LAST_GAME_SHARED_PUZZLE, true);
-			startActivity(intent);
-		}
-	}
+            // Start the main activity of MathDoku
+            Intent intent = new Intent(this, PuzzleFragmentActivity.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                            + Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra(RESTART_LAST_GAME_SHARED_PUZZLE, true);
+            startActivity(intent);
+        }
+    }
 }

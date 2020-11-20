@@ -1,11 +1,12 @@
 package net.cactii.mathdoku.grid.ui;
 
-import net.cactii.mathdoku.R;
-import net.cactii.mathdoku.painter.Painter;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
+
+import net.cactii.mathdoku.R;
+import net.cactii.mathdoku.painter.Painter;
 
 /**
  * This GridPlayerRelativeLayout should be used in case a relative layout is
@@ -13,87 +14,84 @@ import android.widget.RelativeLayout;
  * border on the outside of the visible grid).
  */
 public class GridPlayerRelativeLayout extends RelativeLayout {
-	public final static String TAG = "MathDoku.GridPlayerRelativeLayout";
+    public final static String TAG = "MathDoku.GridPlayerRelativeLayout";
+    private final boolean mLeftMarginAdjustment;
+    private final boolean mTopMarginAdjustment;
+    private final boolean mRightMarginAdjustment;
+    private final boolean mBottomMarginAdjustment;
+    private final boolean mMarginAdjustment;
+    private boolean mMarginsInitialised;
+    private int mLeftMargin;
+    private int mTopMargin;
+    private int mRightMargin;
+    private int mBottomMargin;
 
-	private boolean mMarginsInitialised;
+    public GridPlayerRelativeLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
 
-	private final boolean mLeftMarginAdjustment;
-	private final boolean mTopMarginAdjustment;
-	private final boolean mRightMarginAdjustment;
-	private final boolean mBottomMarginAdjustment;
-	private final boolean mMarginAdjustment;
+        TypedArray typedArray = context.getTheme().obtainStyledAttributes(
+                attrs, R.styleable.GridPlayerViewLayoutAlign, 0, 0);
 
-	private int mLeftMargin;
-	private int mTopMargin;
-	private int mRightMargin;
-	private int mBottomMargin;
+        try {
+            mLeftMarginAdjustment = (typedArray
+                    .getInt(R.styleable.GridPlayerViewLayoutAlign_layout_alignGridPlayerViewLeft,
+                            1) == 0);
+            mTopMarginAdjustment = (typedArray
+                    .getInt(R.styleable.GridPlayerViewLayoutAlign_layout_alignGridPlayerViewTop,
+                            1) == 0);
+            mRightMarginAdjustment = (typedArray
+                    .getInt(R.styleable.GridPlayerViewLayoutAlign_layout_alignGridPlayerViewRight,
+                            1) == 0);
+            mBottomMarginAdjustment = (typedArray
+                    .getInt(R.styleable.GridPlayerViewLayoutAlign_layout_alignGridPlayerViewBottom,
+                            1) == 0);
+        } finally {
+            typedArray.recycle();
+        }
 
-	public GridPlayerRelativeLayout(Context context, AttributeSet attrs) {
-		super(context, attrs);
+        mMarginAdjustment = (mLeftMarginAdjustment || mTopMarginAdjustment
+                || mRightMarginAdjustment || mBottomMarginAdjustment);
 
-		TypedArray typedArray = context.getTheme().obtainStyledAttributes(
-				attrs, R.styleable.GridPlayerViewLayoutAlign, 0, 0);
+        // Additional margins will be determined in first pass of onMeasure,
+        // except no margins needs to be adjusted at all.
+        mMarginsInitialised = (mMarginAdjustment == false);
+    }
 
-		try {
-			mLeftMarginAdjustment = (typedArray
-					.getInt(R.styleable.GridPlayerViewLayoutAlign_layout_alignGridPlayerViewLeft,
-							1) == 0);
-			mTopMarginAdjustment = (typedArray
-					.getInt(R.styleable.GridPlayerViewLayoutAlign_layout_alignGridPlayerViewTop,
-							1) == 0);
-			mRightMarginAdjustment = (typedArray
-					.getInt(R.styleable.GridPlayerViewLayoutAlign_layout_alignGridPlayerViewRight,
-							1) == 0);
-			mBottomMarginAdjustment = (typedArray
-					.getInt(R.styleable.GridPlayerViewLayoutAlign_layout_alignGridPlayerViewBottom,
-							1) == 0);
-		} finally {
-			typedArray.recycle();
-		}
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        if (mMarginAdjustment) {
+            // Initialize margins if not yet done
+            if (mMarginsInitialised == false) {
+                mMarginsInitialised = true;
 
-		mMarginAdjustment = (mLeftMarginAdjustment || mTopMarginAdjustment
-				|| mRightMarginAdjustment || mBottomMarginAdjustment);
+                // In case a margin has to be adjusted, it will be set to the
+                // width of the swipe border which itself is 50% of the grid
+                // cell size.
+                if (mLeftMarginAdjustment) {
+                    mLeftMargin = (int) Painter.getInstance().getCellPainter()
+                            .getCellSize() / 2;
+                }
+                if (mTopMarginAdjustment) {
+                    mTopMargin = (int) Painter.getInstance().getCellPainter()
+                            .getCellSize() / 2;
+                }
+                if (mRightMarginAdjustment) {
+                    mRightMargin = (int) Painter.getInstance().getCellPainter()
+                            .getCellSize() / 2;
+                }
+                if (mBottomMarginAdjustment) {
+                    mBottomMargin = (int) Painter.getInstance()
+                            .getCellPainter().getCellSize() / 2;
+                }
+            }
 
-		// Additional margins will be determined in first pass of onMeasure,
-		// except no margins needs to be adjusted at all.
-		mMarginsInitialised = (mMarginAdjustment == false);
-	}
+            // Adjust the margins
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) getLayoutParams();
+            layoutParams.setMargins(mLeftMargin, mTopMargin, mRightMargin,
+                    mBottomMargin);
+            setLayoutParams(layoutParams);
+        }
 
-	@Override
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		if (mMarginAdjustment) {
-			// Initialize margins if not yet done
-			if (mMarginsInitialised == false) {
-				mMarginsInitialised = true;
-
-				// In case a margin has to be adjusted, it will be set to the
-				// width of the swipe border which itself is 50% of the grid
-				// cell size.
-				if (mLeftMarginAdjustment) {
-					mLeftMargin = (int) Painter.getInstance().getCellPainter()
-							.getCellSize() / 2;
-				}
-				if (mTopMarginAdjustment) {
-					mTopMargin = (int) Painter.getInstance().getCellPainter()
-							.getCellSize() / 2;
-				}
-				if (mRightMarginAdjustment) {
-					mRightMargin = (int) Painter.getInstance().getCellPainter()
-							.getCellSize() / 2;
-				}
-				if (mBottomMarginAdjustment) {
-					mBottomMargin = (int) Painter.getInstance()
-							.getCellPainter().getCellSize() / 2;
-				}
-			}
-
-			// Adjust the margins
-			RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) getLayoutParams();
-			layoutParams.setMargins(mLeftMargin, mTopMargin, mRightMargin,
-					mBottomMargin);
-			setLayoutParams(layoutParams);
-		}
-
-		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-	}
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
 }

@@ -1,13 +1,14 @@
 package net.cactii.mathdoku.ui;
 
+import android.os.Bundle;
+import android.support.v4.app.FragmentStatePagerAdapter;
+
 import net.cactii.mathdoku.R;
 import net.cactii.mathdoku.developmentHelper.DevelopmentHelper;
 import net.cactii.mathdoku.developmentHelper.DevelopmentHelper.Mode;
 import net.cactii.mathdoku.storage.database.GridDatabaseAdapter;
 import net.cactii.mathdoku.storage.database.GridDatabaseAdapter.SizeFilter;
 import net.cactii.mathdoku.storage.database.GridDatabaseAdapter.StatusFilter;
-import android.os.Bundle;
-import android.support.v4.app.FragmentStatePagerAdapter;
 
 /**
  * A {@link android.support.v4.app.FragmentStatePagerAdapter} that returns a
@@ -15,203 +16,192 @@ import android.support.v4.app.FragmentStatePagerAdapter;
  */
 public class ArchiveFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 
-	// Remove "&& false" in following line to show the solving attempt id in the
-	// pager title of the archive.
-	public static final boolean DEBUG_SHOW_SOLVING_ATTEMPT_ID = (DevelopmentHelper.mMode == Mode.DEVELOPMENT) && false;
+    // Remove "&& false" in following line to show the solving attempt id in the
+    // pager title of the archive.
+    public static final boolean DEBUG_SHOW_SOLVING_ATTEMPT_ID = (DevelopmentHelper.mMode == Mode.DEVELOPMENT) && false;
 
-	public static final int UNKNOWN_GRID_ID = -1;
-	public static final int INVALID_POSITION_ID = -2;
+    public static final int UNKNOWN_GRID_ID = -1;
+    public static final int INVALID_POSITION_ID = -2;
+    // Label used in the pager strip
+    private static String mLabelPuzzleNumber;
+    private ArchiveFragmentActivity mArchiveFragmentActivity;
+    // The list of grids which can be shown with the adapter. Per grid the
+    // latest solving attempt is also retrieved.
+    private int[][] mGridIds;
+    // Selected filters
+    private StatusFilter mStatusFilter;
+    private SizeFilter mSizeFilter;
 
-	private ArchiveFragmentActivity mArchiveFragmentActivity;
+    public ArchiveFragmentStatePagerAdapter(
+            android.support.v4.app.FragmentManager fragmentManager,
+            ArchiveFragmentActivity archiveFragmentActivity) {
+        super(fragmentManager);
 
-	// The list of grids which can be shown with the adapter. Per grid the
-	// latest solving attempt is also retrieved.
-	private int[][] mGridIds;
+        // Initialize the filters
+        mStatusFilter = StatusFilter.ALL;
+        mSizeFilter = SizeFilter.ALL;
 
-	// Selected filters
-	private StatusFilter mStatusFilter;
-	private SizeFilter mSizeFilter;
+        // Initialize the label used in the page titles.
+        mArchiveFragmentActivity = archiveFragmentActivity;
+        mLabelPuzzleNumber = mArchiveFragmentActivity.getResources().getString(
+                R.string.archive_puzzle_number);
 
-	// Label used in the pager strip
-	private static String mLabelPuzzleNumber;
+        // Determine id's of grids/solving attempts which are available for
+        // display.
+        setGridIds();
+    }
 
-	public ArchiveFragmentStatePagerAdapter(
-			android.support.v4.app.FragmentManager fragmentManager,
-			ArchiveFragmentActivity archiveFragmentActivity) {
-		super(fragmentManager);
+    @Override
+    public android.support.v4.app.Fragment getItem(int i) {
+        android.support.v4.app.Fragment fragment = new ArchiveFragment();
+        Bundle args = new Bundle();
+        args.putInt(
+                ArchiveFragment.BUNDLE_KEY_SOLVING_ATTEMPT_ID,
+                mGridIds[i][GridDatabaseAdapter.LATEST_SOLVING_ATTEMPT_PER_GRID__SOLVING_ATTEMP_ID]);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
-		// Initialize the filters
-		mStatusFilter = StatusFilter.ALL;
-		mSizeFilter = SizeFilter.ALL;
+    @Override
+    public int getItemPosition(Object item) {
+        return POSITION_NONE;
+    }
 
-		// Initialize the label used in the page titles.
-		mArchiveFragmentActivity = archiveFragmentActivity;
-		mLabelPuzzleNumber = mArchiveFragmentActivity.getResources().getString(
-				R.string.archive_puzzle_number);
+    @Override
+    public int getCount() {
+        return (mGridIds == null ? 0 : mGridIds.length);
+    }
 
-		// Determine id's of grids/solving attempts which are available for
-		// display.
-		setGridIds();
-	}
+    @Override
+    public CharSequence getPageTitle(int position) {
+        if (mGridIds != null && position >= 0 && position < mGridIds.length) {
+            if (DEBUG_SHOW_SOLVING_ATTEMPT_ID) {
+                return mLabelPuzzleNumber
+                        + " "
+                        + mGridIds[position][GridDatabaseAdapter.LATEST_SOLVING_ATTEMPT_PER_GRID__GRID_ID]
+                        + "("
+                        + mGridIds[position][GridDatabaseAdapter.LATEST_SOLVING_ATTEMPT_PER_GRID__SOLVING_ATTEMP_ID]
+                        + ")";
+            } else {
+                int currentPosition = mArchiveFragmentActivity
+                        .getViewPagerCurrentPosition();
+                if (position < currentPosition) {
+                    return "< "
+                            + mGridIds[position][GridDatabaseAdapter.LATEST_SOLVING_ATTEMPT_PER_GRID__GRID_ID];
+                } else if (position == currentPosition) {
+                    return mLabelPuzzleNumber
+                            + " "
+                            + mGridIds[position][GridDatabaseAdapter.LATEST_SOLVING_ATTEMPT_PER_GRID__GRID_ID];
+                } else {
+                    return mGridIds[position][GridDatabaseAdapter.LATEST_SOLVING_ATTEMPT_PER_GRID__GRID_ID]
+                            + " >";
+                }
+            }
+        } else {
+            return mLabelPuzzleNumber;
+        }
+    }
 
-	@Override
-	public android.support.v4.app.Fragment getItem(int i) {
-		android.support.v4.app.Fragment fragment = new ArchiveFragment();
-		Bundle args = new Bundle();
-		args.putInt(
-				ArchiveFragment.BUNDLE_KEY_SOLVING_ATTEMPT_ID,
-				mGridIds[i][GridDatabaseAdapter.LATEST_SOLVING_ATTEMPT_PER_GRID__SOLVING_ATTEMP_ID]);
-		fragment.setArguments(args);
-		return fragment;
-	}
+    /**
+     * Get the currently selected value of the status filter.
+     *
+     * @return The currently selected value of the status filter.
+     */
+    public StatusFilter getStatusFilter() {
+        return mStatusFilter;
+    }
 
-	@Override
-	public int getItemPosition(Object item) {
-		return POSITION_NONE;
-	}
+    /**
+     * Set the status filter to the given value.
+     *
+     * @param statusFilter The new value of the status filter.
+     */
+    public void setStatusFilter(StatusFilter statusFilter) {
+        if (statusFilter != mStatusFilter) {
+            mStatusFilter = statusFilter;
+            setGridIds();
+        }
+    }
 
-	@Override
-	public int getCount() {
-		return (mGridIds == null ? 0 : mGridIds.length);
-	}
+    /**
+     * Get the currently selected value of the size filter.
+     *
+     * @return The currently selected value of the size filter.
+     */
+    public SizeFilter getSizeFilter() {
+        return mSizeFilter;
+    }
 
-	@Override
-	public CharSequence getPageTitle(int position) {
-		if (mGridIds != null && position >= 0 && position < mGridIds.length) {
-			if (DEBUG_SHOW_SOLVING_ATTEMPT_ID) {
-				return mLabelPuzzleNumber
-						+ " "
-						+ mGridIds[position][GridDatabaseAdapter.LATEST_SOLVING_ATTEMPT_PER_GRID__GRID_ID]
-						+ "("
-						+ mGridIds[position][GridDatabaseAdapter.LATEST_SOLVING_ATTEMPT_PER_GRID__SOLVING_ATTEMP_ID]
-						+ ")";
-			} else {
-				int currentPosition = mArchiveFragmentActivity
-						.getViewPagerCurrentPosition();
-				if (position < currentPosition) {
-					return "< "
-							+ mGridIds[position][GridDatabaseAdapter.LATEST_SOLVING_ATTEMPT_PER_GRID__GRID_ID];
-				} else if (position == currentPosition) {
-					return mLabelPuzzleNumber
-							+ " "
-							+ mGridIds[position][GridDatabaseAdapter.LATEST_SOLVING_ATTEMPT_PER_GRID__GRID_ID];
-				} else {
-					return mGridIds[position][GridDatabaseAdapter.LATEST_SOLVING_ATTEMPT_PER_GRID__GRID_ID]
-							+ " >";
-				}
-			}
-		} else {
-			return mLabelPuzzleNumber;
-		}
-	}
+    /**
+     * Set the size filter to the given value.
+     *
+     * @param statusFilter The new value of the size filter.
+     */
+    public void setSizeFilter(SizeFilter sizeFilter) {
+        if (sizeFilter != mSizeFilter) {
+            mSizeFilter = sizeFilter;
+            setGridIds();
+        }
+    }
 
-	/**
-	 * Set the status filter to the given value.
-	 * 
-	 * @param statusFilter
-	 *            The new value of the status filter.
-	 */
-	public void setStatusFilter(StatusFilter statusFilter) {
-		if (statusFilter != mStatusFilter) {
-			mStatusFilter = statusFilter;
-			setGridIds();
-		}
-	}
+    /**
+     * Set all grid id's which can be displayed using the adapter.
+     */
+    private void setGridIds() {
+        // Determine which grid should be shown
+        GridDatabaseAdapter gridDatabaseAdapter = new GridDatabaseAdapter();
+        mGridIds = gridDatabaseAdapter.getLatestSolvingAttemptsPerGrid(
+                mStatusFilter, mSizeFilter);
+        notifyDataSetChanged();
+    }
 
-	/**
-	 * Get the currently selected value of the status filter.
-	 * 
-	 * @return The currently selected value of the status filter.
-	 */
-	public StatusFilter getStatusFilter() {
-		return mStatusFilter;
-	}
+    /**
+     * Get the position in the adapter at which the given grid is placed.
+     *
+     * @param gridId The grid id to be found.
+     * @returns The position in the adapter at which the given grid is placed.
+     * {@value #UNKNOWN_GRID_ID} in case the grid id is not known to
+     * this adapter.
+     */
+    public int getPositionOfGridId(int gridId) {
+        if (mGridIds != null) {
+            // Check position of given solving attempt id.
+            for (int i = 0; i < mGridIds.length; i++) {
+                if (mGridIds[i][GridDatabaseAdapter.LATEST_SOLVING_ATTEMPT_PER_GRID__GRID_ID] == gridId) {
+                    return i;
+                }
+            }
+        }
 
-	/**
-	 * Set the size filter to the given value.
-	 * 
-	 * @param statusFilter
-	 *            The new value of the size filter.
-	 */
-	public void setSizeFilter(SizeFilter sizeFilter) {
-		if (sizeFilter != mSizeFilter) {
-			mSizeFilter = sizeFilter;
-			setGridIds();
-		}
-	}
+        return UNKNOWN_GRID_ID;
+    }
 
-	/**
-	 * Get the currently selected value of the size filter.
-	 * 
-	 * @return The currently selected value of the size filter.
-	 */
-	public SizeFilter getSizeFilter() {
-		return mSizeFilter;
-	}
+    /**
+     * Get the grid id at the given position.
+     *
+     * @param position Position in adapter for which the grid id has to be returned.
+     * @return The grid id at the given position.
+     */
+    public int getGridId(int position) {
+        if (mGridIds != null && position >= 0 && position < mGridIds.length) {
+            return mGridIds[position][GridDatabaseAdapter.LATEST_SOLVING_ATTEMPT_PER_GRID__GRID_ID];
+        } else {
+            return INVALID_POSITION_ID;
+        }
+    }
 
-	/**
-	 * Set all grid id's which can be displayed using the adapter.
-	 */
-	private void setGridIds() {
-		// Determine which grid should be shown
-		GridDatabaseAdapter gridDatabaseAdapter = new GridDatabaseAdapter();
-		mGridIds = gridDatabaseAdapter.getLatestSolvingAttemptsPerGrid(
-				mStatusFilter, mSizeFilter);
-		notifyDataSetChanged();
-	}
-
-	/**
-	 * Get the position in the adapter at which the given grid is placed.
-	 * 
-	 * @param gridId
-	 *            The grid id to be found.
-	 * @returns The position in the adapter at which the given grid is placed.
-	 *          {@value #UNKNOWN_GRID_ID} in case the grid id is not known to
-	 *          this adapter.
-	 */
-	public int getPositionOfGridId(int gridId) {
-		if (mGridIds != null) {
-			// Check position of given solving attempt id.
-			for (int i = 0; i < mGridIds.length; i++) {
-				if (mGridIds[i][GridDatabaseAdapter.LATEST_SOLVING_ATTEMPT_PER_GRID__GRID_ID] == gridId) {
-					return i;
-				}
-			}
-		}
-
-		return UNKNOWN_GRID_ID;
-	}
-
-	/**
-	 * Get the grid id at the given position.
-	 * 
-	 * @param position
-	 *            Position in adapter for which the grid id has to be returned.
-	 * 
-	 * @return The grid id at the given position.
-	 */
-	public int getGridId(int position) {
-		if (mGridIds != null && position >= 0 && position < mGridIds.length) {
-			return mGridIds[position][GridDatabaseAdapter.LATEST_SOLVING_ATTEMPT_PER_GRID__GRID_ID];
-		} else {
-			return INVALID_POSITION_ID;
-		}
-	}
-
-	/**
-	 * Get the solving attempt for the grid at the given position.
-	 * 
-	 * @param position
-	 *            Position in adapter for which the solving attempt of the grid
-	 *            has to be returned.
-	 * 
-	 * @return The grid id at the given position.
-	 */
-	public int getSolvingAttemptId(int position) {
-		if (mGridIds != null && position >= 0 && position < mGridIds.length) {
-			return mGridIds[position][GridDatabaseAdapter.LATEST_SOLVING_ATTEMPT_PER_GRID__SOLVING_ATTEMP_ID];
-		} else {
-			return INVALID_POSITION_ID;
-		}
-	}
+    /**
+     * Get the solving attempt for the grid at the given position.
+     *
+     * @param position Position in adapter for which the solving attempt of the grid
+     *                 has to be returned.
+     * @return The grid id at the given position.
+     */
+    public int getSolvingAttemptId(int position) {
+        if (mGridIds != null && position >= 0 && position < mGridIds.length) {
+            return mGridIds[position][GridDatabaseAdapter.LATEST_SOLVING_ATTEMPT_PER_GRID__SOLVING_ATTEMP_ID];
+        } else {
+            return INVALID_POSITION_ID;
+        }
+    }
 }

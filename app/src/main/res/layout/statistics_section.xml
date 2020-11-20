@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".StatisticsActivity" >
+    tools:context=".StatisticsActivity">
 
     <TextView
         android:id="@+id/statistics_section_title"
@@ -12,10 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:lines="1"
-        android:paddingBottom="10dp"
         android:paddingLeft="5dp"
-        android:paddingRight="5dp"
         android:paddingTop="10dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="10dp"
         android:textSize="@dimen/text_size_heading"
         android:textStyle="bold"
         android:visibility="gone" />
@@ -35,9 +35,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:orientation="vertical"
-        android:paddingBottom="10dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
+        android:paddingBottom="10dp"
         android:textSize="@dimen/text_size_default"
         android:visibility="gone" />
 
@@ -45,9 +45,9 @@
         android:id="@+id/statistics_section_explanation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
+        android:paddingBottom="5dp"
         android:textSize="@dimen/text_size_default"
         android:visibility="gone" />
 

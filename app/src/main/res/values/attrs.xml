@@ -19,7 +19,8 @@
             <enum name="visible_grid" value="0" />
             <enum name="entire_grid" value="1" />
         </attr>
-    </declare-styleable><declare-styleable name="Theme">
+    </declare-styleable>
+    <declare-styleable name="Theme">
 
         <!-- Attributes below are needed to support the navigation drawer on Android 3.x. -->
         <!-- For API-11 those attributes will be mapped to a Mathdoku specific -->

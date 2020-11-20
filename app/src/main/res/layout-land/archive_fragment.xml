@@ -1,21 +1,20 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:paddingTop="10dp" >
+    android:paddingTop="10dp">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/puzzleGrid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:layout_margin="5dp" >
+            android:layout_margin="5dp">
 
             <!-- The rating bar will be programmatically rotated to a vertical position. -->
             <!-- Number of starts will programmatically be set to correct number of stars. -->
@@ -43,9 +42,9 @@
             android:id="@+id/archiveReloadButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
             android:lines="1"
             android:onClick="onClickReloadGame"
             android:text="@string/archive_reload_finished_game"
@@ -56,13 +55,13 @@
             android:id="@+id/puzzleStatistics"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp" >
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp">
 
             <TableRow
                 android:id="@+id/statistics_general_date_created_row"
-                android:visibility="gone" >
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -80,7 +79,7 @@
 
             <TableRow
                 android:id="@+id/statistics_general_date_finished_row"
-                android:visibility="gone" >
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -98,7 +97,7 @@
 
             <TableRow
                 android:id="@+id/statistics_general_replays_row"
-                android:visibility="gone" >
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -116,7 +115,7 @@
 
             <TableRow
                 android:id="@+id/statistics_general_elapsed_time_row"
-                android:visibility="gone" >
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -134,7 +133,7 @@
 
             <TableRow
                 android:id="@+id/statistics_general_cheat_penalty_time_row"
-                android:visibility="gone" >
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -157,8 +156,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:orientation="vertical" >
-        </LinearLayout>
+            android:orientation="vertical"></LinearLayout>
     </LinearLayout>
 
 </ScrollView>

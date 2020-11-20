@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- The development mode menu is a nested submenu which is not supported by API version 10 or lower. -->
     <item
@@ -14,15 +14,15 @@
             <item
                 android:id="@+id/development_mode_reset_preferences"
                 android:title="Reset preferences"
-                tools:ignore="HardcodedText"/>
+                tools:ignore="HardcodedText" />
             <item
                 android:id="@+id/development_mode_unlock_archive"
                 android:title="Unlock Archive + stats"
-                tools:ignore="HardcodedText"/>
+                tools:ignore="HardcodedText" />
             <item
                 android:id="@+id/development_mode_delete_database"
                 android:title="Delete database"
-                tools:ignore="HardcodedText"/>
+                tools:ignore="HardcodedText" />
             <item
                 android:title="Game files"
                 tools:ignore="HardcodedText">
@@ -30,11 +30,11 @@
                     <item
                         android:id="@+id/development_mode_generate_games"
                         android:title="Generate new dummy games"
-                        tools:ignore="HardcodedText"/>
+                        tools:ignore="HardcodedText" />
                     <item
                         android:id="@+id/development_mode_delete_games"
                         android:title="Delete all games"
-                        tools:ignore="HardcodedText"/>
+                        tools:ignore="HardcodedText" />
                 </menu>
             </item>
             <item
@@ -44,17 +44,17 @@
                     <item
                         android:id="@+id/development_mode_reset_log"
                         android:title="Reset logging"
-                        tools:ignore="HardcodedText"/>
+                        tools:ignore="HardcodedText" />
                     <item
                         android:id="@+id/development_mode_send_log"
                         android:title="Send log"
-                        tools:ignore="HardcodedText"/>
+                        tools:ignore="HardcodedText" />
                 </menu>
             </item>
             <item
                 android:id="@+id/development_mode_clear_data"
                 android:title="Clear all"
-                tools:ignore="HardcodedText"/>
+                tools:ignore="HardcodedText" />
         </menu>
     </item>
 

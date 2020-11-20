@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="10dp"
-    tools:context=".ui.StatisticsFragmentActivity" >
+    tools:context=".ui.StatisticsFragmentActivity">
 
     <LinearLayout
         android:id="@+id/chartLayouts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <!-- Note: this layout will be programmatically cleared in StatisticsActivity.onResume and than filled with one or more occurents of layout "statistics_section.xml" will be added here. -->
     </LinearLayout>

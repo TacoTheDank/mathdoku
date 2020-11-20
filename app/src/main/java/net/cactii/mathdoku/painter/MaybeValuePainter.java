@@ -1,131 +1,129 @@
 package net.cactii.mathdoku.painter;
 
+import android.graphics.Paint;
+
 import net.cactii.mathdoku.grid.DigitPositionGrid;
 import net.cactii.mathdoku.painter.Painter.DigitPainterMode;
 import net.cactii.mathdoku.painter.Painter.GridTheme;
-import android.graphics.Paint;
 
 public class MaybeValuePainter extends DigitPainter {
 
-	// Size of grid of maybe values within the cell
-	private DigitPositionGrid mDigitPositionGrid;
+    // Size of regions to draw maybe digit
+    protected float mMaybeDigitWidth;
+    protected float mMaybeDigitHeight;
+    // Size of grid of maybe values within the cell
+    private DigitPositionGrid mDigitPositionGrid;
+    // Last cell size used
+    private float mCellSize;
 
-	// Last cell size used
-	private float mCellSize;
+    /**
+     * Creates a new instance of {@link GridPainter}.
+     *
+     * @param painter The global container for all painters.
+     */
+    public MaybeValuePainter(Painter painter) {
+        super(painter);
 
-	// Size of regions to draw maybe digit
-	protected float mMaybeDigitWidth;
-	protected float mMaybeDigitHeight;
+        mTextPaintNormalInputMode = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mTextPaintNormalInputMode.setTextSize(10);
+        mTextPaintNormalInputMode.setTypeface(mPainter.getTypeface());
+        mTextPaintNormalInputMode.setFakeBoldText(true);
 
-	/**
-	 * Creates a new instance of {@link GridPainter}.
-	 * 
-	 * @param painter
-	 *            The global container for all painters.
-	 */
-	public MaybeValuePainter(Painter painter) {
-		super(painter);
+        mTextPaintMaybeInputMode = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mTextPaintMaybeInputMode.setTextSize(10);
+        mTextPaintMaybeInputMode.setTypeface(mPainter.getTypeface());
+        mTextPaintMaybeInputMode.setFakeBoldText(true);
+    }
 
-		mTextPaintNormalInputMode = new Paint(Paint.ANTI_ALIAS_FLAG);
-		mTextPaintNormalInputMode.setTextSize(10);
-		mTextPaintNormalInputMode.setTypeface(mPainter.getTypeface());
-		mTextPaintNormalInputMode.setFakeBoldText(true);
+    @Override
+    public void setTheme(GridTheme theme) {
+        mTextPaintNormalInputMode.setColor(mPainter.getDefaultTextColor());
+        mTextPaintMaybeInputMode.setColor(mPainter
+                .getHighlightedTextColorMaybeInputMode());
+    }
 
-		mTextPaintMaybeInputMode = new Paint(Paint.ANTI_ALIAS_FLAG);
-		mTextPaintMaybeInputMode.setTextSize(10);
-		mTextPaintMaybeInputMode.setTypeface(mPainter.getTypeface());
-		mTextPaintMaybeInputMode.setFakeBoldText(true);
-	}
+    @Override
+    protected void setCellSize(float size) {
+        mCellSize = size;
+        if (mDigitPositionGrid == null) {
+            // All maybe values are printed on a single line
 
-	@Override
-	public void setTheme(GridTheme theme) {
-		mTextPaintNormalInputMode.setColor(mPainter.getDefaultTextColor());
-		mTextPaintMaybeInputMode.setColor(mPainter
-				.getHighlightedTextColorMaybeInputMode());
-	}
+            // Text size is 25% of cell size
+            int textSize = (int) (size / 4);
+            mTextPaintNormalInputMode.setTextSize(textSize);
+            mTextPaintMaybeInputMode.setTextSize(textSize);
 
-	@Override
-	protected void setCellSize(float size) {
-		mCellSize = size;
-		if (mDigitPositionGrid == null) {
-			// All maybe values are printed on a single line
+            // Align digits at left of cell and vertically centered. Note that
+            // vertical offset of text will be used as bottom edge for text.
+            mLeftOffset = 3;
+            mBottomOffset = (size + textSize) / 2;
+        } else {
+            // Determine number of rows and columns of maybe values to display.
+            int rows = mDigitPositionGrid.getVisibleDigitRows();
+            int cols = mDigitPositionGrid.getVisibleDigitColumns();
 
-			// Text size is 25% of cell size
-			int textSize = (int) (size / 4);
-			mTextPaintNormalInputMode.setTextSize(textSize);
-			mTextPaintMaybeInputMode.setTextSize(textSize);
+            // 1/3 of total height is used for cage result text. Also need to
+            // reserve a margin below the maybes grid for the selected cage
+            // border.
+            int margin = 4;
+            float maxHeightForMaybes = (size * 2 / 3) - margin;
 
-			// Align digits at left of cell and vertically centered. Note that
-			// vertical offset of text will be used as bottom edge for text.
-			mLeftOffset = 3;
-			mBottomOffset = (size + textSize) / 2;
-		} else {
-			// Determine number of rows and columns of maybe values to display.
-			int rows = mDigitPositionGrid.getVisibleDigitRows();
-			int cols = mDigitPositionGrid.getVisibleDigitColumns();
+            mMaybeDigitHeight = maxHeightForMaybes / rows;
+            mMaybeDigitWidth = Math.min((size - 2 * margin) / cols,
+                    mMaybeDigitHeight);
 
-			// 1/3 of total height is used for cage result text. Also need to
-			// reserve a margin below the maybes grid for the selected cage
-			// border.
-			int margin = 4;
-			float maxHeightForMaybes = (size * 2 / 3) - margin;
+            // Maximize the textsize within the available space for each row
+            mTextPaintNormalInputMode.setTextSize(mMaybeDigitHeight);
+            mTextPaintMaybeInputMode.setTextSize(mMaybeDigitHeight);
 
-			mMaybeDigitHeight = maxHeightForMaybes / rows;
-			mMaybeDigitWidth = Math.min((size - 2 * margin) / cols,
-					mMaybeDigitHeight);
+            // Compute the offsets at which the top left digit (1) will be
+            // displayed within the cell if it is entered as a possible value.
+            mLeftOffset = (size - margin) - (cols * mMaybeDigitWidth);
+            mBottomOffset = (size - margin) - ((rows - 1) * mMaybeDigitHeight);
+        }
+    }
 
-			// Maximize the textsize within the available space for each row
-			mTextPaintNormalInputMode.setTextSize(mMaybeDigitHeight);
-			mTextPaintMaybeInputMode.setTextSize(mMaybeDigitHeight);
+    /**
+     * Gets the width of a single position to display a maybe value.
+     *
+     * @return The width of a single position to display a maybe value.
+     */
+    public float getMaybeDigitWidth() {
+        return mMaybeDigitWidth;
+    }
 
-			// Compute the offsets at which the top left digit (1) will be
-			// displayed within the cell if it is entered as a possible value.
-			mLeftOffset = (size - margin) - (cols * mMaybeDigitWidth);
-			mBottomOffset = (size - margin) - ((rows - 1) * mMaybeDigitHeight);
-		}
-	}
+    /**
+     * Gets the height of a single position to display a maybe value.
+     *
+     * @return The height of a single position to display a maybe value.
+     */
+    public float getMaybeDigitHeight() {
+        return mMaybeDigitHeight;
+    }
 
-	public void setDigitPositionGrid(DigitPositionGrid digitPositionGrid) {
-		// On change of the digit position grid, recalculate the size of the
-		// value painter.
-		if (mDigitPositionGrid != digitPositionGrid) {
-			mDigitPositionGrid = digitPositionGrid;
-			setCellSize(mCellSize);
-		}
-	}
+    /**
+     * Gets the digit position grid which has to be used to display maybe values
+     * inside a cell in case the maybes have to displayed as a grid. the cell.
+     *
+     * @return The digit position grid object used to display maybe values in a
+     * grid format inside a cell.
+     */
+    public DigitPositionGrid getDigitPositionGrid() {
+        return mDigitPositionGrid;
+    }
 
-	/**
-	 * Gets the width of a single position to display a maybe value.
-	 * 
-	 * @return The width of a single position to display a maybe value.
-	 */
-	public float getMaybeDigitWidth() {
-		return mMaybeDigitWidth;
-	}
+    public void setDigitPositionGrid(DigitPositionGrid digitPositionGrid) {
+        // On change of the digit position grid, recalculate the size of the
+        // value painter.
+        if (mDigitPositionGrid != digitPositionGrid) {
+            mDigitPositionGrid = digitPositionGrid;
+            setCellSize(mCellSize);
+        }
+    }
 
-	/**
-	 * Gets the height of a single position to display a maybe value.
-	 * 
-	 * @return The height of a single position to display a maybe value.
-	 */
-	public float getMaybeDigitHeight() {
-		return mMaybeDigitHeight;
-	}
-
-	/**
-	 * Gets the digit position grid which has to be used to display maybe values
-	 * inside a cell in case the maybes have to displayed as a grid. the cell.
-	 * 
-	 * @return The digit position grid object used to display maybe values in a
-	 *         grid format inside a cell.
-	 */
-	public DigitPositionGrid getDigitPositionGrid() {
-		return mDigitPositionGrid;
-	}
-
-	@Override
-	public Paint getTextPaintMaybeInputMode() {
-		return (mDigitPainterMode == DigitPainterMode.INPUT_MODE_BASED ? mTextPaintMaybeInputMode
-				: mTextPaintNormalInputMode);
-	}
+    @Override
+    public Paint getTextPaintMaybeInputMode() {
+        return (mDigitPainterMode == DigitPainterMode.INPUT_MODE_BASED ? mTextPaintMaybeInputMode
+                : mTextPaintNormalInputMode);
+    }
 }

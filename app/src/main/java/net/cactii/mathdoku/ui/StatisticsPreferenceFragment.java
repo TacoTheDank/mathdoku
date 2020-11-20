@@ -1,61 +1,62 @@
 package net.cactii.mathdoku.ui;
 
-import net.cactii.mathdoku.Preferences;
-import net.cactii.mathdoku.R;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
+import net.cactii.mathdoku.Preferences;
+import net.cactii.mathdoku.R;
+
 public class StatisticsPreferenceFragment extends PreferenceFragment implements
-		OnSharedPreferenceChangeListener {
+        OnSharedPreferenceChangeListener {
 
-	SharedPreferences mSharedPreferences;
+    SharedPreferences mSharedPreferences;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		addPreferencesFromResource(R.xml.statistics_preferences);
+        addPreferencesFromResource(R.xml.statistics_preferences);
 
-		setMaximumGamesElapsedTimeChart();
-	}
+        setMaximumGamesElapsedTimeChart();
+    }
 
-	@Override
-	public void onStart() {
-		mSharedPreferences = Preferences.getInstance(getActivity()).mSharedPreferences;
-		mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
-		super.onStart();
-	}
+    @Override
+    public void onStart() {
+        mSharedPreferences = Preferences.getInstance(getActivity()).mSharedPreferences;
+        mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        super.onStart();
+    }
 
-	@Override
-	public void onStop() {
-		mSharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+    @Override
+    public void onStop() {
+        mSharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
 
-		super.onPause();
-	}
+        super.onPause();
+    }
 
-	@Override
-	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-			String key) {
-		if (key.equals(Preferences.STATISTICS_SETTING_ELAPSED_TIME_CHART_MAXIMUM_GAMES)) {
-			setMaximumGamesElapsedTimeChart();
-		}
-	}
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
+                                          String key) {
+        if (key.equals(Preferences.STATISTICS_SETTING_ELAPSED_TIME_CHART_MAXIMUM_GAMES)) {
+            setMaximumGamesElapsedTimeChart();
+        }
+    }
 
-	/**
-	 * Set summary for option "maximum games elapsed time chart" based on
-	 * current value of the option.
-	 */
-	public void setMaximumGamesElapsedTimeChart() {
-		findPreference(
-				Preferences.STATISTICS_SETTING_ELAPSED_TIME_CHART_MAXIMUM_GAMES)
-				.setSummary(
-						getResources()
-								.getString(
-										R.string.statistics_setting_elapsed_time_chart_maximum_games_summary,
-										Preferences
-												.getInstance()
-												.getStatisticsSettingElapsedTimeChartMaximumGames()));
-	}
+    /**
+     * Set summary for option "maximum games elapsed time chart" based on
+     * current value of the option.
+     */
+    public void setMaximumGamesElapsedTimeChart() {
+        findPreference(
+                Preferences.STATISTICS_SETTING_ELAPSED_TIME_CHART_MAXIMUM_GAMES)
+                .setSummary(
+                        getResources()
+                                .getString(
+                                        R.string.statistics_setting_elapsed_time_chart_maximum_games_summary,
+                                        Preferences
+                                                .getInstance()
+                                                .getStatisticsSettingElapsedTimeChartMaximumGames()));
+    }
 }

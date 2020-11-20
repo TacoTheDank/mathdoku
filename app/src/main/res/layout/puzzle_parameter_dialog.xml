@@ -1,8 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp" >
+    android:padding="5dp">
 
     <RelativeLayout
         android:id="@+id/puzzleParameterSizeRelativeLayout"
@@ -10,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="5dp" >
+        android:layout_marginTop="5dp">
 
         <TextView
             android:id="@+id/puzzleParameterSizeTextView"
@@ -33,9 +32,9 @@
         android:id="@+id/puzzleParameterDisplayOperatorsRelativeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_below="@+id/puzzleParameterSizeRelativeLayout"
-        android:layout_marginTop="5dp" >
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="5dp">
 
         <TextView
             android:id="@+id/puzzleParameterDisplayOperatorsTextView"
@@ -59,29 +58,29 @@
         android:id="@+id/puzzleParameterDifficultyTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_below="@+id/puzzleParameterDisplayOperatorsRelativeLayout"
+        android:layout_alignParentLeft="true"
         android:layout_marginTop="5dp"
         android:text="@string/dialog_puzzle_parameters_difficulty"
         android:textSize="@dimen/dialog_text_size_body" />
-    
-        <CheckBox
-            android:id="@+id/puzzleParameterRandomCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/puzzleParameterDifficultyTextView"
-            android:layout_alignParentRight="true"
-            android:checked="false" />
-        
+
+    <CheckBox
+        android:id="@+id/puzzleParameterRandomCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/puzzleParameterDifficultyTextView"
+        android:layout_alignParentRight="true"
+        android:checked="false" />
+
     <TextView
         android:id="@+id/puzzleParameterRandomTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/puzzleParameterRandomCheckBox"
         android:layout_alignBaseline="@+id/puzzleParameterDifficultyTextView"
+        android:layout_toLeftOf="@+id/puzzleParameterRandomCheckBox"
         android:text="Random"
         android:textSize="@dimen/dialog_text_size_body" />
-    
+
     <RatingBar
         android:id="@+id/puzzleParameterDifficultyRatingBar"
         android:layout_width="wrap_content"
