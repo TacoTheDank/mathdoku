@@ -9,10 +9,6 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +25,11 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import net.cactii.mathdoku.Preferences;
 import net.cactii.mathdoku.R;
@@ -1057,15 +1058,14 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
         // Set up the navigation drawer.
         mDrawerLayout = (DrawerLayout) findViewById(R.id.puzzle_activity_drawer_layout);
         mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.drawable.ic_drawer, R.string.navigation_drawer_open,
+                R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close) {
 
             /*
              * (non-Javadoc)
              *
              * @see
-             * android.support.v4.app.ActionBarDrawerToggle#onDrawerClosed(android
-             * .view.View)
+             * ActionBarDrawerToggle#onDrawerClosed(android.view.View)
              */
             @Override
             public void onDrawerClosed(View view) {
@@ -1081,8 +1081,7 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
              * (non-Javadoc)
              *
              * @see
-             * android.support.v4.app.ActionBarDrawerToggle#onDrawerOpened(android
-             * .view.View)
+             * ActionBarDrawerToggle#onDrawerOpened(android.view.View)
              */
             @Override
             public void onDrawerOpened(View drawerView) {

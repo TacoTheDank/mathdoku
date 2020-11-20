@@ -6,13 +6,16 @@ import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import androidx.core.app.NavUtils;
+import androidx.core.app.TaskStackBuilder;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import net.cactii.mathdoku.R;
 import net.cactii.mathdoku.util.FeedbackEmail;
@@ -21,9 +24,9 @@ public class StatisticsFragmentActivity extends AppFragmentActivity implements
         ActionBar.TabListener {
 
     /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
+     * The {@link PagerAdapter} that will provide
      * fragments for each of the statistics fragments. A
-     * {@link android.support.v4.app.FragmentPagerAdapter} derivative is used,
+     * {@link FragmentPagerAdapter} derivative is used,
      * which will keep every loaded fragment in memory.
      */
     StatisticsFragmentPagerAdapter mStatisticsFragmentPagerAdapter;

@@ -13,7 +13,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +30,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import net.cactii.mathdoku.Cheat;
 import net.cactii.mathdoku.Cheat.CheatType;
@@ -56,7 +58,7 @@ import java.util.ArrayList;
 /**
  * @author Paul
  */
-public class PuzzleFragment extends android.support.v4.app.Fragment implements
+public class PuzzleFragment extends Fragment implements
         OnSharedPreferenceChangeListener, OnCreateContextMenuListener,
         GridPlayerView.OnInputModeChangedListener {
     public final static String TAG = "MathDoku.PuzzleFragment";

@@ -1,7 +1,10 @@
 package net.cactii.mathdoku.ui;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentStatePagerAdapter;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import net.cactii.mathdoku.R;
 import net.cactii.mathdoku.developmentHelper.DevelopmentHelper;
@@ -11,7 +14,7 @@ import net.cactii.mathdoku.storage.database.GridDatabaseAdapter.SizeFilter;
 import net.cactii.mathdoku.storage.database.GridDatabaseAdapter.StatusFilter;
 
 /**
- * A {@link android.support.v4.app.FragmentStatePagerAdapter} that returns a
+ * A {@link FragmentStatePagerAdapter} that returns a
  * fragment representing an object in the collection.
  */
 public class ArchiveFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
@@ -33,7 +36,7 @@ public class ArchiveFragmentStatePagerAdapter extends FragmentStatePagerAdapter 
     private SizeFilter mSizeFilter;
 
     public ArchiveFragmentStatePagerAdapter(
-            android.support.v4.app.FragmentManager fragmentManager,
+            FragmentManager fragmentManager,
             ArchiveFragmentActivity archiveFragmentActivity) {
         super(fragmentManager);
 
@@ -52,8 +55,8 @@ public class ArchiveFragmentStatePagerAdapter extends FragmentStatePagerAdapter 
     }
 
     @Override
-    public android.support.v4.app.Fragment getItem(int i) {
-        android.support.v4.app.Fragment fragment = new ArchiveFragment();
+    public Fragment getItem(int i) {
+        Fragment fragment = new ArchiveFragment();
         Bundle args = new Bundle();
         args.putInt(
                 ArchiveFragment.BUNDLE_KEY_SOLVING_ATTEMPT_ID,

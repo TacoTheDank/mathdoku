@@ -21,10 +21,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
-import android.support.v4.view.PagerTabStrip;
-import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -35,6 +31,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
+import androidx.core.app.NavUtils;
+import androidx.core.app.TaskStackBuilder;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.PagerTabStrip;
+import androidx.viewpager.widget.ViewPager;
 
 import net.cactii.mathdoku.R;
 import net.cactii.mathdoku.painter.PagerTabStripPainter;
@@ -50,9 +53,9 @@ public class ArchiveFragmentActivity extends AppFragmentActivity {
     public static final String BUNDLE_KEY_SOLVING_ATTEMPT_ID = "solvingAttemptId";
 
     /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
+     * The {@link PagerAdapter} that will provide
      * fragments representing each object in a collection. We use a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter} derivative,
+     * {@link FragmentStatePagerAdapter} derivative,
      * which will destroy and re-create fragments as needed, saving and
      * restoring their state in the process. This is important to conserve
      * memory and is a best practice when allowing navigation between objects in
@@ -61,7 +64,7 @@ public class ArchiveFragmentActivity extends AppFragmentActivity {
     ArchiveFragmentStatePagerAdapter mArchiveFragmentStatePagerAdapter;
 
     /**
-     * The {@link android.support.v4.view.ViewPager} that will display the
+     * The {@link ViewPager} that will display the
      * object collection.
      */
     ViewPager mViewPager;

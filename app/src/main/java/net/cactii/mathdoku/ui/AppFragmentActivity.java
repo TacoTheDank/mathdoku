@@ -3,8 +3,9 @@ package net.cactii.mathdoku.ui;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.WindowManager;
+
+import androidx.fragment.app.FragmentActivity;
 
 import net.cactii.mathdoku.Preferences;
 import net.cactii.mathdoku.storage.database.DatabaseHelper;

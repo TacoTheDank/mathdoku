@@ -13,6 +13,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import net.cactii.mathdoku.R;
 import net.cactii.mathdoku.storage.database.StatisticsDatabaseAdapter;
 
@@ -22,7 +24,7 @@ import org.achartengine.renderer.SimpleSeriesRenderer;
 /**
  * A base fragment representing the statistics for a game or a grid size.
  */
-public class StatisticsBaseFragment extends android.support.v4.app.Fragment {
+public class StatisticsBaseFragment extends Fragment {
     public final static String TAG = "MathDoku.StatisticsBaseFragment";
     // Green colors will be used at things which are positive
     protected static final int chartGreen1 = 0xFF80FF00;

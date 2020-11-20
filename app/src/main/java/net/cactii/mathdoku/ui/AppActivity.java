@@ -8,10 +8,11 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
 import android.view.MenuItem;
 import android.view.WindowManager;
+
+import androidx.core.app.NavUtils;
+import androidx.core.app.TaskStackBuilder;
 
 import net.cactii.mathdoku.Preferences;
 import net.cactii.mathdoku.storage.database.DatabaseHelper;

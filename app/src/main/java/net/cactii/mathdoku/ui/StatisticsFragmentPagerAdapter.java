@@ -1,7 +1,10 @@
 package net.cactii.mathdoku.ui;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentPagerAdapter;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 /**
  * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one
@@ -23,13 +26,13 @@ public class StatisticsFragmentPagerAdapter extends FragmentPagerAdapter {
             FRAGMENT_ID_GRID_SIZE_STATS_9};
 
     public StatisticsFragmentPagerAdapter(
-            android.support.v4.app.FragmentManager fragmentManager) {
+            FragmentManager fragmentManager) {
         super(fragmentManager);
     }
 
     @Override
-    public android.support.v4.app.Fragment getItem(int i) {
-        android.support.v4.app.Fragment fragment = null;
+    public Fragment getItem(int i) {
+        Fragment fragment = null;
         fragment = new StatisticsLevelFragment();
 
         int min = 0;
