@@ -25,8 +25,8 @@ import java.util.ArrayList;
 public class GridGenerator extends AsyncTask<Void, String, Void> {
     // Remove "&& false" in following line to show debug information about
     // creating cages when running in development mode.
-    public static final boolean DEBUG_GRID_GENERATOR = (DevelopmentHelper.mMode == Mode.DEVELOPMENT) && false;
-    public static final boolean DEBUG_GRID_GENERATOR_FULL = DEBUG_GRID_GENERATOR && false;
+    public static final boolean DEBUG_GRID_GENERATOR = false;
+    public static final boolean DEBUG_GRID_GENERATOR_FULL = false;
     private static final String TAG = "MathDoku.GridGenerator";
     // The user that'll use the generated grid.
     protected final GridUser mUser;
@@ -223,8 +223,8 @@ public class GridGenerator extends AsyncTask<Void, String, Void> {
 
             // Create the cages.
             this.mCages = new ArrayList<GridCage>();
-            if (createCages(mGridGeneratingParameters.mHideOperators) == false
-                    && isCancelled() == false) {
+            if (!createCages(mGridGeneratingParameters.mHideOperators)
+                    && !isCancelled()) {
                 // For some reason the creation of the cages was not successful.
                 // Start over again.
                 continue;
@@ -334,7 +334,7 @@ public class GridGenerator extends AsyncTask<Void, String, Void> {
                     return null;
                 }
             }
-        } while (hasUniqueSolution == false);
+        } while (!hasUniqueSolution);
         if (DEBUG_GRID_GENERATOR) {
             Log.d(TAG, "Found puzzle with unique solution in " + num_attempts
                     + " attempts.");

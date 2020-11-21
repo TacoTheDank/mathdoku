@@ -214,7 +214,7 @@ public class GridCell {
 
             // Cell counters are only update if the solution of the cell has
             // not been revealed.
-            if (mRevealed == false) {
+            if (!mRevealed) {
                 gridStatistics
                         .decreaseCounter(mUserValue == 0 ? StatisticsCounterType.CELLS_EMPTY
                                 : StatisticsCounterType.CELLS_FILLED);
@@ -782,7 +782,7 @@ public class GridCell {
 
         // Only process the storage string if it starts with the correct
         // identifier.
-        if (cellParts[0].equals(SAVE_GAME_CELL_LINE) == false) {
+        if (!cellParts[0].equals(SAVE_GAME_CELL_LINE)) {
             return false;
         }
 
@@ -926,7 +926,7 @@ public class GridCell {
      */
     public void setRevealed() {
         // Correct grid statistics
-        if (mRevealed == false && mGrid != null) {
+        if (!mRevealed && mGrid != null) {
             GridStatistics gridStatistics = mGrid.getGridStatistics();
             gridStatistics
                     .decreaseCounter(isUserValueSet() ? StatisticsCounterType.CELLS_FILLED

@@ -553,7 +553,7 @@ public class Grid {
 
         // Only process the storage string if it starts with the correct
         // identifier.
-        if (viewParts[0].equals(SAVE_GAME_GRID_LINE) == false) {
+        if (!viewParts[0].equals(SAVE_GAME_GRID_LINE)) {
             return false;
         }
 
@@ -894,10 +894,10 @@ public class Grid {
             // In case a replay of the grid is finished the statistics which
             // have to included in the cumulative and the historic statistics
             // should be changed to the current solving attempt.
-            if (saved && mActive == false
+            if (saved && !mActive
                     && mGridStatistics.getReplayCount() > 0
-                    && mGridStatistics.isIncludedInStatistics() == false
-                    && saveDueToUpgrade == false) {
+                    && !mGridStatistics.isIncludedInStatistics()
+                    && !saveDueToUpgrade) {
                 new StatisticsDatabaseAdapter()
                         .updateSolvingAttemptToBeIncludedInStatistics(mRowId,
                                 mSolvingAttemptId);
@@ -1231,7 +1231,7 @@ public class Grid {
             gridCage.setCageId(cageIndex++);
 
             // Add cage to cages list
-            if (mCages.add(gridCage) == false) {
+            if (!mCages.add(gridCage)) {
                 return false;
             }
         }

@@ -7,8 +7,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import net.cactii.mathdoku.R;
-import net.cactii.mathdoku.developmentHelper.DevelopmentHelper;
-import net.cactii.mathdoku.developmentHelper.DevelopmentHelper.Mode;
 import net.cactii.mathdoku.storage.database.GridDatabaseAdapter;
 import net.cactii.mathdoku.storage.database.GridDatabaseAdapter.SizeFilter;
 import net.cactii.mathdoku.storage.database.GridDatabaseAdapter.StatusFilter;
@@ -21,7 +19,7 @@ public class ArchiveFragmentStatePagerAdapter extends FragmentStatePagerAdapter 
 
     // Remove "&& false" in following line to show the solving attempt id in the
     // pager title of the archive.
-    public static final boolean DEBUG_SHOW_SOLVING_ATTEMPT_ID = (DevelopmentHelper.mMode == Mode.DEVELOPMENT) && false;
+    public static final boolean DEBUG_SHOW_SOLVING_ATTEMPT_ID = false;
 
     public static final int UNKNOWN_GRID_ID = -1;
     public static final int INVALID_POSITION_ID = -2;

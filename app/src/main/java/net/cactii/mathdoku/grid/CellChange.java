@@ -2,8 +2,6 @@ package net.cactii.mathdoku.grid;
 
 import android.util.Log;
 
-import net.cactii.mathdoku.developmentHelper.DevelopmentHelper;
-import net.cactii.mathdoku.developmentHelper.DevelopmentHelper.Mode;
 import net.cactii.mathdoku.storage.database.SolvingAttemptDatabaseAdapter;
 
 import java.util.ArrayList;
@@ -16,7 +14,7 @@ import java.util.regex.Pattern;
 public class CellChange {
     // Remove "&& false" in following line to show debug information about
     // reading information from a storage string
-    public static final boolean DEBUG_STORAGE_STRING = (DevelopmentHelper.mMode == Mode.DEVELOPMENT) && false;
+    public static final boolean DEBUG_STORAGE_STRING = false;
     private static final String TAG = "MathDoku.CellChange";
     // Base identifier for different versions of cell information which is
     // stored in

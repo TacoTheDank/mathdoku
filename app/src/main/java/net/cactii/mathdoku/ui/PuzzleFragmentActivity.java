@@ -89,7 +89,7 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
 
         // Check if database is consistent.
         if (DevelopmentHelper.mMode == Mode.DEVELOPMENT) {
-            if (DevelopmentHelper.checkDatabaseConsistency(this) == false) {
+            if (!DevelopmentHelper.checkDatabaseConsistency(this)) {
                 // Skip remainder of onCreate because further database access
                 // can result in a forced close.
                 return;
@@ -130,7 +130,7 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
         }
 
         // Check if app needs to be upgraded. If not, restart the last game.
-        if (isUpgradeRunning() == false) {
+        if (!isUpgradeRunning()) {
             restartLastGame();
         }
 
@@ -631,7 +631,7 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
 
         // Enable the statistics as soon as the first game has been
         // finished.
-        if (mMathDokuPreferences.isStatisticsAvailable() == false) {
+        if (!mMathDokuPreferences.isStatisticsAvailable()) {
             mMathDokuPreferences.setStatisticsAvailable();
             setNavigationDrawer();
         }
@@ -642,7 +642,7 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
         // Enable the archive as soon as 5 games have been solved. Note: as the
         // gird is actually not yet saved in the database at this moment the
         // check on the number of completed games is lowered with 1.
-        if (mMathDokuPreferences.isArchiveAvailable() == false
+        if (!mMathDokuPreferences.isArchiveAvailable()
                 && new GridDatabaseAdapter().countGrids(StatusFilter.SOLVED,
                 SizeFilter.ALL) >= 4) {
             mMathDokuPreferences.setArchiveVisible();
@@ -911,8 +911,7 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
 
                         // Start a new game with specified parameters
                         startNewGame(gridSize,
-                                puzzleParameterDisplayOperatorsCheckBox
-                                        .isChecked() == false,
+                                !puzzleParameterDisplayOperatorsCheckBox.isChecked(),
                                 puzzleComplexity);
                     }
                 }).show();
@@ -976,7 +975,7 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
         // so it can be replayed.
         Grid grid = new Grid();
         if (grid.load(solvingAttemptId)) {
-            if (grid.isActive() == false) {
+            if (!grid.isActive()) {
                 grid.replay();
             }
 
@@ -1025,9 +1024,8 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
         if (mMathDokuPreferences.isArchiveAvailable()) {
             String string = getResources().getString(R.string.action_archive);
             navigationDrawerItems.add(string);
-            if (openDrawer == false && mNavigationDrawerItems != null) {
-                openDrawer = Arrays.asList(mNavigationDrawerItems).contains(
-                        string) == false;
+            if (!openDrawer && mNavigationDrawerItems != null) {
+                openDrawer = !Arrays.asList(mNavigationDrawerItems).contains(string);
             }
             mDrawerIconVisible = true;
         }
@@ -1035,9 +1033,8 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
             String string = getResources()
                     .getString(R.string.action_statistics);
             navigationDrawerItems.add(string);
-            if (openDrawer == false && mNavigationDrawerItems != null) {
-                openDrawer = Arrays.asList(mNavigationDrawerItems).contains(
-                        string) == false;
+            if (!openDrawer && mNavigationDrawerItems != null) {
+                openDrawer = !Arrays.asList(mNavigationDrawerItems).contains(string);
             }
             mDrawerIconVisible = true;
         }

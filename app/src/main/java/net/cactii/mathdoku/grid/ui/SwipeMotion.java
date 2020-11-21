@@ -14,7 +14,7 @@ import net.cactii.mathdoku.grid.GridCell;
 public class SwipeMotion {
     // Remove "&& false" in following line to show debug information about
     // creating cages when running in development mode.
-    public static final boolean DEBUG_SWIPE_MOTION = (DevelopmentHelper.mMode == Mode.DEVELOPMENT) && false;
+    public static final boolean DEBUG_SWIPE_MOTION = false;
     // The swipe circle has to display a maximum of 9 digits. So the circle has
     // to be divided in 9 segments of each 40 degrees width. The digits will be
     // arranged clockwise.
@@ -428,7 +428,7 @@ public class SwipeMotion {
 
         // Determine whether the digit should be accepted.
         boolean acceptDigit = !inTouchDownCell;
-        if (acceptDigit == false) {
+        if (!acceptDigit) {
             // Normally the digit is not accepted in case the swipe motion is
             // inside the touch down cell. In case a swipe motion is started and
             // ended in a cell on the outer edge of the grid, the digit will be

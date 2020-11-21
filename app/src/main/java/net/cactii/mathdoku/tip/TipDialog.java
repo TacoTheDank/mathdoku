@@ -13,8 +13,6 @@ import android.widget.TextView;
 
 import net.cactii.mathdoku.Preferences;
 import net.cactii.mathdoku.R;
-import net.cactii.mathdoku.developmentHelper.DevelopmentHelper;
-import net.cactii.mathdoku.developmentHelper.DevelopmentHelper.Mode;
 import net.cactii.mathdoku.util.Random;
 
 /**
@@ -24,7 +22,7 @@ import net.cactii.mathdoku.util.Random;
 public class TipDialog extends AlertDialog {
     // Remove "&& false" in following line to show debug information about
     // creating cages when running in development mode.
-    public static final boolean DEBUG_TIP_DIALOG = (DevelopmentHelper.mMode == Mode.DEVELOPMENT) && false;
+    public static final boolean DEBUG_TIP_DIALOG = false;
     public static String TAG = "Tip.TipDialog";
     // No more than one tip dialog should be showed at the same time.
     private static TipDialog mDisplayedDialog = null;
@@ -93,7 +91,7 @@ public class TipDialog extends AlertDialog {
     public static boolean getDisplayTipAgain(Preferences preferences,
                                              String tip, TipPriority priority) {
         // Check do-not-show-again-preference for this tip first.
-        if (preferences.getTipDisplayAgain(tip) == false) {
+        if (!preferences.getTipDisplayAgain(tip)) {
             if (DEBUG_TIP_DIALOG) {
                 Log.i(TAG, tip + ": do-not-show-again enabled");
             }

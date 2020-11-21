@@ -24,7 +24,7 @@ public class GridDatabaseAdapter extends DatabaseAdapter {
 
     // Remove "&& false" in following line to show the SQL-statements in the
     // debug information
-    public static final boolean DEBUG_SQL = (DevelopmentHelper.mMode == Mode.DEVELOPMENT) && true;
+    public static final boolean DEBUG_SQL = DevelopmentHelper.mMode == Mode.DEVELOPMENT;
     // Columns used in result of function getLatestSolvingAttemptsPerGrid
     public static final int LATEST_SOLVING_ATTEMPT_PER_GRID__GRID_ID = 0;
     public static final int LATEST_SOLVING_ATTEMPT_PER_GRID__SOLVING_ATTEMP_ID = 1;
@@ -331,9 +331,9 @@ public class GridDatabaseAdapter extends DatabaseAdapter {
                 + SolvingAttemptDatabaseAdapter
                 .getPrefixedColumnName(SolvingAttemptDatabaseAdapter.KEY_ROWID)
                 + ") "
-                + (selectionStatus.isEmpty() == false ? " AND "
+                + (!selectionStatus.isEmpty() ? " AND "
                 + selectionStatus : "")
-                + (selectionSize.isEmpty() == false ? " AND " + selectionSize
+                + (!selectionSize.isEmpty() ? " AND " + selectionSize
                 : "");
 
         if (DEBUG_SQL) {

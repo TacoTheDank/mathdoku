@@ -54,14 +54,14 @@ public class GridPlayerRelativeLayout extends RelativeLayout {
 
         // Additional margins will be determined in first pass of onMeasure,
         // except no margins needs to be adjusted at all.
-        mMarginsInitialised = mMarginAdjustment == false;
+        mMarginsInitialised = !mMarginAdjustment;
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         if (mMarginAdjustment) {
             // Initialize margins if not yet done
-            if (mMarginsInitialised == false) {
+            if (!mMarginsInitialised) {
                 mMarginsInitialised = true;
 
                 // In case a margin has to be adjusted, it will be set to the

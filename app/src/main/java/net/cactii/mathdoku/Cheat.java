@@ -96,28 +96,25 @@ public class Cheat {
         mResources = context.getResources();
         mCheatType = cheatType;
 
-        switch (mCheatType) {
-            case CHECK_PROGRESS_USED:
-                mName = "CheckProgress";
-                mPenaltyTimeMilisBase = 20 * MILIS_PER_SECOND;
-                mPenaltyTimeMilisPerOccurrence = 15 * MILIS_PER_SECOND;
-                mConditionalOccurrences = occurrencesConditionalPenalty;
-                mTipTitle = mResources
-                        .getString(R.string.dialog_tip_cheat_check_progress_title);
-                mTipText = mResources.getString(
-                        R.string.dialog_tip_cheat_check_progress_text,
-                        getPenaltyTimeText(mPenaltyTimeMilisBase),
-                        getPenaltyTimeText(mPenaltyTimeMilisPerOccurrence));
-                break;
-            default:
-                mPenaltyTimeMilisBase = 0;
-                mPenaltyTimeMilisPerOccurrence = 0;
-                mConditionalOccurrences = 0;
-                if (DevelopmentHelper.mMode == Mode.DEVELOPMENT) {
-                    throw new RuntimeException(
-                            "Invalid value for parameter cheatType used in call to method Cheat(Context, CheatType).");
-                }
-                break;
+        if (mCheatType == CheatType.CHECK_PROGRESS_USED) {
+            mName = "CheckProgress";
+            mPenaltyTimeMilisBase = 20 * MILIS_PER_SECOND;
+            mPenaltyTimeMilisPerOccurrence = 15 * MILIS_PER_SECOND;
+            mConditionalOccurrences = occurrencesConditionalPenalty;
+            mTipTitle = mResources
+                    .getString(R.string.dialog_tip_cheat_check_progress_title);
+            mTipText = mResources.getString(
+                    R.string.dialog_tip_cheat_check_progress_text,
+                    getPenaltyTimeText(mPenaltyTimeMilisBase),
+                    getPenaltyTimeText(mPenaltyTimeMilisPerOccurrence));
+        } else {
+            mPenaltyTimeMilisBase = 0;
+            mPenaltyTimeMilisPerOccurrence = 0;
+            mConditionalOccurrences = 0;
+            if (DevelopmentHelper.mMode == Mode.DEVELOPMENT) {
+                throw new RuntimeException(
+                        "Invalid value for parameter cheatType used in call to method Cheat(Context, CheatType).");
+            }
         }
     }
 

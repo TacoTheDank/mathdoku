@@ -6,8 +6,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import net.cactii.mathdoku.R;
-import net.cactii.mathdoku.developmentHelper.DevelopmentHelper;
-import net.cactii.mathdoku.developmentHelper.DevelopmentHelper.Mode;
 import net.cactii.mathdoku.grid.Grid;
 import net.cactii.mathdoku.storage.database.SolvingAttemptDatabaseAdapter;
 import net.cactii.mathdoku.storage.database.StatisticsDatabaseAdapter;
@@ -25,7 +23,7 @@ public class GameFileConverter extends AsyncTask<Void, Void, Void> {
 
     // Remove "&& false" in following line to show debug information about
     // converting game files when running in development mode.
-    private static final boolean DEBUG_GRID_GAME_FILE_CONVERTER = (DevelopmentHelper.mMode == Mode.DEVELOPMENT) && false;
+    private static final boolean DEBUG_GRID_GAME_FILE_CONVERTER = false;
     // Path and file prefix for revision 111 and prior
     @SuppressLint("SdCardPath")
     private static final String PATH_R110 = "/data/data/net.cactii.mathdoku/";

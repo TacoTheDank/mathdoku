@@ -48,10 +48,10 @@ public class SharedPuzzle {
         if (pathSegments == null || pathSegments.size() != 4) {
             return null;
         }
-        if (pathSegments.get(0).equals(SHARE_URI_PUZZLE) == false) {
+        if (!pathSegments.get(0).equals(SHARE_URI_PUZZLE)) {
             return null;
         }
-        if (pathSegments.get(1).equals(SHARE_URI_VERSION) == false) {
+        if (!pathSegments.get(1).equals(SHARE_URI_VERSION)) {
             return null;
         }
         // Check if grid definition (part 3) matches with the hashcode (part 4).

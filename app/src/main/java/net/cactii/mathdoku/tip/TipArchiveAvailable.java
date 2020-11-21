@@ -37,7 +37,7 @@ public class TipArchiveAvailable extends TipDialog {
      */
     public static boolean toBeDisplayed(Preferences preferences) {
         // Do not display in case archive is not yet available.
-        if (preferences.isArchiveAvailable() == false) {
+        if (!preferences.isArchiveAvailable()) {
             return false;
         }
 

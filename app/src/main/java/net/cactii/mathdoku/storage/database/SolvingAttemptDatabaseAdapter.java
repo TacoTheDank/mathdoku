@@ -336,7 +336,7 @@ public class SolvingAttemptDatabaseAdapter extends DatabaseAdapter {
         }
 
         // Check if the game has been solved manually
-        if (grid.isActive() == false) {
+        if (!grid.isActive()) {
             return STATUS_FINISHED_SOLVED;
         }
 

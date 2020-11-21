@@ -238,8 +238,8 @@ public class CageTypeGenerator {
         }
 
         // Determine which cageTypeArray to use
-        ArrayList<GridCageType> gridCageTypes = cellsUsed - 1 < mCageTypes.length ? mCageTypes[cellsUsed - 1]
-                : mCageTypes[mCageTypes.length - 1];
+        ArrayList<GridCageType> gridCageTypes =
+                mCageTypes[(cellsUsed - 1 < mCageTypes.length ? cellsUsed : mCageTypes.length) - 1];
         assert gridCageTypes != null;
 
         // Choose a random cage type in the array which fits within the given

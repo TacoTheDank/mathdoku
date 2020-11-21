@@ -33,7 +33,7 @@ public class SharedPuzzleActivity extends AppFragmentActivity {
         super.onCreate(savedInstanceState);
 
         // First check whether the intent can be processed.
-        if (isValidIntent(getIntent()) == false) {
+        if (!isValidIntent(getIntent())) {
             new AlertDialog.Builder(this)
                     .setIcon(R.drawable.icon)
                     .setTitle(R.string.dialog_invalid_share_url_title)
@@ -107,13 +107,11 @@ public class SharedPuzzleActivity extends AppFragmentActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         int menuId = menuItem.getItemId();
-        switch (menuId) {
-            case R.id.action_send_feedback:
-                new FeedbackEmail(this).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(menuItem);
+        if (menuId == R.id.action_send_feedback) {
+            new FeedbackEmail(this).show();
+            return true;
         }
+        return super.onOptionsItemSelected(menuItem);
     }
 
     /**

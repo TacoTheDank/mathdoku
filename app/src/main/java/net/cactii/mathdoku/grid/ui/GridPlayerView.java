@@ -75,7 +75,7 @@ public class GridPlayerView extends GridViewerView implements OnTouchListener {
                     mSwipeMotion = new SwipeMotion(this, mBorderWidth,
                             mGridCellSize);
                 }
-                if (mSwipeMotion.setTouchDownEvent(event) == false) {
+                if (!mSwipeMotion.setTouchDownEvent(event)) {
                     // A position inside the grid border has been touched. Normally
                     // this border is very small and will therefore not be hit.
                     // However in training mode this border is much thicker in order
@@ -214,7 +214,7 @@ public class GridPlayerView extends GridViewerView implements OnTouchListener {
         int oldValue = selectedCell.getUserValue();
 
         if (newValue == 0) { // Clear Button
-            if (selectedCell.isEmpty() == false) {
+            if (!selectedCell.isEmpty()) {
                 selectedCell.clearPossibles();
                 selectedCell.setUserValue(0);
                 mGrid.getGridStatistics().increaseCounter(
@@ -283,7 +283,7 @@ public class GridPlayerView extends GridViewerView implements OnTouchListener {
         }
 
         // Check the cage math
-        if (selectedCell.getCage().checkCageMathsCorrect(false) == false) {
+        if (!selectedCell.getCage().checkCageMathsCorrect(false)) {
             if (TipBadCageMath.toBeDisplayed(mPreferences)) {
                 new TipBadCageMath(mContext).show();
             }

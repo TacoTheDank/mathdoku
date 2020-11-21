@@ -570,7 +570,7 @@ public class GridCage {
 
         // Only process the storage string if it starts with the correct
         // identifier.
-        if (cageParts[0].equals(SAVE_GAME_CAGE_LINE) == false) {
+        if (!cageParts[0].equals(SAVE_GAME_CAGE_LINE)) {
             return false;
         }
 

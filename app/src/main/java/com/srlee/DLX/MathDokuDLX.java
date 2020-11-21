@@ -14,7 +14,7 @@ import java.util.Comparator;
 public class MathDokuDLX extends DLX {
     // Remove "&& false" in following line to show debug information about
     // filling the DLX data structure when running in development mode.
-    public static final boolean DEBUG_DLX = (DevelopmentHelper.mMode == Mode.DEVELOPMENT) && false;
+    public static final boolean DEBUG_DLX = false;
     private static final String TAG = "MathDoku.MathDokuDLX";
     private final int mGridSize;
     // The list of cages for which the solution has to be checked
@@ -272,7 +272,7 @@ public class MathDokuDLX extends DLX {
                                             break;
                                         }
                                     }
-                                    if (validMove == false) {
+                                    if (!validMove) {
                                         break;
                                     }
 
@@ -288,7 +288,7 @@ public class MathDokuDLX extends DLX {
                                             break;
                                         }
                                     }
-                                    if (validMove == false) {
+                                    if (!validMove) {
                                         break;
                                     }
                                 }

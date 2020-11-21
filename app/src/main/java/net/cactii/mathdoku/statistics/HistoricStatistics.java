@@ -192,11 +192,11 @@ public class HistoricStatistics {
                 if (dataPoint.mSerie == Serie.SOLUTION_REVEALED) {
                     if (includeElapsedTime && includeCheatTime) {
                         value = maxY;
-                    } else if (includeElapsedTime && includeCheatTime == false) {
+                    } else if (includeElapsedTime && !includeCheatTime) {
                         value = Math.min(
                                 dataPoint.mElapsedTimeExcludingCheatPenalty,
                                 maxY);
-                    } else if (includeElapsedTime == false && includeCheatTime) {
+                    } else if (!includeElapsedTime && includeCheatTime) {
                         value = Math.max(Math.min(maxY
                                         - dataPoint.mElapsedTimeExcludingCheatPenalty,
                                 dataPoint.mCheatPenalty), 0);

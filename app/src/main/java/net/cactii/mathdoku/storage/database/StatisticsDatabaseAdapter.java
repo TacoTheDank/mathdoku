@@ -23,7 +23,7 @@ import net.cactii.mathdoku.storage.database.Projection.Aggregation;
  * replayed in order to try to improve the statistics for the grid.
  */
 public class StatisticsDatabaseAdapter extends DatabaseAdapter {
-    public static final boolean DEBUG_SQL = (DevelopmentHelper.mMode == Mode.DEVELOPMENT) && false;
+    public static final boolean DEBUG_SQL = false;
     public static final String KEY_ELAPSED_TIME = "elapsed_time";
     public static final String KEY_CHEAT_PENALTY_TIME = "cheat_penalty_time";
     public static final String KEY_CELLS_FILLED = "cells_filled";

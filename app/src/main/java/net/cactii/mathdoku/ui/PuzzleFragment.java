@@ -447,7 +447,7 @@ public class PuzzleFragment extends Fragment implements
      * otherwise.
      */
     protected boolean showClearGrid() {
-        return mGrid != null && mGrid.isActive() && mGrid.isEmpty(true) == false;
+        return mGrid != null && mGrid.isActive() && !mGrid.isEmpty(true);
     }
 
     /**
@@ -803,7 +803,7 @@ public class PuzzleFragment extends Fragment implements
      * otherwise.
      */
     protected boolean showRevealOperator() {
-        if (mGrid == null || mGrid.isActive() == false) {
+        if (mGrid == null || !mGrid.isActive()) {
             return false;
         }
 
@@ -816,7 +816,7 @@ public class PuzzleFragment extends Fragment implements
      * Handles revealing of the operator of the given cage.
      */
     protected void revealOperator() {
-        if (mGrid == null || mGrid.isActive() == false) {
+        if (mGrid == null || !mGrid.isActive()) {
             return;
         }
 
@@ -921,7 +921,7 @@ public class PuzzleFragment extends Fragment implements
     private void setClearAndUndoButtonVisibility(GridCell cell) {
         boolean digitButtons = mMathDokuPreferences.isDigitButtonsVisible();
         boolean hideClear = cell == null || cell.isEmpty();
-        boolean hideUndo = mGrid == null || mGrid.countMoves() == 0 || mGrid.isActive() == false;
+        boolean hideUndo = mGrid == null || mGrid.countMoves() == 0 || !mGrid.isActive();
         if (digitButtons) {
             if (mDigitC != null) {
                 mDigitC.setEnabled(!hideClear);
