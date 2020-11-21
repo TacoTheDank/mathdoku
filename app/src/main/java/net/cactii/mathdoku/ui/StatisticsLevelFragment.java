@@ -487,7 +487,7 @@ public class StatisticsLevelFragment extends StatisticsBaseFragment implements
         // Display as stacked bar chart here. As the series are mutually
         // exclusive this will result in one single bar per game which is
         // entirely colored based on status of game.
-        String[] types = typesList.toArray(new String[typesList.size()]);
+        String[] types = typesList.toArray(new String[0]);
         addStatisticsSection(
                 null,
                 getResources().getString(

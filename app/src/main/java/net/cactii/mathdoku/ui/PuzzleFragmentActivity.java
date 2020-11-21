@@ -1009,7 +1009,7 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
             mDrawerIconVisible = true;
         }
         mNavigationDrawerItems = navigationDrawerItems
-                .toArray(new String[navigationDrawerItems.size()]);
+                .toArray(new String[0]);
 
         // Set up the action bar for displaying the drawer icon and making the
         // app icon clickable in order to display the drawer.

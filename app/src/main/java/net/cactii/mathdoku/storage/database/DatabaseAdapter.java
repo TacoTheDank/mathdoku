@@ -51,13 +51,13 @@ public abstract class DatabaseAdapter {
     public static String createColumn(String column, String datatype,
                                       String constraint) throws InvalidParameterException {
 
-        if (column == null || column.trim().equals("")) {
+        if (column == null || column.trim().isEmpty()) {
             Log.e(TAG,
                     "Method createColumn has invalid parameter 'column' with value '"
                             + column + "'.");
             throw new InvalidParameterException();
         }
-        if (datatype == null || datatype.trim().equals("")) {
+        if (datatype == null || datatype.trim().isEmpty()) {
             Log.e(TAG,
                     "Method createColumn has invalid parameter 'datatype' with value '"
                             + datatype + "'.");
@@ -67,7 +67,7 @@ public abstract class DatabaseAdapter {
         return stringBetweenBackTicks(column)
                 + " "
                 + datatype
-                + ((constraint != null && !constraint.equals("")) ? " "
+                + ((constraint != null && !constraint.isEmpty()) ? " "
                 + constraint.trim() : "");
     }
 
@@ -84,19 +84,19 @@ public abstract class DatabaseAdapter {
     public static String createForeignKey(String column, String refersToTable,
                                           String refersToColumn) throws InvalidParameterException {
 
-        if (column == null || column.trim().equals("")) {
+        if (column == null || column.trim().isEmpty()) {
             Log.e(TAG,
                     "Method createForeignKey has invalid parameter 'column' with value '"
                             + column + "'.");
             throw new InvalidParameterException();
         }
-        if (refersToTable == null || refersToTable.trim().equals("")) {
+        if (refersToTable == null || refersToTable.trim().isEmpty()) {
             Log.e(TAG,
                     "Method createForeignKey has invalid parameter 'refersToTable' with value '"
                             + refersToTable + "'.");
             throw new InvalidParameterException();
         }
-        if (refersToColumn == null || refersToColumn.trim().equals("")) {
+        if (refersToColumn == null || refersToColumn.trim().isEmpty()) {
             Log.e(TAG,
                     "Method createForeignKey has invalid parameter 'refersToColumn' with value '"
                             + refersToColumn + "'.");
@@ -124,7 +124,7 @@ public abstract class DatabaseAdapter {
             throws InvalidParameterException {
         StringBuilder query = new StringBuilder();
 
-        if (table == null || table.trim().equals("")) {
+        if (table == null || table.trim().isEmpty()) {
             Log.e(TAG,
                     "Method createTable has invalid parameter 'table' with value '"
                             + table + "'.");
@@ -135,14 +135,14 @@ public abstract class DatabaseAdapter {
             throw new InvalidParameterException();
         }
 
-        query.append("CREATE TABLE " + stringBetweenBackTicks(table) + " (");
+        query.append("CREATE TABLE ").append(stringBetweenBackTicks(table)).append(" (");
         for (int i = 0; i < elements.length; i++) {
-            if (elements[i] == null || elements[i].trim().equals("")) {
+            if (elements[i] == null || elements[i].trim().isEmpty()) {
                 Log.e(TAG, "Method createTable has invalid parameter 'columns["
                         + i + "]' with value '" + elements[i] + "'.");
                 throw new InvalidParameterException();
             }
-            query.append(elements[i] + (i < elements.length - 1 ? ", " : ")"));
+            query.append(elements[i]).append(i < elements.length - 1 ? ", " : ")");
         }
 
         return query.toString();

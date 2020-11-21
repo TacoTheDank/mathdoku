@@ -127,7 +127,9 @@ public class Grid {
             // NO DEFAULT here as we want to be notified at compile time in case a
             // new enum value is added.
         }
-        definitionString.append(complexity + ":");
+        definitionString
+                .append(complexity)
+                .append(":");
 
         // Get the cage number (represented as a value of two digits, if needed
         // prefixed with a 0) for each cell. Note: with a maximum of 81 cells in
@@ -138,13 +140,13 @@ public class Grid {
         // Followed by cages
         for (GridCage cage : cages) {
             definitionString
-                    .append(":"
-                            + cage.mId
-                            + ","
-                            + cage.mResult
-                            + ","
-                            + (gridGeneratingParameters.mHideOperators ? GridCage.ACTION_NONE
-                            : cage.mAction));
+                    .append(":")
+                    .append(cage.mId)
+                    .append(",")
+                    .append(cage.mResult)
+                    .append(",")
+                    .append(gridGeneratingParameters.mHideOperators ? GridCage.ACTION_NONE
+                            : cage.mAction);
         }
         return definitionString.toString();
     }
@@ -494,36 +496,39 @@ public class Grid {
 
         // First store data for the grid object itself.
         stringBuffer.append(SAVE_GAME_GRID_LINE
-                + SolvingAttemptDatabaseAdapter.FIELD_DELIMITER_LEVEL1
-                + mActive
-                + SolvingAttemptDatabaseAdapter.FIELD_DELIMITER_LEVEL1
-                + mRevealed
-                + SolvingAttemptDatabaseAdapter.FIELD_DELIMITER_LEVEL1
-                + mClearRedundantPossiblesInSameRowOrColumnCount
-                + SolvingAttemptDatabaseAdapter.FIELD_DELIMITER_LEVEL1
-                + mMaybeMode
-                + SolvingAttemptDatabaseAdapter.EOL_DELIMITER);
+                + SolvingAttemptDatabaseAdapter.FIELD_DELIMITER_LEVEL1)
+                .append(mActive)
+                .append(SolvingAttemptDatabaseAdapter.FIELD_DELIMITER_LEVEL1)
+                .append(mRevealed)
+                .append(SolvingAttemptDatabaseAdapter.FIELD_DELIMITER_LEVEL1)
+                .append(mClearRedundantPossiblesInSameRowOrColumnCount)
+                .append(SolvingAttemptDatabaseAdapter.FIELD_DELIMITER_LEVEL1)
+                .append(mMaybeMode)
+                .append(SolvingAttemptDatabaseAdapter.EOL_DELIMITER);
 
         // Store information about the cells. Use one line per single
         // cell.
         for (GridCell cell : mCells) {
-            stringBuffer.append(cell.toStorageString()
-                    + SolvingAttemptDatabaseAdapter.EOL_DELIMITER);
+            stringBuffer
+                    .append(cell.toStorageString())
+                    .append(SolvingAttemptDatabaseAdapter.EOL_DELIMITER);
         }
 
         // Store information about the cages. Use one line per single
         // cage.
         for (GridCage cage : mCages) {
-            stringBuffer.append(cage.toStorageString()
-                    + SolvingAttemptDatabaseAdapter.EOL_DELIMITER);
+            stringBuffer
+                    .append(cage.toStorageString())
+                    .append(SolvingAttemptDatabaseAdapter.EOL_DELIMITER);
         }
 
         // Store information about the cell changes. Use one line per single
         // cell change. Note: watch for lengthy line due to recursive cell
         // changes.
         for (CellChange cellChange : mMoves) {
-            stringBuffer.append(cellChange.toStorageString()
-                    + SolvingAttemptDatabaseAdapter.EOL_DELIMITER);
+            stringBuffer
+                    .append(cellChange.toStorageString())
+                    .append(SolvingAttemptDatabaseAdapter.EOL_DELIMITER);
         }
 
         return stringBuffer.toString();

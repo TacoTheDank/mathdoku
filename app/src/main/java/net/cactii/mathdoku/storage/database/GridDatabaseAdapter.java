@@ -147,7 +147,7 @@ public class GridDatabaseAdapter extends DatabaseAdapter {
         int id = -1;
 
         String gridDefinition = grid.toGridDefinitionString();
-        if (gridDefinition == null || gridDefinition.trim().equals("")) {
+        if (gridDefinition == null || gridDefinition.trim().isEmpty()) {
             // TODO: better handling of situation in which a grid definition was
             // added before. It is a very rare situation but it can occur.
             throw new InvalidParameterException(

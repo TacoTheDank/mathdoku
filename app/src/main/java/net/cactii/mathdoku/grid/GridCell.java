@@ -514,7 +514,7 @@ public class GridCell {
                     + mUserValuePainter.getBottomOffset(), paint);
         }
         // Cage text
-        if (!this.mCageText.equals("")) {
+        if (!this.mCageText.isEmpty()) {
             // Clone the text painter and decrease text size until the cage text
             // fits within the cell.
             draw_textPaint.set(mCagePainter.getTextPaint());
@@ -802,7 +802,7 @@ public class GridCell {
         mUserValue = Integer.parseInt(cellParts[index++]);
 
         // Get possible values
-        if (!cellParts[index].equals("")) {
+        if (!cellParts[index].isEmpty()) {
             for (String possible : cellParts[index]
                     .split(SolvingAttemptDatabaseAdapter.FIELD_DELIMITER_LEVEL2)) {
                 addPossible(Integer.parseInt(possible));
@@ -898,9 +898,7 @@ public class GridCell {
                      ArrayList<Integer> previousPossibleValues) {
         setUserValue(previousUserValue);
         if (previousPossibleValues != null) {
-            for (int previousPossibleValue : previousPossibleValues) {
-                mPossibles.add(previousPossibleValue);
-            }
+            mPossibles.addAll(previousPossibleValues);
             Collections.sort(mPossibles);
         }
     }

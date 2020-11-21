@@ -367,7 +367,7 @@ public class GridGenerator extends AsyncTask<Void, String, Void> {
                 }
             }
             if (values.length >= 2 && values[0] != null && values[1] != null
-                    && !values[1].equals("")) {
+                    && !values[1].isEmpty()) {
                 Log.i(TAG, timeElapsed + ": " + values[1]);
             }
         }

@@ -299,7 +299,7 @@ public class CellChange {
                 .group(GROUP_CELL_NUMBER)));
         mPreviousUserValue = Integer.parseInt(matcher
                 .group(GROUP_PREVIOUS_USER_VALUE));
-        if (!matcher.group(GROUP_PREVIOUS_POSSIBLE_VALUES).equals("")) {
+        if (!matcher.group(GROUP_PREVIOUS_POSSIBLE_VALUES).isEmpty()) {
             for (String possible : matcher
                     .group(GROUP_PREVIOUS_POSSIBLE_VALUES)
                     .split(SolvingAttemptDatabaseAdapter.FIELD_DELIMITER_LEVEL2)) {
@@ -311,7 +311,7 @@ public class CellChange {
         // expression because they recursively can contain other related
         // cell changes.
         String relatedCellChanges = matcher.group(GROUP_RELATED_CELL_CHANGED);
-        if (!relatedCellChanges.equals("")) {
+        if (!relatedCellChanges.isEmpty()) {
             char[] charArray = relatedCellChanges.toCharArray();
             int levelNestedGroup = 0;
             int startPosGroup = 0;
