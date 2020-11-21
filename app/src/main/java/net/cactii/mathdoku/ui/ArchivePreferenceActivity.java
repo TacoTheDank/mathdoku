@@ -12,7 +12,7 @@ public class ArchivePreferenceActivity extends AppActivity {
 
         setTitle(R.string.archive_settings_action_bar_title);
 
-        getFragmentManager().beginTransaction()
+        getSupportFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new ArchivePreferenceFragment())
                 .commit();
     }

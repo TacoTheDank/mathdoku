@@ -3,19 +3,19 @@ package net.cactii.mathdoku.ui;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
+
+import androidx.preference.PreferenceFragmentCompat;
 
 import net.cactii.mathdoku.Preferences;
 import net.cactii.mathdoku.R;
 
-public class StatisticsPreferenceFragment extends PreferenceFragment implements
+public class StatisticsPreferenceFragment extends PreferenceFragmentCompat implements
         OnSharedPreferenceChangeListener {
 
     SharedPreferences mSharedPreferences;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
 
         addPreferencesFromResource(R.xml.statistics_preferences);
 

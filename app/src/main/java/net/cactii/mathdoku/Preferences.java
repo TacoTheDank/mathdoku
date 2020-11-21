@@ -3,7 +3,8 @@ package net.cactii.mathdoku;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.preference.PreferenceManager;
+
+import androidx.preference.PreferenceManager;
 
 import net.cactii.mathdoku.gridGenerating.GridGenerator.PuzzleComplexity;
 import net.cactii.mathdoku.painter.Painter;

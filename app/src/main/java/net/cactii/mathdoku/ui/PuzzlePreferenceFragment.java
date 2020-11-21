@@ -3,27 +3,27 @@ package net.cactii.mathdoku.ui;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.PreferenceFragment;
+
+import androidx.preference.ListPreference;
+import androidx.preference.PreferenceFragmentCompat;
 
 import net.cactii.mathdoku.Preferences;
 import net.cactii.mathdoku.R;
 
-public class PuzzlePreferenceFragment extends PreferenceFragment implements
+public class PuzzlePreferenceFragment extends PreferenceFragmentCompat implements
         OnSharedPreferenceChangeListener {
 
     Preferences mPreferences;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
 
         addPreferencesFromResource(R.xml.puzzle_preferences);
 
         mPreferences = Preferences.getInstance();
 
         // Build list preferences
-        ListPreference listPreference = (ListPreference) findPreference(Preferences.PUZZLE_SETTING_OUTER_SWIPE_CIRCLE);
+        ListPreference listPreference = findPreference(Preferences.PUZZLE_SETTING_OUTER_SWIPE_CIRCLE);
         String[] entries = new String[7];
         String[] entryValues = new String[7];
         int index = 0;

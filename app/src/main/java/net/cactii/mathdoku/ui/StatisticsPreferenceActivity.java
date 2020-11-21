@@ -12,7 +12,7 @@ public class StatisticsPreferenceActivity extends AppActivity {
 
         setTitle(R.string.statistics_settings_actionbar_title);
 
-        getFragmentManager().beginTransaction()
+        getSupportFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new StatisticsPreferenceFragment())
                 .commit();
     }
