@@ -246,7 +246,6 @@ public class GameFileConverter extends AsyncTask<Void, Void, Void> {
      * deleted.
      */
     private String[] getGameFilesToBeDeleted() {
-        String path = PATH_R110;
         FilenameFilter filter = new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
@@ -261,7 +260,7 @@ public class GameFileConverter extends AsyncTask<Void, Void, Void> {
                 }
             }
         };
-        File dir = new File(path);
+        File dir = new File(PATH_R110);
         return dir == null ? null : dir.list(filter);
     }
 
@@ -272,14 +271,13 @@ public class GameFileConverter extends AsyncTask<Void, Void, Void> {
      * deleted.
      */
     private String[] getUsageLogFilesToBeDeleted() {
-        String path = PATH_USAGE_LOGS;
         FilenameFilter filter = new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
                 return name.startsWith(USAGE_LOG_PREFIX);
             }
         };
-        File dir = new File(path);
+        File dir = new File(PATH_USAGE_LOGS);
         return dir == null ? null : dir.list(filter);
     }
 }

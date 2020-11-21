@@ -117,11 +117,10 @@ public class GridCell {
 
     @Override
     public String toString() {
-        String str = "<cell:" + this.mCellNumber + " col:" + this.mColumn
+        return "<cell:" + this.mCellNumber + " col:" + this.mColumn
                 + " row:" + this.mRow + " posX:" + this.mPosX + " posY:"
                 + this.mPosY + " val:" + this.mCorrectValue + ", userval: "
                 + this.mUserValue + ">";
-        return str;
     }
 
     private Paint getBorderPaint(BorderType borderType) {
