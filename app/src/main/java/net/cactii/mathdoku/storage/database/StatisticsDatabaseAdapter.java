@@ -338,14 +338,14 @@ public class StatisticsDatabaseAdapter extends DatabaseAdapter {
                 .getColumnIndexOrThrow(KEY_ACTION_CHECK_PROGRESS));
         gridStatistics.mCheckProgressInvalidCellsFound = cursor.getInt(cursor
                 .getColumnIndexOrThrow(KEY_CHECK_PROGRESS_INVALID_CELLS_FOUND));
-        gridStatistics.mSolutionRevealed = Boolean.valueOf(cursor
+        gridStatistics.mSolutionRevealed = Boolean.parseBoolean(cursor
                 .getString(cursor
                         .getColumnIndexOrThrow(KEY_ACTION_REVEAL_SOLUTION)));
-        gridStatistics.mSolvedManually = Boolean.valueOf(cursor
+        gridStatistics.mSolvedManually = Boolean.parseBoolean(cursor
                 .getString(cursor.getColumnIndexOrThrow(KEY_SOLVED_MANUALLY)));
-        gridStatistics.mFinished = Boolean.valueOf(cursor.getString(cursor
+        gridStatistics.mFinished = Boolean.parseBoolean(cursor.getString(cursor
                 .getColumnIndexOrThrow(KEY_FINISHED)));
-        gridStatistics.mIncludedInStatistics = Boolean.valueOf(cursor
+        gridStatistics.mIncludedInStatistics = Boolean.parseBoolean(cursor
                 .getString(cursor
                         .getColumnIndexOrThrow(KEY_INCLUDE_IN_STATISTICS)));
 

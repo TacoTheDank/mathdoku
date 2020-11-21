@@ -490,7 +490,7 @@ public class Grid {
      * @return A string representation of the grid.
      */
     public String toStorageString() {
-        StringBuffer stringBuffer = new StringBuffer(256);
+        StringBuilder stringBuffer = new StringBuilder(256);
 
         // First store data for the grid object itself.
         stringBuffer.append(SAVE_GAME_GRID_LINE
@@ -1295,7 +1295,7 @@ public class Grid {
         Matcher matcher = pattern.matcher(definitionParts[ID_PART_CELLS]);
         int cellNumber = 0;
         while (matcher.find()) {
-            int cageId = Integer.valueOf(matcher.group());
+            int cageId = Integer.parseInt(matcher.group());
 
             // Create new cell and add it to the cells list.
             GridCell gridCell = new GridCell(this, cellNumber++);
@@ -1321,8 +1321,8 @@ public class Grid {
             if (gridCage == null) {
                 return false;
             }
-            gridCage.setCageResults(Integer.valueOf(cageElements[1]),
-                    Integer.valueOf(cageElements[2]), false);
+            gridCage.setCageResults(Integer.parseInt(cageElements[1]),
+                    Integer.parseInt(cageElements[2]), false);
         }
 
         // Check whether a single solution can be found.

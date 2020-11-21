@@ -136,8 +136,8 @@ public class TickerTape extends HorizontalScrollView {
      */
     public TickerTape addItems(String[] string) {
         // Add a text view to the linear layout for each item
-        for (int i = 0; i < string.length; i++) {
-            addItem(string[i]);
+        for (String s : string) {
+            addItem(s);
         }
 
         return this;

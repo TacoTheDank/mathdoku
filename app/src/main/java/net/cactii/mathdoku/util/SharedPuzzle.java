@@ -60,7 +60,7 @@ public class SharedPuzzle {
         // manually manipulate the grid definition and the hashcode but this can
         // do no harm as it is still checked whether a valid grid is specified.
         String gridDefinition = pathSegments.get(2);
-        if (gridDefinition.hashCode() != Integer.valueOf(pathSegments.get(3))) {
+        if (gridDefinition.hashCode() != Integer.parseInt(pathSegments.get(3))) {
             return null;
         }
 

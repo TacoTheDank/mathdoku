@@ -972,7 +972,7 @@ public class Preferences {
                 PUZZLE_SETTING_OUTER_SWIPE_CIRCLE_DEFAULT);
         int minGridSize = puzzleSettingOuterSwipeCircle
                 .equals(PUZZLE_SETTING_OUTER_SWIPE_CIRCLE_NEVER_VISIBLE) ? Integer.MAX_VALUE
-                : Integer.valueOf(puzzleSettingOuterSwipeCircle);
+                : Integer.parseInt(puzzleSettingOuterSwipeCircle);
 
         return gridSize >= minGridSize;
     }

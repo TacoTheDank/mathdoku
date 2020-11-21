@@ -295,9 +295,9 @@ public class CellChange {
                             + matcher.group(GROUP_RELATED_CELL_CHANGED));
         }
 
-        this.mGridCell = cells.get(Integer.valueOf(matcher
+        this.mGridCell = cells.get(Integer.parseInt(matcher
                 .group(GROUP_CELL_NUMBER)));
-        mPreviousUserValue = Integer.valueOf(matcher
+        mPreviousUserValue = Integer.parseInt(matcher
                 .group(GROUP_PREVIOUS_USER_VALUE));
         if (!matcher.group(GROUP_PREVIOUS_POSSIBLE_VALUES).equals("")) {
             for (String possible : matcher
