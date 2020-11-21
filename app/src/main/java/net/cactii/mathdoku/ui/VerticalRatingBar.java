@@ -4,9 +4,10 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.RatingBar;
 
-public class VerticalRatingBar extends RatingBar {
+import androidx.appcompat.widget.AppCompatRatingBar;
+
+public class VerticalRatingBar extends AppCompatRatingBar {
     private int x, y, z, w;
 
     public VerticalRatingBar(Context context) {
