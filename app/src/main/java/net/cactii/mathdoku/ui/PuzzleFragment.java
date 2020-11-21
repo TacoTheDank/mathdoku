@@ -1,7 +1,5 @@
 package net.cactii.mathdoku.ui;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -326,11 +324,10 @@ public class PuzzleFragment extends Fragment implements
         super.onDestroy();
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void onResume() {
         // Register a broadcast receiver on the intents related to day dreaming.
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             // Create broad cast receiver
             if (mDreamingBroadcastReceiver == null) {
                 mDreamingBroadcastReceiver = new BroadcastReceiver() {
@@ -653,7 +650,6 @@ public class PuzzleFragment extends Fragment implements
      *
      * @param elapsedTime The elapsed time (in mili seconds) while playing the game.
      */
-    @SuppressLint("DefaultLocale")
     public void setElapsedTime(long elapsedTime) {
         if (mTimerText != null) {
             mTimerText.setText(Util.durationTimeToString(elapsedTime));
@@ -840,7 +836,6 @@ public class PuzzleFragment extends Fragment implements
      * @param cell The cell to be used to check whether the clear and undo button
      *             should be visible. Use null in case no cell is selected.
      */
-    @SuppressLint("NewApi")
     private void setClearAndUndoButtonVisibility(GridCell cell) {
         boolean digitButtons = mMathDokuPreferences.isDigitButtonsVisible();
         boolean hideClear = cell == null || cell.isEmpty();
@@ -876,7 +871,6 @@ public class PuzzleFragment extends Fragment implements
         return (int) (px / (metrics.densityDpi / 160f));
     }
 
-    @SuppressLint("NewApi")
     private void GetAvailableDimensions() {
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         int screenHeightDp = PxToDp(metrics.heightPixels);
@@ -888,10 +882,8 @@ public class PuzzleFragment extends Fragment implements
         screenHeightDp -= 25;
         // 48 dp less if using soft navbar.
         ViewConfiguration vc = ViewConfiguration.get(mContext);
-        if (android.os.Build.VERSION.SDK_INT >= 14) {
-            if (vc.hasPermanentMenuKey()) {
-                screenHeightDp -= 48;
-            }
+        if (vc.hasPermanentMenuKey()) {
+            screenHeightDp -= 48;
         }
         // 25dp less if not full screen.
         if (!mMathDokuPreferences.isFullScreenEnabled()) {

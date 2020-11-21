@@ -1,6 +1,5 @@
 package net.cactii.mathdoku.storage;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -25,7 +24,6 @@ public class GameFileConverter extends AsyncTask<Void, Void, Void> {
     // converting game files when running in development mode.
     private static final boolean DEBUG_GRID_GAME_FILE_CONVERTER = false;
     // Path and file prefix for revision 111 and prior
-    @SuppressLint("SdCardPath")
     private static final String PATH_R110 = "/data/data/net.cactii.mathdoku/";
     private static final String GAMEFILE_PREFIX_R110 = "savedgame";
     private static final String FILENAME_LAST_GAME_R111 = "last_game";
@@ -33,7 +31,6 @@ public class GameFileConverter extends AsyncTask<Void, Void, Void> {
     private static final String GAMEFILE_EXTENSION_R111 = ".mgf";
     private static final String PREVIEW_EXTENSION_R111 = ".png";
     // Usage logging (MathDoku v1.96) file prefix
-    @SuppressLint("SdCardPath")
     private static final String PATH_USAGE_LOGS = "/data/data/net.cactii.mathdoku/files/";
     private static final String USAGE_LOG_PREFIX = "usage_log_r";
     // Last used revision number

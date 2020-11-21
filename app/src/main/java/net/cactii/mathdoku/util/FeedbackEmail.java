@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -116,9 +117,9 @@ public class FeedbackEmail {
     public void logDevice() {
         SortedMap<String, String> sortedMap = new TreeMap<>();
 
-        sortedMap.put("Android.Version", android.os.Build.VERSION.CODENAME);
+        sortedMap.put("Android.Version", Build.VERSION.CODENAME);
         sortedMap.put("Android.SDK_INT",
-                Integer.toString(android.os.Build.VERSION.SDK_INT));
+                Integer.toString(Build.VERSION.SDK_INT));
 
         sortedMap.put("Dimension",
                 mActivity.getResources().getString(R.string.dimension));

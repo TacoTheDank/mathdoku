@@ -1,6 +1,5 @@
 package net.cactii.mathdoku.grid.ui;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Canvas;
@@ -168,16 +167,12 @@ public class GridViewerView extends View {
         invalidate();
     }
 
-    @SuppressLint("NewApi")
     private int GetAvailableScreenSpace(int maxSize) {
         // Some devices with a software navbar will find this bar obstructs
         // the lower digit buttons.
         // In this case, the grid will be shrunk a little to accommodate.
         ViewConfiguration vc = ViewConfiguration.get(mContext);
-        boolean hasMenuKey = true;
-        if (android.os.Build.VERSION.SDK_INT >= 14) {
-            hasMenuKey = vc.hasPermanentMenuKey();
-        }
+        boolean hasMenuKey = vc.hasPermanentMenuKey();
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         if (mPreferences.isDigitButtonsVisible() && !hasMenuKey &&
                 getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {

@@ -1,6 +1,5 @@
 package net.cactii.mathdoku.util;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.util.DisplayMetrics;
@@ -114,7 +113,6 @@ public class Util {
      * @param elapsedTime The duration value in milliseconds.
      * @return The string representing the duration.
      */
-    @SuppressLint("DefaultLocale")
     public static String durationTimeToString(long elapsedTime) {
         // Convert to whole seconds
         int seconds = (int) Math.floor(elapsedTime / 1000.0f) % 60;
