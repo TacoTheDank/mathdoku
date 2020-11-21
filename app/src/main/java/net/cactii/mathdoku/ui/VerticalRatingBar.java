@@ -81,11 +81,7 @@ public class VerticalRatingBar extends AppCompatRatingBar {
 
     @Override
     public synchronized void setProgress(int progress) {
-        if (progress >= 0)
-            super.setProgress(progress);
-
-        else
-            super.setProgress(0);
+        super.setProgress(Math.max(progress, 0));
         onSizeChanged(x, y, z, w);
 
     }

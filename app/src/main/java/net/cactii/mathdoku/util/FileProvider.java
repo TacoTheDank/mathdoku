@@ -77,9 +77,7 @@ public class FileProvider extends ContentProvider {
             case FEEDBACK_LOG_ID:
                 return "text/plain";
             case SCREENDUMP_ID:
-                return "image/png";
             case AVOIDABLE_MOVES_CHART_ID:
-                return "image/png";
             case CHEATS_CHART_ID:
                 return "image/png";
             default:

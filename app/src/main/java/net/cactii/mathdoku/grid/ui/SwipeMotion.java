@@ -447,10 +447,10 @@ public class SwipeMotion {
             // buttons are shown to the right of the grid view.
             switch (digit) {
                 case 1:
+                case 9:
                     acceptDigit = mCurrentSwipePositionCellCoordinates[X_POS] == 0;
                     break;
                 case 2:
-                    break;
                 case 3:
                     break;
                 case 4: // fall through
@@ -467,9 +467,6 @@ public class SwipeMotion {
                 case 8:
                     acceptDigit = (mCurrentSwipePositionCellCoordinates[X_POS] == 0)
                             || (mGridPlayerView.getOrientation() == Configuration.ORIENTATION_LANDSCAPE && mCurrentSwipePositionCellCoordinates[Y_POS] == mGridSize - 1);
-                    break;
-                case 9:
-                    acceptDigit = mCurrentSwipePositionCellCoordinates[X_POS] == 0;
                     break;
             }
         }

@@ -394,8 +394,8 @@ public class HistoricStatistics {
         public void addValue(DataPoint dataPoint) {
             long totalValue = dataPoint.mElapsedTimeExcludingCheatPenalty
                     + dataPoint.mCheatPenalty;
-            mMinValue = totalValue < mMinValue ? totalValue : mMinValue;
-            mMaxValue = totalValue > mMaxValue ? totalValue : mMaxValue;
+            mMinValue = Math.min(totalValue, mMinValue);
+            mMaxValue = Math.max(totalValue, mMaxValue);
             mSumValue += totalValue;
             mCount++;
         }

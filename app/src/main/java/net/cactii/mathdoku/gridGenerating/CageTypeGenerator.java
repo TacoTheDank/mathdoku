@@ -206,8 +206,7 @@ public class CageTypeGenerator {
      */
     public int size(int maxCageSize) {
         int totalCageTypes = 0;
-        maxCageSize = maxCageSize > MAX_CAGE_SIZE ? MAX_CAGE_SIZE
-                : maxCageSize;
+        maxCageSize = Math.min(maxCageSize, MAX_CAGE_SIZE);
         for (int i = 0; i < maxCageSize; i++) {
             totalCageTypes += mCageTypes[i].size();
         }

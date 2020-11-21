@@ -211,7 +211,6 @@ public class FeedbackEmail {
             mLogFile.flush();
         } catch (IOException e) {
             // Could not write
-            return;
         }
     }
 

@@ -211,7 +211,6 @@ public class DLX {
             }
             UncoverCol(chosenCol);
         }
-        return;
     }
 
     public enum SolveType {

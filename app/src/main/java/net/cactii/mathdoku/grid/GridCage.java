@@ -460,7 +460,6 @@ public class GridCage {
                 getAddCombos(max_val, target_sum - n, n_cells - 1);
             }
         }
-        return;
     }
 
     private ArrayList<int[]> getAllMultiplyCombos(int max_val, int target_sum,
@@ -499,7 +498,6 @@ public class GridCage {
                 getMultiplyCombos(max_val, target_sum / n, n_cells - 1);
             }
         }
-        return;
     }
 
     /*
