@@ -216,72 +216,62 @@ public class TipDialog extends AlertDialog {
         // Allow all possibilities for cancelling
         setCancelable(true);
         setCanceledOnTouchOutside(true);
-        setOnCancelListener(new OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                // After closing this dialog, a new TipDialog may be
-                // raised immediately.
-                if (DEBUG_TIP_DIALOG) {
-                    Log.i(TAG, "OnClose: removed dialog after click on cancel "
-                            + mTip);
-                }
-                mDisplayedDialog = null;
+        setOnCancelListener(dialog -> {
+            // After closing this dialog, a new TipDialog may be
+            // raised immediately.
+            if (DEBUG_TIP_DIALOG) {
+                Log.i(TAG, "OnClose: removed dialog after click on cancel "
+                        + mTip);
+            }
+            mDisplayedDialog = null;
 
-                // Store time at which the tip was last displayed
-                mPreferences.setTipLastDisplayTime(mTip,
-                        System.currentTimeMillis());
+            // Store time at which the tip was last displayed
+            mPreferences.setTipLastDisplayTime(mTip,
+                    System.currentTimeMillis());
 
-                // If an additional close listener was set, it needs to
-                // be called.
-                if (mOnClickCloseListener != null) {
-                    mOnClickCloseListener.onTipDialogClose();
-                }
+            // If an additional close listener was set, it needs to
+            // be called.
+            if (mOnClickCloseListener != null) {
+                mOnClickCloseListener.onTipDialogClose();
             }
         });
 
         setButton(DialogInterface.BUTTON_POSITIVE, mContext.getResources()
                         .getString(R.string.dialog_general_button_close),
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        // Check if do not show again checkbox is
-                        // checked
-                        if (checkBoxView.isChecked()) {
-                            mPreferences.setTipDoNotDisplayAgain(mTip);
-                        }
+                (dialog, id) -> {
+                    // Check if do not show again checkbox is
+                    // checked
+                    if (checkBoxView.isChecked()) {
+                        mPreferences.setTipDoNotDisplayAgain(mTip);
+                    }
 
-                        // After closing this dialog, a new TipDialog may be
-                        // raised immediately.
-                        if (DEBUG_TIP_DIALOG) {
-                            Log.i(TAG,
-                                    "OnClose: removed dialog after click on close "
-                                            + mTip);
-                        }
-                        mDisplayedDialog = null;
+                    // After closing this dialog, a new TipDialog may be
+                    // raised immediately.
+                    if (DEBUG_TIP_DIALOG) {
+                        Log.i(TAG,
+                                "OnClose: removed dialog after click on close "
+                                        + mTip);
+                    }
+                    mDisplayedDialog = null;
 
-                        // Store time at which the tip was last displayed
-                        mPreferences.setTipLastDisplayTime(mTip,
-                                System.currentTimeMillis());
+                    // Store time at which the tip was last displayed
+                    mPreferences.setTipLastDisplayTime(mTip,
+                            System.currentTimeMillis());
 
-                        // If an additional close listener was set, it needs to
-                        // be called.
-                        if (mOnClickCloseListener != null) {
-                            mOnClickCloseListener.onTipDialogClose();
-                        }
+                    // If an additional close listener was set, it needs to
+                    // be called.
+                    if (mOnClickCloseListener != null) {
+                        mOnClickCloseListener.onTipDialogClose();
                     }
                 });
 
         // In case the dialog is shown, it is registered as the displayed
         // tip dialog. On dismissal of the dialog it has to be unregistered.
-        setOnDismissListener(new OnDismissListener() {
-
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                if (DEBUG_TIP_DIALOG) {
-                    Log.i(TAG, "OnDismiss: removed dialog in dismiss " + mTip);
-                }
-                mDisplayedDialog = null;
+        setOnDismissListener(dialog -> {
+            if (DEBUG_TIP_DIALOG) {
+                Log.i(TAG, "OnDismiss: removed dialog in dismiss " + mTip);
             }
+            mDisplayedDialog = null;
         });
 
         return this;

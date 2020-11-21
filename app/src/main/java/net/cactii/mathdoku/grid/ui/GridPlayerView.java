@@ -104,14 +104,11 @@ public class GridPlayerView extends GridViewerView implements OnTouchListener {
 
                     // Prevent displaying the swipe circle in case the user make a
                     // very fast swipe motion by delaying the invalidate.
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (mSwipeMotion != null) {
-                                mSwipeMotion.setVisible(true);
-                            }
-                            invalidate();
+                    new Handler().postDelayed(() -> {
+                        if (mSwipeMotion != null) {
+                            mSwipeMotion.setVisible(true);
                         }
+                        invalidate();
                     }, 100);
                 }
 

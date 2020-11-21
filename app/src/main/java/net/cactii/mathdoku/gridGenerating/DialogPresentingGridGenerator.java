@@ -1,8 +1,6 @@
 package net.cactii.mathdoku.gridGenerating;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.util.Log;
 
 import net.cactii.mathdoku.R;
@@ -89,13 +87,9 @@ public final class DialogPresentingGridGenerator extends GridGenerator {
         // dialog
         mProgressDialog.setCancelable(true);
         mProgressDialog.setCanceledOnTouchOutside(false);
-        mProgressDialog.setOnCancelListener(new OnCancelListener() {
-
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                // Cancel the async task which generates the grid
-                cancel(true);
-            }
+        mProgressDialog.setOnCancelListener(dialog -> {
+            // Cancel the async task which generates the grid
+            cancel(true);
         });
 
         // Set style of dialog.

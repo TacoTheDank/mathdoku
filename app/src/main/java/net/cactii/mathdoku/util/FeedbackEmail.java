@@ -2,7 +2,6 @@ package net.cactii.mathdoku.util;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -275,57 +274,49 @@ public class FeedbackEmail {
                                 R.string.dialog_send_feedback_title))
                 .setView(view)
                 .setNegativeButton(R.string.dialog_general_button_close,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int whichButton) {
-                                // Do nothing
-                            }
+                        (dialog, whichButton) -> {
+                            // Do nothing
                         })
                 .setPositiveButton(
                         R.string.dialog_send_feedback_positive_button,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int whichButton) {
-                                // Send log file
-                                Intent i = new Intent(
-                                        Intent.ACTION_SEND_MULTIPLE);
-                                i.setType("message/rfc822");
-                                i.putExtra(Intent.EXTRA_EMAIL,
-                                        new String[]{"info@mathdoku.org"});
-                                i.putExtra(
-                                        Intent.EXTRA_SUBJECT,
-                                        mActivity
-                                                .getResources()
-                                                .getString(
-                                                        R.string.feedback_email_subject));
-                                i.putExtra(
-                                        Intent.EXTRA_TEXT,
-                                        mActivity.getResources().getString(
-                                                R.string.feedback_email_body));
+                        (dialog, whichButton) -> {
+                            // Send log file
+                            Intent i = new Intent(
+                                    Intent.ACTION_SEND_MULTIPLE);
+                            i.setType("message/rfc822");
+                            i.putExtra(Intent.EXTRA_EMAIL,
+                                    new String[]{"info@mathdoku.org"});
+                            i.putExtra(
+                                    Intent.EXTRA_SUBJECT,
+                                    mActivity
+                                            .getResources()
+                                            .getString(
+                                                    R.string.feedback_email_subject));
+                            i.putExtra(
+                                    Intent.EXTRA_TEXT,
+                                    mActivity.getResources().getString(
+                                            R.string.feedback_email_body));
 
-                                if (createLogFile(FileProvider.FEEDBACK_LOG_FILE_NAME)) {
-                                    ArrayList<Uri> uris = new ArrayList<>();
-                                    uris.add(FileProvider
-                                            .getUri(FileProvider.FEEDBACK_LOG_FILE_NAME));
-                                    uris.add(FileProvider
-                                            .getUri(FileProvider.SCREENDUMP_FILE_NAME));
-                                    i.putParcelableArrayListExtra(
-                                            Intent.EXTRA_STREAM, uris);
-                                }
-                                try {
-                                    mActivity.startActivity(Intent
-                                            .createChooser(
-                                                    i,
-                                                    mActivity
-                                                            .getResources()
-                                                            .getString(
-                                                                    R.string.dialog_send_feedback_title)));
-                                } catch (android.content.ActivityNotFoundException ex) {
-                                    // No clients installed which can handle
-                                    // this intent.
-                                }
+                            if (createLogFile(FileProvider.FEEDBACK_LOG_FILE_NAME)) {
+                                ArrayList<Uri> uris = new ArrayList<>();
+                                uris.add(FileProvider
+                                        .getUri(FileProvider.FEEDBACK_LOG_FILE_NAME));
+                                uris.add(FileProvider
+                                        .getUri(FileProvider.SCREENDUMP_FILE_NAME));
+                                i.putParcelableArrayListExtra(
+                                        Intent.EXTRA_STREAM, uris);
+                            }
+                            try {
+                                mActivity.startActivity(Intent
+                                        .createChooser(
+                                                i,
+                                                mActivity
+                                                        .getResources()
+                                                        .getString(
+                                                                R.string.dialog_send_feedback_title)));
+                            } catch (android.content.ActivityNotFoundException ex) {
+                                // No clients installed which can handle
+                                // this intent.
                             }
                         }).show();
     }

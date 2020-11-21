@@ -2,7 +2,6 @@ package net.cactii.mathdoku.ui;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -40,13 +39,7 @@ public class SharedPuzzleActivity extends AppFragmentActivity {
                     .setMessage(R.string.dialog_invalid_share_url_body)
                     .setCancelable(false)
                     .setNeutralButton(R.string.dialog_general_button_close,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog,
-                                                    int whichButton) {
-                                    finish();
-                                }
-                            }).show();
+                            (dialog, whichButton) -> finish()).show();
             return;
         }
 
@@ -169,23 +162,13 @@ public class SharedPuzzleActivity extends AppFragmentActivity {
                                     gridRow.mId))
                     .setNegativeButton(
                             R.string.shared_puzzle_exists_negative_button,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog,
-                                                    int whichButton) {
-                                    // Finish the preview activity
-                                    finish();
-                                }
+                            (dialog, whichButton) -> {
+                                // Finish the preview activity
+                                finish();
                             })
                     .setPositiveButton(
                             R.string.shared_puzzle_exists_positive_button,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog,
-                                                    int whichButton) {
-                                    startPuzzleFragment();
-                                }
-                            }).show();
+                            (dialog, whichButton) -> startPuzzleFragment()).show();
         }
     }
 

@@ -1,7 +1,6 @@
 package net.cactii.mathdoku.developmentHelper;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.SharedPreferences.Editor;
 
 import net.cactii.mathdoku.Preferences;
@@ -100,21 +99,11 @@ public class DevelopmentHelper {
                             "The database will be deleted. All statistic "
                                     + "information will be lost permanently.")
                     .setNegativeButton("Cancel",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog,
-                                                    int id) {
-                                    // Do nothing
-                                }
+                            (dialog, id) -> {
+                                // Do nothing
                             })
                     .setPositiveButton("Delete database",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog,
-                                                    int id) {
-                                    executeDeleteDatabase(puzzleFragmentActivity);
-                                }
-                            });
+                            (dialog, id) -> executeDeleteDatabase(puzzleFragmentActivity));
             AlertDialog dialog = builder.create();
             dialog.show();
         }
@@ -163,12 +152,8 @@ public class DevelopmentHelper {
                                     + " games have been generated. Note that it is not "
                                     + "guaranteed that those puzzles have unique solutions.")
                     .setPositiveButton("OK",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog,
-                                                    int id) {
-                                    // Do nothing
-                                }
+                            (dialog, id) -> {
+                                // Do nothing
                             }).show();
         }
     }
@@ -192,13 +177,9 @@ public class DevelopmentHelper {
                                     + "of the app the preferences will be "
                                     + "initialized with default values.")
                     .setPositiveButton("OK",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog,
-                                                    int id) {
-                                    // Restart the activity
-                                    puzzleFragmentActivity.recreate();
-                                }
+                            (dialog, id) -> {
+                                // Restart the activity
+                                puzzleFragmentActivity.recreate();
                             }).show();
 
             return true;
@@ -222,24 +203,16 @@ public class DevelopmentHelper {
                     .setMessage(
                             "All data and preferences for MathDoku will be deleted.")
                     .setNegativeButton("Cancel",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog,
-                                                    int id) {
-                                    // Do nothing
-                                }
+                            (dialog, id) -> {
+                                // Do nothing
                             })
                     .setPositiveButton("Delete all",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog,
-                                                    int id) {
-                                    executeDeleteAllPreferences();
-                                    executeDeleteDatabase(puzzleFragmentActivity);
+                            (dialog, id) -> {
+                                executeDeleteAllPreferences();
+                                executeDeleteDatabase(puzzleFragmentActivity);
 
-                                    // Restart the activity
-                                    puzzleFragmentActivity.recreate();
-                                }
+                                // Restart the activity
+                                puzzleFragmentActivity.recreate();
                             });
             AlertDialog dialog = builder.create();
             dialog.show();
@@ -313,23 +286,15 @@ public class DevelopmentHelper {
                                         + "If you continue to use this this might "
                                         + "result in (unhandeld) exceptions.")
                         .setNegativeButton("Cancel",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog,
-                                                        int id) {
-                                        // Do nothing
-                                    }
+                                (dialog, id) -> {
+                                    // Do nothing
                                 })
                         .setPositiveButton("Delete database",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog,
-                                                        int id) {
-                                        executeDeleteDatabase(puzzleFragmentActivity);
+                                (dialog, id) -> {
+                                    executeDeleteDatabase(puzzleFragmentActivity);
 
-                                        // Restart the activity
-                                        puzzleFragmentActivity.recreate();
-                                    }
+                                    // Restart the activity
+                                    puzzleFragmentActivity.recreate();
                                 });
                 AlertDialog dialog = builder.create();
                 dialog.show();

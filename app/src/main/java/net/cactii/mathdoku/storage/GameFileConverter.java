@@ -246,18 +246,15 @@ public class GameFileConverter extends AsyncTask<Void, Void, Void> {
      * deleted.
      */
     private String[] getGameFilesToBeDeleted() {
-        FilenameFilter filter = new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                if (name.startsWith(GAMEFILE_PREFIX_R110)) {
-                    return true;
-                } else if (name.endsWith(GAMEFILE_EXTENSION_R111)
-                        || name.endsWith(PREVIEW_EXTENSION_R111)) {
-                    return name.startsWith(FILENAME_SAVED_GAME_R111)
-                            || name.startsWith(FILENAME_LAST_GAME_R111);
-                } else {
-                    return false;
-                }
+        FilenameFilter filter = (dir, name) -> {
+            if (name.startsWith(GAMEFILE_PREFIX_R110)) {
+                return true;
+            } else if (name.endsWith(GAMEFILE_EXTENSION_R111)
+                    || name.endsWith(PREVIEW_EXTENSION_R111)) {
+                return name.startsWith(FILENAME_SAVED_GAME_R111)
+                        || name.startsWith(FILENAME_LAST_GAME_R111);
+            } else {
+                return false;
             }
         };
         File dir = new File(PATH_R110);
@@ -271,12 +268,7 @@ public class GameFileConverter extends AsyncTask<Void, Void, Void> {
      * deleted.
      */
     private String[] getUsageLogFilesToBeDeleted() {
-        FilenameFilter filter = new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.startsWith(USAGE_LOG_PREFIX);
-            }
-        };
+        FilenameFilter filter = (dir, name) -> name.startsWith(USAGE_LOG_PREFIX);
         File dir = new File(PATH_USAGE_LOGS);
         return dir == null ? null : dir.list(filter);
     }

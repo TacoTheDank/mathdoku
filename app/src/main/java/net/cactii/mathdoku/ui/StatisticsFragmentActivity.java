@@ -3,7 +3,6 @@ package net.cactii.mathdoku.ui;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -175,12 +174,8 @@ public class StatisticsFragmentActivity extends AppFragmentActivity implements
                 .setIcon(R.drawable.icon)
                 .setView(view)
                 .setPositiveButton(R.string.dialog_general_button_close,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int whichButton) {
-                                // Do nothing
-                            }
+                        (dialog, whichButton) -> {
+                            // Do nothing
                         }).show();
     }
 }

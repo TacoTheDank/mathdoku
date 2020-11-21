@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -16,7 +15,6 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
@@ -49,7 +47,6 @@ import net.cactii.mathdoku.hint.TickerTape;
 import net.cactii.mathdoku.painter.Painter;
 import net.cactii.mathdoku.statistics.GridStatistics.StatisticsCounterType;
 import net.cactii.mathdoku.tip.TipCheat;
-import net.cactii.mathdoku.tip.TipDialog;
 import net.cactii.mathdoku.tip.TipIncorrectValue;
 import net.cactii.mathdoku.util.Util;
 
@@ -183,20 +180,52 @@ public class PuzzleFragment extends Fragment implements
                         setClearAndUndoButtonVisibility(cell);
                     }
                 });
-        mClearButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mGridPlayerView != null) {
-                    mGridPlayerView.digitSelected(0);
+        mClearButton.setOnClickListener(v -> {
+            if (mGridPlayerView != null) {
+                mGridPlayerView.digitSelected(0);
 
-                    setClearAndUndoButtonVisibility(mGrid.getSelectedCell());
-                    mGridPlayerView.invalidate();
-                }
+                setClearAndUndoButtonVisibility(mGrid.getSelectedCell());
+                mGridPlayerView.invalidate();
             }
         });
-        mUndoButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mUndoButton.setOnClickListener(v -> {
+            if (mGrid.undoLastMove()) {
+                // Successful undo
+                setClearAndUndoButtonVisibility(mGrid.getSelectedCell());
+                mGridPlayerView.invalidate();
+
+                // Undo can toggle the visibility of the check progress
+                // button in the action bar
+                ((FragmentActivity) mContext).invalidateOptionsMenu();
+            }
+        });
+
+        mDigit1.setOnClickListener(v -> setDigitSelected(1));
+        mDigit2.setOnClickListener(v -> setDigitSelected(2));
+        mDigit3.setOnClickListener(v -> setDigitSelected(3));
+        mDigit4.setOnClickListener(v -> setDigitSelected(4));
+        mDigit5.setOnClickListener(v -> setDigitSelected(5));
+        mDigit6.setOnClickListener(v -> setDigitSelected(6));
+        mDigit7.setOnClickListener(v -> setDigitSelected(7));
+        mDigit8.setOnClickListener(v -> setDigitSelected(8));
+        mDigit9.setOnClickListener(v -> setDigitSelected(9));
+        mDigitC.setOnClickListener(v -> {
+            if (mGridPlayerView != null) {
+                mGridPlayerView.digitSelected(0);
+                mGridPlayerView.invalidate();
+                setClearAndUndoButtonVisibility(mGrid.getSelectedCell());
+            }
+        });
+        if (mDigitM != null) {
+            mDigitM.setOnClickListener(v -> {
+                if (mGridPlayerView != null && mGrid != null) {
+                    // Toggle input mode
+                    mGridPlayerView.toggleInputMode();
+                }
+            });
+        }
+        if (mDigitU != null) {
+            mDigitU.setOnClickListener(v -> {
                 if (mGrid.undoLastMove()) {
                     // Successful undo
                     setClearAndUndoButtonVisibility(mGrid.getSelectedCell());
@@ -205,98 +234,6 @@ public class PuzzleFragment extends Fragment implements
                     // Undo can toggle the visibility of the check progress
                     // button in the action bar
                     ((FragmentActivity) mContext).invalidateOptionsMenu();
-                }
-            }
-        });
-
-        mDigit1.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setDigitSelected(1);
-            }
-        });
-        mDigit2.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setDigitSelected(2);
-            }
-        });
-        mDigit3.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setDigitSelected(3);
-            }
-        });
-        mDigit4.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setDigitSelected(4);
-            }
-        });
-        mDigit5.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setDigitSelected(5);
-            }
-        });
-        mDigit6.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setDigitSelected(6);
-            }
-        });
-        mDigit7.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setDigitSelected(7);
-            }
-        });
-        mDigit8.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setDigitSelected(8);
-            }
-        });
-        mDigit9.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setDigitSelected(9);
-            }
-        });
-        mDigitC.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mGridPlayerView != null) {
-                    mGridPlayerView.digitSelected(0);
-                    mGridPlayerView.invalidate();
-                    setClearAndUndoButtonVisibility(mGrid.getSelectedCell());
-                }
-            }
-        });
-        if (mDigitM != null) {
-            mDigitM.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mGridPlayerView != null && mGrid != null) {
-                        // Toggle input mode
-                        mGridPlayerView.toggleInputMode();
-                    }
-                }
-            });
-        }
-        if (mDigitU != null) {
-            mDigitU.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mGrid.undoLastMove()) {
-                        // Successful undo
-                        setClearAndUndoButtonVisibility(mGrid.getSelectedCell());
-                        mGridPlayerView.invalidate();
-
-                        // Undo can toggle the visibility of the check progress
-                        // button in the action bar
-                        ((FragmentActivity) mContext).invalidateOptionsMenu();
-                    }
                 }
             });
         }
@@ -310,23 +247,17 @@ public class PuzzleFragment extends Fragment implements
         mInputModeText = mRootView
                 .findViewById(R.id.input_mode_text);
         setInputModeTextVisibility();
-        mInputModeText.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mGridPlayerView != null && mGrid != null) {
-                    // Toggle input mode
-                    mGridPlayerView.toggleInputMode();
-                }
+        mInputModeText.setOnClickListener(v -> {
+            if (mGridPlayerView != null && mGrid != null) {
+                // Toggle input mode
+                mGridPlayerView.toggleInputMode();
             }
         });
 
-        mInputModeImageView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mGridPlayerView != null && mGrid != null) {
-                    // Toggle input mode
-                    mGridPlayerView.toggleInputMode();
-                }
+        mInputModeImageView.setOnClickListener(v -> {
+            if (mGridPlayerView != null && mGrid != null) {
+                // Toggle input mode
+                mGridPlayerView.toggleInputMode();
             }
         });
         mGridPlayerView.setOnInputModeChangedListener(this);
@@ -461,28 +392,20 @@ public class PuzzleFragment extends Fragment implements
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setNegativeButton(
                         R.string.dialog_clear_grid_confirmation_negative_button,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int whichButton) {
-                                //
-                            }
+                        (dialog, whichButton) -> {
+                            //
                         })
                 .setPositiveButton(
                         R.string.dialog_clear_grid_confirmation_positive_button,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                PuzzleFragment.this.mGrid.clearCells(false);
-                                PuzzleFragment.this.mGridPlayerView
-                                        .invalidate();
-                                // Invalidate the option menu to hide the check
-                                // progress action if necessary
-                                ((FragmentActivity) mContext)
-                                        .invalidateOptionsMenu();
-                                setClearAndUndoButtonVisibility(null);
-                            }
+                        (dialog, which) -> {
+                            PuzzleFragment.this.mGrid.clearCells(false);
+                            PuzzleFragment.this.mGridPlayerView
+                                    .invalidate();
+                            // Invalidate the option menu to hide the check
+                            // progress action if necessary
+                            ((FragmentActivity) mContext)
+                                    .invalidateOptionsMenu();
+                            setClearAndUndoButtonVisibility(null);
                         }).show();
     }
 
@@ -1024,76 +947,64 @@ public class PuzzleFragment extends Fragment implements
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setNegativeButton(
                         R.string.dialog_reveal_solution_confirmation_negative_button,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int whichButton) {
-                                // do nothing
-                            }
+                        (dialog, whichButton) -> {
+                            // do nothing
                         })
                 .setPositiveButton(
                         R.string.dialog_reveal_solution_confirmation_positive_button,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                // Disable the solved listener before revealing
-                                // the solution.
-                                mGrid.setSolvedHandler(null);
+                        (dialog, which) -> {
+                            // Disable the solved listener before revealing
+                            // the solution.
+                            mGrid.setSolvedHandler(null);
 
-                                // Reveal the solution
-                                mGrid.revealSolution();
+                            // Reveal the solution
+                            mGrid.revealSolution();
 
-                                // Create the cheat. This also updates the cheat
-                                // penalty in the timer.
-                                Cheat cheat = getNewCheat(CheatType.SOLUTION_REVEALED);
+                            // Create the cheat. This also updates the cheat
+                            // penalty in the timer.
+                            Cheat cheat = getNewCheat(CheatType.SOLUTION_REVEALED);
 
-                                // Stop the timer and unselect the current cell
-                                // and cage. Finally save the grid.
-                                stopTimer();
-                                mGrid.deselectSelectedCell();
-                                mGrid.save();
+                            // Stop the timer and unselect the current cell
+                            // and cage. Finally save the grid.
+                            stopTimer();
+                            mGrid.deselectSelectedCell();
+                            mGrid.save();
 
-                                // Check if tip has to be displayed before
-                                // informing the listener about finishing the
-                                // grid.
-                                if (cheat != null
-                                        && TipCheat.toBeDisplayed(
-                                        mMathDokuPreferences, cheat)) {
-                                    new TipCheat(mContext, cheat)
-                                            .setOnClickCloseListener(
-                                                    new TipDialog.OnClickCloseListener() {
-                                                        @Override
-                                                        public void onTipDialogClose() {
-                                                            // Notify the
-                                                            // containing
-                                                            // fragment
-                                                            // activity
-                                                            // about the
-                                                            // finishing
-                                                            // of the grid.
-                                                            // In case the
-                                                            // puzzle has
-                                                            // been solved
-                                                            // manually, a
-                                                            // animation is
-                                                            // played first.
-                                                            if (mGrid != null
-                                                                    && mOnGridFinishedListener != null) {
-                                                                mOnGridFinishedListener
-                                                                        .onGridFinishedListener(mGrid
-                                                                                .getSolvingAttemptId());
-                                                            }
-                                                        }
-
-                                                    }).show();
-                                } else {
-                                    if (mGrid != null
-                                            && mOnGridFinishedListener != null) {
-                                        mOnGridFinishedListener
-                                                .onGridFinishedListener(mGrid
-                                                        .getSolvingAttemptId());
-                                    }
+                            // Check if tip has to be displayed before
+                            // informing the listener about finishing the
+                            // grid.
+                            if (cheat != null
+                                    && TipCheat.toBeDisplayed(
+                                    mMathDokuPreferences, cheat)) {
+                                new TipCheat(mContext, cheat)
+                                        .setOnClickCloseListener(
+                                                () -> {
+                                                    // Notify the
+                                                    // containing
+                                                    // fragment
+                                                    // activity
+                                                    // about the
+                                                    // finishing
+                                                    // of the grid.
+                                                    // In case the
+                                                    // puzzle has
+                                                    // been solved
+                                                    // manually, a
+                                                    // animation is
+                                                    // played first.
+                                                    if (mGrid != null
+                                                            && mOnGridFinishedListener != null) {
+                                                        mOnGridFinishedListener
+                                                                .onGridFinishedListener(mGrid
+                                                                        .getSolvingAttemptId());
+                                                    }
+                                                }).show();
+                            } else {
+                                if (mGrid != null
+                                        && mOnGridFinishedListener != null) {
+                                    mOnGridFinishedListener
+                                            .onGridFinishedListener(mGrid
+                                                    .getSolvingAttemptId());
                                 }
                             }
                         }).show();

@@ -3,7 +3,6 @@ package net.cactii.mathdoku.ui;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -19,7 +18,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
@@ -441,19 +439,10 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
                 .setIcon(R.drawable.icon)
                 .setView(view)
                 .setNeutralButton(R.string.puzzle_help_dialog_neutral_button,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int whichButton) {
-                                puzzleFragmentActivity.openChangesDialog(false);
-                            }
-                        })
+                        (dialog, whichButton) ->
+                                puzzleFragmentActivity.openChangesDialog(false))
                 .setNegativeButton(R.string.dialog_general_button_close,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int whichButton) {
-                            }
+                        (dialog, whichButton) -> {
                         }).show();
     }
 
@@ -495,12 +484,8 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
                 .setIcon(R.drawable.icon)
                 .setView(view)
                 .setNegativeButton(R.string.dialog_general_button_close,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int whichButton) {
-                                //
-                            }
+                        (dialog, whichButton) -> {
+                            //
                         }).show();
     }
 
@@ -822,36 +807,28 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
                 puzzleParameterRandomCheckBox.setChecked(true);
                 break;
         }
-        puzzleParameterDifficultyRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            //TODO: Use strings.xml
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating,
-                                        boolean fromUser) {
-                if (rating <= 1) {
-                    puzzleParameterDifficultyTextView.setText("Difficulty: Very easy");
-                } else if (rating == 2) {
-                    puzzleParameterDifficultyTextView.setText("Difficulty: Easy");
-                } else if (rating == 3) {
-                    puzzleParameterDifficultyTextView.setText("Difficulty: Normal");
-                } else if (rating == 4) {
-                    puzzleParameterDifficultyTextView.setText("Difficulty: Difficult");
-                } else if (rating == 5) {
-                    puzzleParameterDifficultyTextView.setText("Difficulty: Very difficult");
-                }
+        //TODO: Use strings.xml
+        puzzleParameterDifficultyRatingBar.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
+            if (rating <= 1) {
+                puzzleParameterDifficultyTextView.setText("Difficulty: Very easy");
+            } else if (rating == 2) {
+                puzzleParameterDifficultyTextView.setText("Difficulty: Easy");
+            } else if (rating == 3) {
+                puzzleParameterDifficultyTextView.setText("Difficulty: Normal");
+            } else if (rating == 4) {
+                puzzleParameterDifficultyTextView.setText("Difficulty: Difficult");
+            } else if (rating == 5) {
+                puzzleParameterDifficultyTextView.setText("Difficulty: Very difficult");
             }
         });
-        puzzleParameterRandomCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    puzzleParameterDifficultyRatingBar.setRating(0);
-                    puzzleParameterDifficultyRatingBar.setEnabled(false);
-                    puzzleParameterDifficultyTextView.setText("Difficulty:");
-                } else {
-                    puzzleParameterDifficultyRatingBar.setRating(2);
-                    puzzleParameterDifficultyRatingBar.setEnabled(true);
-                }
+        puzzleParameterRandomCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                puzzleParameterDifficultyRatingBar.setRating(0);
+                puzzleParameterDifficultyRatingBar.setEnabled(false);
+                puzzleParameterDifficultyTextView.setText("Difficulty:");
+            } else {
+                puzzleParameterDifficultyRatingBar.setRating(2);
+                puzzleParameterDifficultyRatingBar.setEnabled(true);
             }
         });
 
@@ -861,59 +838,52 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
         if (cancelable) {
             alertDialogBuilder.setNegativeButton(
                     R.string.dialog_general_button_cancel,
-                    new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // do nothing
-                        }
+                    (dialog, which) -> {
+                        // do nothing
                     });
         }
         alertDialogBuilder.setNeutralButton(
                 R.string.dialog_puzzle_parameters_neutral_button,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        // Transform size spinner to grid size
-                        int gridSize = (int) puzzleParameterSizeSpinner
-                                .getSelectedItemId()
-                                + OFFSET_INDEX_TO_GRID_SIZE;
+                (dialog, whichButton) -> {
+                    // Transform size spinner to grid size
+                    int gridSize = (int) puzzleParameterSizeSpinner
+                            .getSelectedItemId()
+                            + OFFSET_INDEX_TO_GRID_SIZE;
 
-                        // Transform rating to puzzle complexity.
-                        int rating = Math
-                                .round(puzzleParameterDifficultyRatingBar
-                                        .getRating());
-                        PuzzleComplexity puzzleComplexity;
-                        boolean isRandom = false;
-                        if (rating == 0) {
-                            rating = new Random().nextInt(6);
-                            isRandom = true;
-                        }
-                        if (rating >= 5) {
-                            puzzleComplexity = PuzzleComplexity.VERY_DIFFICULT;
-                        } else if (rating >= 4) {
-                            puzzleComplexity = PuzzleComplexity.DIFFICULT;
-                        } else if (rating >= 3) {
-                            puzzleComplexity = PuzzleComplexity.NORMAL;
-                        } else if (rating >= 2) {
-                            puzzleComplexity = PuzzleComplexity.EASY;
-                        } else {
-                            puzzleComplexity = PuzzleComplexity.VERY_EASY;
-                        }
-
-                        // Store current settings in the preferences
-                        mMathDokuPreferences.setPuzzleParameterSize(gridSize);
-                        mMathDokuPreferences
-                                .setPuzzleParameterOperatorsVisible(puzzleParameterDisplayOperatorsCheckBox
-                                        .isChecked());
-                        mMathDokuPreferences
-                                .setPuzzleParameterComplexity(isRandom ? PuzzleComplexity.RANDOM : puzzleComplexity);
-
-                        // Start a new game with specified parameters
-                        startNewGame(gridSize,
-                                !puzzleParameterDisplayOperatorsCheckBox.isChecked(),
-                                puzzleComplexity);
+                    // Transform rating to puzzle complexity.
+                    int rating = Math
+                            .round(puzzleParameterDifficultyRatingBar
+                                    .getRating());
+                    PuzzleComplexity puzzleComplexity;
+                    boolean isRandom = false;
+                    if (rating == 0) {
+                        rating = new Random().nextInt(6);
+                        isRandom = true;
                     }
+                    if (rating >= 5) {
+                        puzzleComplexity = PuzzleComplexity.VERY_DIFFICULT;
+                    } else if (rating >= 4) {
+                        puzzleComplexity = PuzzleComplexity.DIFFICULT;
+                    } else if (rating >= 3) {
+                        puzzleComplexity = PuzzleComplexity.NORMAL;
+                    } else if (rating >= 2) {
+                        puzzleComplexity = PuzzleComplexity.EASY;
+                    } else {
+                        puzzleComplexity = PuzzleComplexity.VERY_EASY;
+                    }
+
+                    // Store current settings in the preferences
+                    mMathDokuPreferences.setPuzzleParameterSize(gridSize);
+                    mMathDokuPreferences
+                            .setPuzzleParameterOperatorsVisible(puzzleParameterDisplayOperatorsCheckBox
+                                    .isChecked());
+                    mMathDokuPreferences
+                            .setPuzzleParameterComplexity(isRandom ? PuzzleComplexity.RANDOM : puzzleComplexity);
+
+                    // Start a new game with specified parameters
+                    startNewGame(gridSize,
+                            !puzzleParameterDisplayOperatorsCheckBox.isChecked(),
+                            puzzleComplexity);
                 }).show();
     }
 
