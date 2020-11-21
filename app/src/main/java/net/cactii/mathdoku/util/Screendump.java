@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class Screendump extends Object {
+public class Screendump {
     @SuppressWarnings("unused")
     private static final String TAG = "MathDoku.Screendump";
     private final Context mContext;

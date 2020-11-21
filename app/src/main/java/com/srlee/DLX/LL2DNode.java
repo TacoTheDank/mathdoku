@@ -1,6 +1,6 @@
 package com.srlee.DLX;
 
-public class LL2DNode extends Object {
+public class LL2DNode {
     private LL2DNode L; // Pointer to left node
     private LL2DNode R; // Pointer to right node
     private LL2DNode U; // Pointer to node above

@@ -4,7 +4,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-public class DLX extends Object {
+public class DLX {
     private static final String TAG = "MathDoku.DLX";
     private final DLXColumn root = new DLXColumn();
 
@@ -61,11 +61,11 @@ public class DLX extends Object {
     }
 
     private void CoverCol(DLXColumn coverCol) {
-        LL2DNode i, j;
+        LL2DNode j;
         coverCol.GetRight().SetLeft(coverCol.GetLeft());
         coverCol.GetLeft().SetRight(coverCol.GetRight());
 
-        i = coverCol.GetDown();
+        LL2DNode i = coverCol.GetDown();
         while (i != coverCol) {
             j = i.GetRight();
             while (j != i) {
@@ -79,9 +79,9 @@ public class DLX extends Object {
     }
 
     private void UncoverCol(DLXColumn uncoverCol) {
-        LL2DNode i, j;
+        LL2DNode j;
 
-        i = uncoverCol.GetUp();
+        LL2DNode i = uncoverCol.GetUp();
         while (i != uncoverCol) {
             j = i.GetLeft();
             while (j != i) {
@@ -98,9 +98,9 @@ public class DLX extends Object {
 
     private DLXColumn ChooseMinCol() {
         int minsize = Integer.MAX_VALUE;
-        DLXColumn search, mincol;
+        DLXColumn search;
 
-        mincol = search = (DLXColumn) root.GetRight();
+        DLXColumn mincol = search = (DLXColumn) root.GetRight();
 
         while (search != root) {
             if (search.GetSize() < minsize) {
@@ -156,7 +156,6 @@ public class DLX extends Object {
     }
 
     private void search(int k) {
-        DLXColumn chosenCol;
         LL2DNode r, j;
 
         // A solution is found in case all columns are covered
@@ -178,7 +177,7 @@ public class DLX extends Object {
         // more often a permutation is tried, the harder to solve the puzzle is.
         complexity++;
 
-        chosenCol = ChooseMinCol();
+        DLXColumn chosenCol = ChooseMinCol();
         if (chosenCol != null) {
 
             CoverCol(chosenCol);

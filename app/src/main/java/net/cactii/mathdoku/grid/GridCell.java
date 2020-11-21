@@ -327,11 +327,9 @@ public class GridCell {
         boolean cellBelowIsInSameCage = isInSameCageAsCell(this.mRow + 1,
                 this.mColumn);
 
-        Paint borderPaint;
-
         // Top border of cell (will only be drawn for first row
         float topOffset = 0;
-        borderPaint = getBorderPaint(mBorderTypeTop);
+        Paint borderPaint = getBorderPaint(mBorderTypeTop);
         if (borderPaint != null) {
             // Calculate offset and draw top border
             float offset = mRow == 0 ? (float) Math
@@ -920,7 +918,7 @@ public class GridCell {
      * cell. False otherwise.
      */
     public boolean hasPossible(int digit) {
-        return this.mPossibles.indexOf(Integer.valueOf(digit)) >= 0;
+        return this.mPossibles.contains(digit);
     }
 
     /**
@@ -1110,7 +1108,7 @@ public class GridCell {
      * @return True in case the cell is empty. False otherwise.
      */
     public boolean isEmpty() {
-        return mUserValue == 0 && mPossibles.size() == 0;
+        return mUserValue == 0 && mPossibles.isEmpty();
     }
 
     /**

@@ -32,8 +32,7 @@ public class StatisticsFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        Fragment fragment = null;
-        fragment = new StatisticsLevelFragment();
+        Fragment fragment = new StatisticsLevelFragment();
 
         int min = 0;
         int max = 0;

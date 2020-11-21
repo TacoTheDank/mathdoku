@@ -69,9 +69,7 @@ public class ArchiveFragment extends StatisticsBaseFragment implements
                 .registerOnSharedPreferenceChangeListener(this);
 
         // Get fragment manager and start a transaction.
-        GridViewerView mGridViewerView;
-        mGridViewerView = rootView
-                .findViewById(R.id.grid_viewer_view);
+        GridViewerView mGridViewerView = rootView.findViewById(R.id.grid_viewer_view);
 
         // Load grid from database
         Grid grid = new Grid();
