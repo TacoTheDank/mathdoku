@@ -7,8 +7,8 @@ import net.cactii.mathdoku.R;
 
 public class TipArchiveAvailable extends TipDialog {
 
+    private static final TipPriority TIP_PRIORITY = TipPriority.LOW;
     public static String TIP_NAME = "ArchiveAvailable";
-    private static TipPriority TIP_PRIORITY = TipPriority.LOW;
 
     /**
      * Creates a new tip dialog which explains that the statistics have been

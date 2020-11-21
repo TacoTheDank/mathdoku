@@ -69,6 +69,6 @@ public class CumulativeStatistics {
      * @return True in case the statistics refer to one single level.
      */
     public boolean isSingleLevelStatistics() {
-        return (mMinGridSize == mMaxGridSize);
+        return mMinGridSize == mMaxGridSize;
     }
 }

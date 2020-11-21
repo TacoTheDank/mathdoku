@@ -390,8 +390,8 @@ public class StatisticsDatabaseAdapter extends DatabaseAdapter {
         newValues.put(KEY_INCLUDE_IN_STATISTICS,
                 Boolean.toString(gridStatistics.mIncludedInStatistics));
 
-        return (mSqliteDatabase.update(TABLE, newValues, KEY_ROWID + " = "
-                + gridStatistics.mId, null) == 1);
+        return mSqliteDatabase.update(TABLE, newValues, KEY_ROWID + " = "
+                + gridStatistics.mId, null) == 1;
     }
 
     /**

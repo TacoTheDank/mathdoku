@@ -95,8 +95,6 @@ public class GridStatistics {
         return statisticsDatabaseAdapter.update(this);
     }
 
-    ;
-
     /**
      * Increases the given counter with 1.
      *

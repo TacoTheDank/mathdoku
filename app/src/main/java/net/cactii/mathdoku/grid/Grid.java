@@ -127,7 +127,7 @@ public class Grid {
             // NO DEFAULT here as we want to be notified at compile time in case a
             // new enum value is added.
         }
-        definitionString.append(Integer.toString(complexity) + ":");
+        definitionString.append(complexity + ":");
 
         // Get the cage number (represented as a value of two digits, if needed
         // prefixed with a 0) for each cell. Note: with a maximum of 81 cells in
@@ -334,7 +334,7 @@ public class Grid {
      * @return The number of moves made by the user.
      */
     public int countMoves() {
-        return (mMoves == null ? 0 : mMoves.size());
+        return mMoves == null ? 0 : mMoves.size();
     }
 
     public boolean undoLastMove() {
@@ -406,9 +406,8 @@ public class Grid {
         GridCage newSelectedCage = getCageForSelectedCell();
 
         // Remove borders form old cage if needed
-        if ((newSelectedCage == null && oldSelectedCage != null)
-                || (newSelectedCage != null && !newSelectedCage
-                .equals(oldSelectedCage))) {
+        if (newSelectedCage == null ? oldSelectedCage != null : !newSelectedCage
+                .equals(oldSelectedCage)) {
             if (oldSelectedCage != null) {
                 oldSelectedCage.setBorders();
             }
@@ -433,7 +432,7 @@ public class Grid {
      * @param coordinates The (x,y) coordinates of the cell.
      * @return The selected cell.
      */
-    public GridCell setSelectedCell(int coordinates[]) {
+    public GridCell setSelectedCell(int[] coordinates) {
         return setSelectedCell(getCellAt(coordinates[1], coordinates[0]));
     }
 
@@ -800,7 +799,7 @@ public class Grid {
             mGridStatistics = statisticsDatabaseAdapter.insert(this);
         }
 
-        return (mGridStatistics != null);
+        return mGridStatistics != null;
     }
 
     /**
@@ -890,7 +889,7 @@ public class Grid {
             }
 
             // Update statistics.
-            saved = (mGridStatistics == null ? false : mGridStatistics.save());
+            saved = mGridStatistics != null && mGridStatistics.save();
 
             // In case a replay of the grid is finished the statistics which
             // have to included in the cumulative and the historic statistics
@@ -1368,10 +1367,8 @@ public class Grid {
                 // For each cell containing the user value it is checked whether
                 // the cell is in the same row or column as the given cell.
                 if (cell.getUserValue() == userValue) {
-                    if ((cell.getColumn() == gridCell.getColumn() && cell
-                            .getRow() != gridCell.getRow())
-                            || (cell.getColumn() != gridCell.getColumn() && cell
-                            .getRow() == gridCell.getRow())) {
+                    if ((cell.getColumn() == gridCell.getColumn()) == (cell
+                            .getRow() != gridCell.getRow())) {
                         // Mark this cell as duplicate.
                         duplicateValue = true;
                         cell.setDuplicateHighlight(true);

@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -79,7 +78,7 @@ public class StatisticsLevelFragment extends StatisticsBaseFragment implements
 
         // Get layout where charts will be drawn and the inflater for
         // creating new statistics sections.
-        mChartsLayout = (LinearLayout) rootView.findViewById(R.id.chartLayouts);
+        mChartsLayout = rootView.findViewById(R.id.chartLayouts);
         createAllCharts();
 
         return rootView;

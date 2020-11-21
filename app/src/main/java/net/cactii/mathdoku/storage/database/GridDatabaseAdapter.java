@@ -71,8 +71,6 @@ public class GridDatabaseAdapter extends DatabaseAdapter {
                 createColumn(KEY_MAX_CAGE_SIZE, "integer", null));
     }
 
-    ;
-
     /**
      * Creates the table.
      *
@@ -87,8 +85,6 @@ public class GridDatabaseAdapter extends DatabaseAdapter {
         // Execute create statement
         db.execSQL(sql);
     }
-
-    ;
 
     /**
      * Upgrades the table to an other version.
@@ -673,9 +669,9 @@ public class GridDatabaseAdapter extends DatabaseAdapter {
     }
 
     public int countGrids(StatusFilter statusFilter, SizeFilter sizeFilter) {
-        int gridIds[][] = getLatestSolvingAttemptsPerGrid(statusFilter,
+        int[][] gridIds = getLatestSolvingAttemptsPerGrid(statusFilter,
                 sizeFilter);
-        return (gridIds == null ? 0 : gridIds.length);
+        return gridIds == null ? 0 : gridIds.length;
     }
 
     // Allowed values for the status filter

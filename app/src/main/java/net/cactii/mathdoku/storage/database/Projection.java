@@ -10,8 +10,6 @@ public class Projection extends HashMap<String, String> {
         super();
     }
 
-    ;
-
     /**
      * @return
      */

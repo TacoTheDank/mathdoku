@@ -110,11 +110,11 @@ public class ArchiveFragmentActivity extends AppFragmentActivity {
         }
 
         // Set up the ViewPager, attaching the adapter.
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = findViewById(R.id.pager);
         mViewPager.setAdapter(mArchiveFragmentStatePagerAdapter);
 
         // Set up the pager tab strip
-        final PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_tab_strip);
+        final PagerTabStrip pagerTabStrip = findViewById(R.id.pager_tab_strip);
         pagerTabStrip.setDrawFullUnderline(false);
 
         // This pager contains a maximum of 3 visible items. The selected tab
@@ -257,7 +257,7 @@ public class ArchiveFragmentActivity extends AppFragmentActivity {
      * otherwise.
      */
     protected void setStatusSpinner() {
-        Spinner spinner = (Spinner) mActionBar.getCustomView().findViewById(
+        Spinner spinner = mActionBar.getCustomView().findViewById(
                 R.id.spinner_status);
         if (!mShowStatusFilter
                 || mArchiveFragmentStatePagerAdapter.getCount() == 0) {
@@ -300,8 +300,8 @@ public class ArchiveFragmentActivity extends AppFragmentActivity {
         // Hide spinner if only two choices are available. As one of those
         // choices is always "ALL" the choices will result in an identical
         // selection.
-        spinner.setVisibility((usedStatuses.length <= 2 ? View.GONE
-                : View.VISIBLE));
+        spinner.setVisibility(usedStatuses.length <= 2 ? View.GONE
+                : View.VISIBLE);
 
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -343,7 +343,7 @@ public class ArchiveFragmentActivity extends AppFragmentActivity {
      * Returns: True in case the sizes spinner should be shown. False otherwise.
      */
     protected void setSizeSpinner() {
-        Spinner spinner = (Spinner) mActionBar.getCustomView().findViewById(
+        Spinner spinner = mActionBar.getCustomView().findViewById(
                 R.id.spinner_size);
         if (!mShowSizeFilter
                 || mArchiveFragmentStatePagerAdapter.getCount() == 0) {
@@ -386,7 +386,7 @@ public class ArchiveFragmentActivity extends AppFragmentActivity {
         // Hide spinner if only two choices are available. As one of those
         // choices is always "ALL" the choices will result in an identical
         // selection.
-        spinner.setVisibility((usedSizes.length <= 2 ? View.GONE : View.VISIBLE));
+        spinner.setVisibility(usedSizes.length <= 2 ? View.GONE : View.VISIBLE);
 
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -519,6 +519,6 @@ public class ArchiveFragmentActivity extends AppFragmentActivity {
     }
 
     public int getViewPagerCurrentPosition() {
-        return (mViewPager == null ? -1 : mViewPager.getCurrentItem());
+        return mViewPager == null ? -1 : mViewPager.getCurrentItem();
     }
 }

@@ -55,7 +55,7 @@ public class StatisticsFragmentActivity extends AppFragmentActivity implements
 
         // Set up the ViewPager, attaching the adapter and setting up a listener
         // for when the user swipes between the statistics fragments.
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = findViewById(R.id.pager);
         mViewPager.setAdapter(mStatisticsFragmentPagerAdapter);
         mViewPager
                 .setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {

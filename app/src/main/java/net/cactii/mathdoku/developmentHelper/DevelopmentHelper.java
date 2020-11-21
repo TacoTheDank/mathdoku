@@ -41,7 +41,6 @@ public class DevelopmentHelper {
     // do not matter as long they are unique strings.
     public static final String GRID_GENERATOR_PROGRESS_UPDATE_TITLE = "Update title";
 
-    ;
     public static final String GRID_GENERATOR_PROGRESS_UPDATE_MESSAGE = "Update message";
     public static final String GRID_GENERATOR_PROGRESS_UPDATE_PROGRESS = "Update progress";
     public static final String GRID_GENERATOR_PROGRESS_UPDATE_SOLUTION = "Found a solution";
@@ -160,7 +159,7 @@ public class DevelopmentHelper {
             new AlertDialog.Builder(puzzleFragmentActivity)
                     .setTitle("Games generated")
                     .setMessage(
-                            Integer.toString(numberOfGamesGenerated)
+                            numberOfGamesGenerated
                                     + " games have been generated. Note that it is not "
                                     + "guaranteed that those puzzles have unique solutions.")
                     .setPositiveButton("OK",

@@ -33,28 +33,28 @@ public class GridPlayerRelativeLayout extends RelativeLayout {
                 attrs, R.styleable.GridPlayerViewLayoutAlign, 0, 0);
 
         try {
-            mLeftMarginAdjustment = (typedArray
+            mLeftMarginAdjustment = typedArray
                     .getInt(R.styleable.GridPlayerViewLayoutAlign_layout_alignGridPlayerViewLeft,
-                            1) == 0);
-            mTopMarginAdjustment = (typedArray
+                            1) == 0;
+            mTopMarginAdjustment = typedArray
                     .getInt(R.styleable.GridPlayerViewLayoutAlign_layout_alignGridPlayerViewTop,
-                            1) == 0);
-            mRightMarginAdjustment = (typedArray
+                            1) == 0;
+            mRightMarginAdjustment = typedArray
                     .getInt(R.styleable.GridPlayerViewLayoutAlign_layout_alignGridPlayerViewRight,
-                            1) == 0);
-            mBottomMarginAdjustment = (typedArray
+                            1) == 0;
+            mBottomMarginAdjustment = typedArray
                     .getInt(R.styleable.GridPlayerViewLayoutAlign_layout_alignGridPlayerViewBottom,
-                            1) == 0);
+                            1) == 0;
         } finally {
             typedArray.recycle();
         }
 
-        mMarginAdjustment = (mLeftMarginAdjustment || mTopMarginAdjustment
-                || mRightMarginAdjustment || mBottomMarginAdjustment);
+        mMarginAdjustment = mLeftMarginAdjustment || mTopMarginAdjustment
+                || mRightMarginAdjustment || mBottomMarginAdjustment;
 
         // Additional margins will be determined in first pass of onMeasure,
         // except no margins needs to be adjusted at all.
-        mMarginsInitialised = (mMarginAdjustment == false);
+        mMarginsInitialised = mMarginAdjustment == false;
     }
 
     @Override

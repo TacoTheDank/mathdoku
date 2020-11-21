@@ -23,10 +23,8 @@ public class Painter {
     private final MaybeValuePainter mMaybeGridPainter;
     private final MaybeValuePainter mMaybeLinePainter;
 
-    ;
     private final SwipeBorderPainter mSwipeBorderPainter;
 
-    ;
     private final TickerTapePainter mTickerTapePainter;
     private final PagerTabStripPainter mPagerTabStripPainter;
     private final NavigationDrawerPainter mNavigationDrawerPainter;

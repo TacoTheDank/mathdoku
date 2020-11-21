@@ -7,8 +7,8 @@ import net.cactii.mathdoku.R;
 
 public class TipIncorrectValue extends TipDialog {
 
+    private static final TipPriority TIP_PRIORITY = TipPriority.HIGH;
     public static String TIP_NAME = "Tip.TipIncorrectValue.DisplayAgain";
-    private static TipPriority TIP_PRIORITY = TipPriority.HIGH;
 
     /**
      * Creates a new tip dialog which explains that an incorrect value has been

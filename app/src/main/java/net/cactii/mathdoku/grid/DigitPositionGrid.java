@@ -11,19 +11,19 @@ public class DigitPositionGrid {
 
     // Matrices holding information about the visibility and the content of the
     // button positions available.
-    private int[][] mVisibility;
-    private int[][] mValue;
+    private final int[][] mVisibility;
+    private final int[][] mValue;
 
     // Dimension of matrices
-    private int mMaxRows;
-    private int mMaxCols;
+    private final int mMaxRows;
+    private final int mMaxCols;
 
     // The number of rows and columns actually used
-    private int mRowsUsed;
-    private int mColsUsed;
+    private final int mRowsUsed;
+    private final int mColsUsed;
 
     // The number of positions used in the grid
-    private int mPositionsUsed;
+    private final int mPositionsUsed;
 
     /**
      * Creates a new instance of {@link DigitPositionGrid}.
@@ -45,7 +45,7 @@ public class DigitPositionGrid {
         // size 7: 3 rows, 2 rows of 3 buttons, last row 1 button
         // size 8: 3 rows, 2 rows of 3 buttons, last row 2 buttons
         // size 9: 3 rows, 2 rows of 3 buttons, last row 3 buttons
-        mRowsUsed = (maxDigit <= 6 ? 2 : 3);
+        mRowsUsed = maxDigit <= 6 ? 2 : 3;
 
         mVisibility = new int[mMaxRows][mMaxCols];
         mValue = new int[mMaxRows][mMaxCols];
@@ -80,7 +80,7 @@ public class DigitPositionGrid {
      * @param maxDigit The number of digit buttons to put in the grid.
      */
     public boolean isReusable(int maxDigit) {
-        return (mPositionsUsed == maxDigit);
+        return mPositionsUsed == maxDigit;
     }
 
     /**
@@ -110,7 +110,7 @@ public class DigitPositionGrid {
      * @return The row corresponding with the index.
      */
     public int indexToRow(int index) {
-        return (index / mMaxCols);
+        return index / mMaxCols;
     }
 
     /**
@@ -120,7 +120,7 @@ public class DigitPositionGrid {
      * @return The column corresponding with the index.
      */
     public int indexToCol(int index) {
-        return (index - (indexToRow(index) * mMaxCols));
+        return index - (indexToRow(index) * mMaxCols);
     }
 
     /**

@@ -22,14 +22,11 @@ public class CellChange {
     // stored in
     // saved game. The base should be extended with a integer value
     private final String SAVE_GAME_CELL_CHANGE_LINE = "CELL_CHANGE";
-
+    private final ArrayList<Integer> mPreviousPossibleValues;
     // The cell for which the undo information is stored.
     private GridCell mGridCell;
-
     // Properties of the GridCell which can be restored.
     private int mPreviousUserValue;
-    private ArrayList<Integer> mPreviousPossibleValues;
-
     // Undo information for other cell which are changed as a result of changing
     // the cell.
     private ArrayList<CellChange> mRelatedCellChanges;
@@ -174,7 +171,7 @@ public class CellChange {
                 + mPreviousUserValue
                 + SolvingAttemptDatabaseAdapter.FIELD_DELIMITER_LEVEL1;
         for (int previousPossibleValue : mPreviousPossibleValues) {
-            storageString += Integer.toString(previousPossibleValue)
+            storageString += previousPossibleValue
                     + SolvingAttemptDatabaseAdapter.FIELD_DELIMITER_LEVEL2;
         }
         storageString += SolvingAttemptDatabaseAdapter.FIELD_DELIMITER_LEVEL1;

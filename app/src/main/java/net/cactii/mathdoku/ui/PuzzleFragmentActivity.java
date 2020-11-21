@@ -217,8 +217,7 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the navigation drawer is open, hide action items related to the
         // content view
-        boolean drawerOpen = (mDrawerLayout == null || mDrawerListView == null ? false
-                : mDrawerLayout.isDrawerOpen(mDrawerListView));
+        boolean drawerOpen = mDrawerLayout != null && mDrawerListView != null && mDrawerLayout.isDrawerOpen(mDrawerListView);
 
         boolean showCheats = false;
 
@@ -271,16 +270,16 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
         menu.findItem(R.id.action_new_game)
                 .setVisible(!drawerOpen)
                 .setShowAsAction(
-                        (mPuzzleFragment != null && mPuzzleFragment.isActive() ? MenuItem.SHOW_AS_ACTION_NEVER
-                                : MenuItem.SHOW_AS_ACTION_ALWAYS));
+                        mPuzzleFragment != null && mPuzzleFragment.isActive() ? MenuItem.SHOW_AS_ACTION_NEVER
+                                : MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         // Display the share button on the action bar dependent on the fragment
         // being showed.
         menu.findItem(R.id.action_share)
                 .setVisible(!drawerOpen)
                 .setShowAsAction(
-                        (mArchiveFragment != null ? MenuItem.SHOW_AS_ACTION_IF_ROOM
-                                : MenuItem.SHOW_AS_ACTION_NEVER));
+                        mArchiveFragment != null ? MenuItem.SHOW_AS_ACTION_IF_ROOM
+                                : MenuItem.SHOW_AS_ACTION_NEVER);
 
         // When running in development mode, an extra menu is available.
         if (DevelopmentHelper.mMode == Mode.DEVELOPMENT) {
@@ -419,15 +418,15 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
         LayoutInflater li = LayoutInflater.from(this);
         View view = li.inflate(R.layout.puzzle_help_dialog, null);
 
-        TextView tv = (TextView) view
+        TextView tv = view
                 .findViewById(R.id.puzzle_help_dialog_leadin);
         tv.setVisibility(displayLeadIn ? View.VISIBLE : View.GONE);
 
-        tv = (TextView) view.findViewById(R.id.dialog_help_version_body);
+        tv = view.findViewById(R.id.dialog_help_version_body);
         tv.setText(Util.getPackageVersionName() + " (revision "
                 + Util.getPackageVersionNumber() + ")");
 
-        tv = (TextView) view.findViewById(R.id.help_project_home_link);
+        tv = view.findViewById(R.id.help_project_home_link);
         tv.setText(Util.PROJECT_HOME);
 
         final PuzzleFragmentActivity puzzleFragmentActivity = this;
@@ -468,21 +467,21 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
         LayoutInflater li = LayoutInflater.from(this);
         View view = li.inflate(R.layout.changelog_dialog, null);
 
-        TextView textView = (TextView) view
+        TextView textView = view
                 .findViewById(R.id.changelog_version_body);
         textView.setText(Util.getPackageVersionName() + " (revision "
                 + Util.getPackageVersionNumber() + ")");
 
         if (showLeadInVersion2) {
-            textView = (TextView) view
+            textView = view
                     .findViewById(R.id.changelog_lead_in_version_2);
             textView.setVisibility(View.VISIBLE);
         }
 
-        textView = (TextView) view.findViewById(R.id.changelog_changes_link);
+        textView = view.findViewById(R.id.changelog_changes_link);
         textView.setText(Util.PROJECT_HOME + "changes.php");
 
-        textView = (TextView) view.findViewById(R.id.changelog_issues_link);
+        textView = view.findViewById(R.id.changelog_issues_link);
         textView.setText(Util.PROJECT_HOME + "issues.php");
 
         new AlertDialog.Builder(this)
@@ -767,15 +766,15 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
                 null);
 
         // Get views for the puzzle generating parameters
-        final Spinner puzzleParameterSizeSpinner = (Spinner) view
+        final Spinner puzzleParameterSizeSpinner = view
                 .findViewById(R.id.puzzleParameterSizeSpinner);
-        final CheckBox puzzleParameterDisplayOperatorsCheckBox = (CheckBox) view
+        final CheckBox puzzleParameterDisplayOperatorsCheckBox = view
                 .findViewById(R.id.puzzleParameterDisplayOperatorsCheckBox);
-        final RatingBar puzzleParameterDifficultyRatingBar = (RatingBar) view
+        final RatingBar puzzleParameterDifficultyRatingBar = view
                 .findViewById(R.id.puzzleParameterDifficultyRatingBar);
-        final TextView puzzleParameterDifficultyTextView = (TextView) view
+        final TextView puzzleParameterDifficultyTextView = view
                 .findViewById(R.id.puzzleParameterDifficultyTextView);
-        final CheckBox puzzleParameterRandomCheckBox = (CheckBox) view
+        final CheckBox puzzleParameterRandomCheckBox = view
                 .findViewById(R.id.puzzleParameterRandomCheckBox);
 
         // Create the list of available puzzle sizes.
@@ -912,8 +911,8 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
 
                         // Start a new game with specified parameters
                         startNewGame(gridSize,
-                                (puzzleParameterDisplayOperatorsCheckBox
-                                        .isChecked() == false),
+                                puzzleParameterDisplayOperatorsCheckBox
+                                        .isChecked() == false,
                                 puzzleComplexity);
                     }
                 }).show();
@@ -1027,8 +1026,8 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
             String string = getResources().getString(R.string.action_archive);
             navigationDrawerItems.add(string);
             if (openDrawer == false && mNavigationDrawerItems != null) {
-                openDrawer = (Arrays.asList(mNavigationDrawerItems).contains(
-                        string) == false);
+                openDrawer = Arrays.asList(mNavigationDrawerItems).contains(
+                        string) == false;
             }
             mDrawerIconVisible = true;
         }
@@ -1037,8 +1036,8 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
                     .getString(R.string.action_statistics);
             navigationDrawerItems.add(string);
             if (openDrawer == false && mNavigationDrawerItems != null) {
-                openDrawer = (Arrays.asList(mNavigationDrawerItems).contains(
-                        string) == false);
+                openDrawer = Arrays.asList(mNavigationDrawerItems).contains(
+                        string) == false;
             }
             mDrawerIconVisible = true;
         }
@@ -1056,7 +1055,7 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
         }
 
         // Set up the navigation drawer.
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.puzzle_activity_drawer_layout);
+        mDrawerLayout = findViewById(R.id.puzzle_activity_drawer_layout);
         mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close) {
@@ -1097,7 +1096,7 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
         mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
 
         // Get list view for drawer
-        mDrawerListView = (ListView) findViewById(R.id.left_drawer);
+        mDrawerListView = findViewById(R.id.left_drawer);
 
         mDrawerListView.setBackgroundColor(Painter.getInstance()
                 .getNavigationDrawerPainter().getBackgroundColor());

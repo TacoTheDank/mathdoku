@@ -33,7 +33,6 @@ public class GridGenerator extends AsyncTask<Void, String, Void> {
     // The parameters use to generate a grid
     private final GridGeneratingParameters mGridGeneratingParameters;
 
-    ;
     // Random generator
     public Random mRandom;
     // Size of the grid
@@ -79,7 +78,7 @@ public class GridGenerator extends AsyncTask<Void, String, Void> {
 
         // Set all grid generating parameters. GameSeed will be set later.
         mGridGeneratingParameters = new GridGeneratingParameters();
-        mGridGeneratingParameters.mGameSeed = (new Random()).nextLong();
+        mGridGeneratingParameters.mGameSeed = new Random().nextLong();
         mGridGeneratingParameters.mGeneratorRevisionNumber = packageVersionNumber;
         mGridGeneratingParameters.mPuzzleComplexity = puzzleComplexity;
         mGridGeneratingParameters.mHideOperators = hideOperators;
@@ -259,12 +258,12 @@ public class GridGenerator extends AsyncTask<Void, String, Void> {
                     if (num_attempts < mGridGeneratorOptions.numberOfGamesToGenerate) {
                         // Determine random size and hide operator values of
                         // next grid
-                        mGridGeneratingParameters.mGameSeed = (new Random())
+                        mGridGeneratingParameters.mGameSeed = new Random()
                                 .nextLong();
                         mRandom = new Random(
                                 mGridGeneratingParameters.mGameSeed);
                         if (mGridGeneratorOptions.randomGridSize) {
-                            mGridSize = 4 + (new Random().nextInt(6));
+                            mGridSize = 4 + new Random().nextInt(6);
                         }
                         if (mGridGeneratorOptions.randomHideOperators) {
                             mGridGeneratingParameters.mHideOperators = new Random()
@@ -360,7 +359,7 @@ public class GridGenerator extends AsyncTask<Void, String, Void> {
                 if (values[0]
                         .equals(DevelopmentHelper.GRID_GENERATOR_PROGRESS_UPDATE_SOLUTION)) {
                     Log.i(TAG,
-                            Long.toString(timeElapsed)
+                            timeElapsed
                                     + ": found a solution for this puzzle in "
                                     + (System.currentTimeMillis() - mTimeStartedSolution)
                                     + " miliseconds");
@@ -369,7 +368,7 @@ public class GridGenerator extends AsyncTask<Void, String, Void> {
             }
             if (values.length >= 2 && values[0] != null && values[1] != null
                     && !values[1].equals("")) {
-                Log.i(TAG, Long.toString(timeElapsed) + ": " + values[1]);
+                Log.i(TAG, timeElapsed + ": " + values[1]);
             }
         }
     }
@@ -1016,7 +1015,7 @@ public class GridGenerator extends AsyncTask<Void, String, Void> {
             }
             // As division is less often possible compared to subtraction, it is
             // given a bit more weight.
-            divisionWeight = ((higher % lower == 0) ? 50 : 0);
+            divisionWeight = (higher % lower == 0) ? 50 : 0;
             subtractionWeight = 30;
             addWeight = 15;
             multiplyWeight = 15;
@@ -1128,9 +1127,9 @@ public class GridGenerator extends AsyncTask<Void, String, Void> {
                                      ArrayList<GridCage> cages, boolean hideOperators) {
         // Check if this grid definition is unique
         GridDatabaseAdapter gridDatabaseAdapter = new GridDatabaseAdapter();
-        return (gridDatabaseAdapter
+        return gridDatabaseAdapter
                 .getByGridDefinition(Grid.toGridDefinitionString(cells, cages,
-                        mGridGeneratingParameters)) != null);
+                        mGridGeneratingParameters)) != null;
     }
 
     @Override
@@ -1154,12 +1153,12 @@ public class GridGenerator extends AsyncTask<Void, String, Void> {
          *
          * @param grid
          */
-        public void useCreatedGrid(Grid grid);
+        void useCreatedGrid(Grid grid);
 
         /**
          * Inform the grid user about cancelation of the grid generation.
          */
-        public void onCancelGridGeneration();
+        void onCancelGridGeneration();
     }
 
     // The grid generator options are used in development mode only to generate

@@ -157,13 +157,13 @@ public class GridViewerView extends View {
 
         // Compute grid size. Set to 1 in case grid is null to avoid problems in
         // onMeasure as this will be called before the grid is loaded.
-        mGridSize = (mGrid == null ? 1 : mGrid.getGridSize());
+        mGridSize = mGrid == null ? 1 : mGrid.getGridSize();
 
         // Determine the layout which has to be used for drawing the possible
         // values inside a cell.
-        mDigitPositionGrid = (mGrid != null
+        mDigitPositionGrid = mGrid != null
                 && mGrid.hasPrefShowMaybesAs3x3Grid() ? new DigitPositionGrid(
-                mGrid.getGridSize()) : null);
+                mGrid.getGridSize()) : null;
 
         invalidate();
     }
@@ -271,7 +271,7 @@ public class GridViewerView extends View {
     private int measure(int measureSpec) {
         int specSize = MeasureSpec.getSize(measureSpec);
 
-        return (specSize);
+        return specSize;
     }
 
     /**
@@ -281,9 +281,9 @@ public class GridViewerView extends View {
      * @param digitPositionGrid The digit position grid type to be set.
      */
     public void setDigitPositionGrid(DigitPositionGrid digitPositionGrid) {
-        mDigitPositionGrid = (mGrid == null
+        mDigitPositionGrid = mGrid == null
                 || !mGrid.hasPrefShowMaybesAs3x3Grid() ? null
-                : digitPositionGrid);
+                : digitPositionGrid;
     }
 
     /**

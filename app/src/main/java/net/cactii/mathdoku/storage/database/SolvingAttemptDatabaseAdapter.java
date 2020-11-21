@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class SolvingAttemptDatabaseAdapter extends DatabaseAdapter {
     // Remove "&& false" in following line to show the SQL-statements in the
     // debug information
-    public static final boolean DEBUG_SQL = (DevelopmentHelper.mMode == Mode.DEVELOPMENT);
+    public static final boolean DEBUG_SQL = DevelopmentHelper.mMode == Mode.DEVELOPMENT;
     // Status of solving attempt
     public static final int STATUS_UNDETERMINED = -1;
     public static final int STATUS_NOT_STARTED = 0;
@@ -279,8 +279,8 @@ public class SolvingAttemptDatabaseAdapter extends DatabaseAdapter {
         // filtering on solving attempts for the archive
         newValues.put(KEY_STATUS, getDerivedStatus(grid));
 
-        return (mSqliteDatabase.update(TABLE, newValues,
-                KEY_ROWID + " = " + id, null) == 1);
+        return mSqliteDatabase.update(TABLE, newValues,
+                KEY_ROWID + " = " + id, null) == 1;
     }
 
     /**

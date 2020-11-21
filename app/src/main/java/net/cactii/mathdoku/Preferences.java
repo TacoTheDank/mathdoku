@@ -200,9 +200,9 @@ public class Preferences {
                             PUZZLE_SETTING_MAYBES_DISPLAYED_IN_GRID_DEFAULT);
             boolean prefOptionShowTimer = mSharedPreferences.getBoolean(
                     "timer", PUZZLE_SETTING_TIMER_VISIBLE_DEFAULT);
-            String prefOptionTheme = (mSharedPreferences.getString("theme",
+            String prefOptionTheme = mSharedPreferences.getString("theme",
                     PUZZLE_SETTING_THEME_DEFAULT).equals("inverted") ? PUZZLE_SETTING_THEME_DARK
-                    : PUZZLE_SETTING_THEME_LIGHT);
+                    : PUZZLE_SETTING_THEME_LIGHT;
             boolean prefWakeLock = mSharedPreferences.getBoolean("wakelock",
                     PUZZLE_SETTING_WAKE_LOCK_DEFAULT);
 
@@ -970,11 +970,11 @@ public class Preferences {
         String puzzleSettingOuterSwipeCircle = mSharedPreferences.getString(
                 PUZZLE_SETTING_OUTER_SWIPE_CIRCLE,
                 PUZZLE_SETTING_OUTER_SWIPE_CIRCLE_DEFAULT);
-        int minGridSize = (puzzleSettingOuterSwipeCircle
+        int minGridSize = puzzleSettingOuterSwipeCircle
                 .equals(PUZZLE_SETTING_OUTER_SWIPE_CIRCLE_NEVER_VISIBLE) ? Integer.MAX_VALUE
-                : Integer.valueOf(puzzleSettingOuterSwipeCircle));
+                : Integer.valueOf(puzzleSettingOuterSwipeCircle);
 
-        return (gridSize >= minGridSize);
+        return gridSize >= minGridSize;
     }
 
     /**

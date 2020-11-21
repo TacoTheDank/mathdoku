@@ -8,7 +8,6 @@ public class DLX extends Object {
     private static final String TAG = "MathDoku.DLX";
     private final DLXColumn root = new DLXColumn();
 
-    ;
     protected boolean isValid;
     protected int complexity;
     private DLXColumn[] ColHdrs;

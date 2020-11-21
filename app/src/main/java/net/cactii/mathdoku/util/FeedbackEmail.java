@@ -170,7 +170,7 @@ public class FeedbackEmail {
                         continue;
                     }
                     Object value = entry.getValue();
-                    sortedMap.put(key, (value == null ? "" : value.toString()));
+                    sortedMap.put(key, value == null ? "" : value.toString());
                 }
             }
             logSortedMap("Settings", sortedMap);
@@ -193,7 +193,7 @@ public class FeedbackEmail {
             String value = entry.getValue();
 
             logLine += FIELD_DELIMITER_LEVEL1 + key + FIELD_DELIMITER_LEVEL2
-                    + (value == null ? "" : value.toString());
+                    + (value == null ? "" : value);
         }
         writeLine(logLine + EOL_DELIMITER);
     }
@@ -265,7 +265,7 @@ public class FeedbackEmail {
         LayoutInflater li = LayoutInflater.from(mActivity);
         View view = li.inflate(R.layout.send_feedback_dialog, null);
 
-        TextView textView = (TextView) view
+        TextView textView = view
                 .findViewById(R.id.dialog_send_feedback_issues_link);
         textView.setText(Util.PROJECT_HOME + "issues.php");
 

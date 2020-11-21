@@ -136,12 +136,12 @@ public class GridCell {
                 // In case the grid is deactivated (for example when an unfinished
                 // puzzle is displayed in the archive, display the border as if the
                 // cage was not selected
-                return (mGrid != null && mGrid.isActive() ? mCagePainter
-                        .getBorderSelectedPaint() : mCagePainter.getBorderPaint());
+                return mGrid != null && mGrid.isActive() ? mCagePainter
+                        .getBorderSelectedPaint() : mCagePainter.getBorderPaint();
             case SELECTED__BAD_MATH:
-                return (mGrid != null && mGrid.isActive() ? mCagePainter
+                return mGrid != null && mGrid.isActive() ? mCagePainter
                         .getBorderSelectedBadMathPaint() : mCagePainter
-                        .getBorderBadMathPaint());
+                        .getBorderBadMathPaint();
         }
         return null;
     }
@@ -334,8 +334,8 @@ public class GridCell {
         borderPaint = getBorderPaint(mBorderTypeTop);
         if (borderPaint != null) {
             // Calculate offset and draw top border
-            float offset = (mRow == 0 ? (float) Math
-                    .floor((float) (0.5 * borderPaint.getStrokeWidth())) : 0);
+            float offset = mRow == 0 ? (float) Math
+                    .floor((float) (0.5 * borderPaint.getStrokeWidth())) : 0;
             canvas.drawLine(left - (cellOnLeftIsInSameCage ? offset : 0), top
                             + offset, right + (cellOnRightIsInSameCage ? offset : 0),
                     top + offset, borderPaint);
@@ -351,8 +351,8 @@ public class GridCell {
         float rightOffset = 0;
         if (borderPaint != null) {
             // Calculate offset and draw right border
-            float offset = (mColumn == mGrid.getGridSize() - 1 ? (float) Math
-                    .ceil((float) (0.5 * borderPaint.getStrokeWidth())) : 0);
+            float offset = mColumn == mGrid.getGridSize() - 1 ? (float) Math
+                    .ceil((float) (0.5 * borderPaint.getStrokeWidth())) : 0;
             canvas.drawLine(right - offset, top
                             - (cellAboveIsInSameCage ? offset : 0), right - offset,
                     bottom + (cellBelowIsInSameCage ? offset : 0), borderPaint);
@@ -374,8 +374,8 @@ public class GridCell {
         float bottomOffset = 0;
         if (borderPaint != null) {
             // Calculate offset and draw bottom border
-            float offset = (mRow == mGrid.getGridSize() - 1 ? (float) Math
-                    .ceil((float) (0.5 * borderPaint.getStrokeWidth())) : 0);
+            float offset = mRow == mGrid.getGridSize() - 1 ? (float) Math
+                    .ceil((float) (0.5 * borderPaint.getStrokeWidth())) : 0;
             canvas.drawLine(left - (cellOnLeftIsInSameCage ? offset : 0),
                     bottom - offset, right
                             + (cellOnRightIsInSameCage ? offset : 0), bottom
@@ -398,8 +398,8 @@ public class GridCell {
         borderPaint = getBorderPaint(mBorderTypeLeft);
         if (borderPaint != null) {
             // Calculate offset and draw left border
-            float offset = (mColumn == 0 ? (float) Math
-                    .floor((float) (0.5 * borderPaint.getStrokeWidth())) : 0);
+            float offset = mColumn == 0 ? (float) Math
+                    .floor((float) (0.5 * borderPaint.getStrokeWidth())) : 0;
             canvas.drawLine(left + offset, top
                             - (cellAboveIsInSameCage ? offset : 0), left + offset,
                     bottom + (cellBelowIsInSameCage ? offset : 0), borderPaint);
@@ -429,21 +429,21 @@ public class GridCell {
         for (int i = 1; i <= 4; i++) {
             switch (i) {
                 case 1:
-                    borderPaint = ((mDuplicateValueHighlight && mGrid
+                    borderPaint = (mDuplicateValueHighlight && mGrid
                             .hasPrefShowDupeDigits()) ? mCellPainter
-                            .getDuplicateBorderPaint() : null);
+                            .getDuplicateBorderPaint() : null;
                     break;
                 case 2:
-                    borderPaint = (mRevealed ? mCellPainter
-                            .getRevealedBorderPaint() : null);
+                    borderPaint = mRevealed ? mCellPainter
+                            .getRevealedBorderPaint() : null;
                     break;
                 case 3:
-                    borderPaint = (mInvalidUserValueHighlight ? mCellPainter
-                            .getInvalidBorderPaint() : null);
+                    borderPaint = mInvalidUserValueHighlight ? mCellPainter
+                            .getInvalidBorderPaint() : null;
                     break;
                 case 4:
-                    borderPaint = (mSelected && mGrid != null && mGrid.isActive() ? mCellPainter
-                            .getSelectedBorderPaint() : null);
+                    borderPaint = mSelected && mGrid != null && mGrid.isActive() ? mCellPainter
+                            .getSelectedBorderPaint() : null;
                     break;
             }
             if (borderPaint != null) {
@@ -506,9 +506,9 @@ public class GridCell {
                     .toString(inputMode == GridInputMode.NORMAL
                             && swipeDigit != 0 ? swipeDigit : mUserValue);
 
-            Paint paint = (inputMode == GridInputMode.NORMAL ? mUserValuePainter
+            Paint paint = inputMode == GridInputMode.NORMAL ? mUserValuePainter
                     .getTextPaintNormalInputMode() : mUserValuePainter
-                    .getTextPaintMaybeInputMode());
+                    .getTextPaintMaybeInputMode();
 
             // Calculate left offset to get the use value centered horizontally.
             int centerOffset = (int) ((cellSize - paint.measureText(userValue)) / 2);
@@ -560,9 +560,9 @@ public class GridCell {
                         .getDigitPositionGrid();
 
                 // Determine which painter to use
-                Paint paint = (inputMode == GridInputMode.NORMAL ? mMaybeGridPainter
+                Paint paint = inputMode == GridInputMode.NORMAL ? mMaybeGridPainter
                         .getTextPaintNormalInputMode() : mMaybeGridPainter
-                        .getTextPaintMaybeInputMode());
+                        .getTextPaintMaybeInputMode();
 
                 // Draw all possible which are currently set for this cell.
                 for (int i = 0; i < mPossibles.size(); i++) {
@@ -645,9 +645,9 @@ public class GridCell {
 
         // Get the painters for the overlay border
         // Determine which painter to use
-        Paint borderPaint = (inputMode == GridInputMode.NORMAL ? mSwipeBorderPainter
+        Paint borderPaint = inputMode == GridInputMode.NORMAL ? mSwipeBorderPainter
                 .getUserValueBackgroundBorderPaint() : mSwipeBorderPainter
-                .getMaybeValueBackgroundBorderPaint());
+                .getMaybeValueBackgroundBorderPaint();
         float borderOverlayWidth = borderPaint.getStrokeWidth();
         Paint segmentSeparatorPaint = mSwipeBorderPainter
                 .getSwipeSegmentDivider();
@@ -705,8 +705,8 @@ public class GridCell {
 
                 // Draw the text at the lower left corner
                 canvas.drawText(Integer.toString(i), offsetX, offsetY,
-                        (i == swipeDigit ? textHighlightedPaint
-                                : textNormalPaint));
+                        i == swipeDigit ? textHighlightedPaint
+                                : textNormalPaint);
             }
 
             // Draw separator lines between the segments of the swipe circle
@@ -727,8 +727,8 @@ public class GridCell {
 
         // Redraw the cell including the content which results as the swipe
         // motion is released at the current position.
-        draw(canvas, gridBorderWidth, inputMode, (swipeDigit >= 1
-                && swipeDigit <= gridSize ? swipeDigit : 0));
+        draw(canvas, gridBorderWidth, inputMode, swipeDigit >= 1
+                && swipeDigit <= gridSize ? swipeDigit : 0);
 
         // Draw a line from the middle of the selected cell to the current swipe
         // position to indicate which digit will be selected on release.
@@ -761,11 +761,11 @@ public class GridCell {
                     + SolvingAttemptDatabaseAdapter.FIELD_DELIMITER_LEVEL2;
         }
         storageString += SolvingAttemptDatabaseAdapter.FIELD_DELIMITER_LEVEL1
-                + Boolean.toString(mInvalidUserValueHighlight)
+                + mInvalidUserValueHighlight
                 + SolvingAttemptDatabaseAdapter.FIELD_DELIMITER_LEVEL1
-                + Boolean.toString(mRevealed)
+                + mRevealed
                 + SolvingAttemptDatabaseAdapter.FIELD_DELIMITER_LEVEL1
-                + Boolean.toString(mSelected);
+                + mSelected;
 
         return storageString;
     }
@@ -859,7 +859,7 @@ public class GridCell {
     }
 
     public GridCage getCage() {
-        return (mGrid == null ? null : mGrid.mCages.get(mCageId));
+        return mGrid == null ? null : mGrid.mCages.get(mCageId);
     }
 
     public void clearCage() {
@@ -920,7 +920,7 @@ public class GridCell {
      * cell. False otherwise.
      */
     public boolean hasPossible(int digit) {
-        return (this.mPossibles.indexOf(Integer.valueOf(digit)) >= 0);
+        return this.mPossibles.indexOf(Integer.valueOf(digit)) >= 0;
     }
 
     /**
@@ -961,7 +961,7 @@ public class GridCell {
             return false;
         }
 
-        return (mGrid.getCageForSelectedCell().mId == mCageId);
+        return mGrid.getCageForSelectedCell().mId == mCageId;
     }
 
     /**
@@ -974,10 +974,7 @@ public class GridCell {
      */
     public boolean isInSameCageAsCell(int row, int column) {
         GridCell cell = this.mGrid.getCellAt(row, column);
-        if (cell != null && cell.getCageId() == this.mCageId) {
-            return true;
-        }
-        return false;
+        return cell != null && cell.getCageId() == this.mCageId;
     }
 
     /**
@@ -1113,7 +1110,7 @@ public class GridCell {
      * @return True in case the cell is empty. False otherwise.
      */
     public boolean isEmpty() {
-        return (mUserValue == 0 && mPossibles.size() == 0);
+        return mUserValue == 0 && mPossibles.size() == 0;
     }
 
     /**
@@ -1153,7 +1150,7 @@ public class GridCell {
         return mRevealed;
     }
 
-    public static enum BorderType {
+    public enum BorderType {
         NONE, SELECTED__BAD_MATH, SELECTED__GOOD_MATH, NOT_SELECTED__BAD_MATH, NOT_SELECTED__GOOD_MATH
     }
 }

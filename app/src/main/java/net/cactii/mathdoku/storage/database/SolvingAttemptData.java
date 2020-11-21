@@ -14,8 +14,8 @@ public class SolvingAttemptData extends SolvingAttempt {
      * @param data The data string to be set.
      */
     public void setData(String data) {
-        mData = (data == null ? null : data
-                .split(SolvingAttemptDatabaseAdapter.EOL_DELIMITER));
+        mData = data == null ? null : data
+                .split(SolvingAttemptDatabaseAdapter.EOL_DELIMITER);
         mDataIndex = -1;
     }
 

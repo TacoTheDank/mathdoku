@@ -180,7 +180,7 @@ public abstract class DatabaseAdapter {
      * SQLite.
      */
     public static String toSQLiteBoolean(boolean value) {
-        return (value ? SQLITE_TRUE : SQLITE_FALSE);
+        return value ? SQLITE_TRUE : SQLITE_FALSE;
     }
 
     /**
@@ -353,7 +353,7 @@ public abstract class DatabaseAdapter {
         boolean tableDefinitionChanged = false;
 
         final String KEY_SQL = "sql";
-        String columns[] = {KEY_SQL};
+        String[] columns = {KEY_SQL};
 
         Cursor cursor = mSqliteDatabase.query(true, "sqlite_master", columns,
                 "name = " + stringBetweenQuotes(getTableName())

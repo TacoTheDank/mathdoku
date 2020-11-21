@@ -27,7 +27,7 @@ public class ArchiveFragmentStatePagerAdapter extends FragmentStatePagerAdapter 
     public static final int INVALID_POSITION_ID = -2;
     // Label used in the pager strip
     private static String mLabelPuzzleNumber;
-    private ArchiveFragmentActivity mArchiveFragmentActivity;
+    private final ArchiveFragmentActivity mArchiveFragmentActivity;
     // The list of grids which can be shown with the adapter. Per grid the
     // latest solving attempt is also retrieved.
     private int[][] mGridIds;
@@ -72,7 +72,7 @@ public class ArchiveFragmentStatePagerAdapter extends FragmentStatePagerAdapter 
 
     @Override
     public int getCount() {
-        return (mGridIds == null ? 0 : mGridIds.length);
+        return mGridIds == null ? 0 : mGridIds.length;
     }
 
     @Override

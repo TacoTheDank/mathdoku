@@ -175,7 +175,7 @@ public class GridCage {
         for (GridCell cell : this.mCells) {
             total += cell.getUserValue();
         }
-        return (total == this.mResult);
+        return total == this.mResult;
     }
 
     public boolean isMultiplyMathsCorrect() {
@@ -183,7 +183,7 @@ public class GridCage {
         for (GridCell cell : this.mCells) {
             total *= cell.getUserValue();
         }
-        return (total == this.mResult);
+        return total == this.mResult;
     }
 
     public boolean isDivideMathsCorrect() {
@@ -235,12 +235,8 @@ public class GridCage {
 
         if (allCellsFilledIn && mCells.size() > 1) {
             if (this.mHideOperator) {
-                if (isAddMathsCorrect() || isMultiplyMathsCorrect()
-                        || isDivideMathsCorrect() || isSubtractMathsCorrect()) {
-                    mUserMathCorrect = true;
-                } else {
-                    mUserMathCorrect = false;
-                }
+                mUserMathCorrect = isAddMathsCorrect() || isMultiplyMathsCorrect()
+                        || isDivideMathsCorrect() || isSubtractMathsCorrect();
             } else {
                 switch (this.mAction) {
                     case ACTION_ADD:
@@ -295,16 +291,12 @@ public class GridCage {
         }
 
         if (this.mHideOperator) {
-            if (isAddMathsCorrect() || isMultiplyMathsCorrect()
-                    || isDivideMathsCorrect() || isSubtractMathsCorrect()) {
-                // At least one of the operators has a correct result with
-                // current cell values
-                return false;
-            } else {
-                // None of the operators has a correct result with current cell
-                // values
-                return true;
-            }
+            // At least one of the operators has a correct result with
+            // current cell values
+            // None of the operators has a correct result with current cell
+            // values
+            return !isAddMathsCorrect() && !isMultiplyMathsCorrect()
+                    && !isDivideMathsCorrect() && !isSubtractMathsCorrect();
         } else {
             switch (this.mAction) {
                 case ACTION_ADD:
@@ -342,7 +334,7 @@ public class GridCage {
 
         // Single cell cages can only contain the value of the single cell.
         if (mCells.size() == 1) {
-            int number[] = {mResult};
+            int[] number = {mResult};
             AllResults.add(number);
             return AllResults;
         }
@@ -355,7 +347,7 @@ public class GridCage {
                     if (i2 - i1 == mResult || i1 - i2 == mResult
                             || mResult * i1 == i2 || mResult * i2 == i1
                             || i1 + i2 == mResult || i1 * i2 == mResult) {
-                        int numbers[] = {i1, i2};
+                        int[] numbers = {i1, i2};
                         AllResults.add(numbers);
                         numbers = new int[]{i2, i1};
                         AllResults.add(numbers);
@@ -400,27 +392,27 @@ public class GridCage {
 
         switch (this.mAction) {
             case ACTION_NONE:
-                assert (mCells.size() == 1);
-                int number[] = {mResult};
+                assert mCells.size() == 1;
+                int[] number = {mResult};
                 AllResults.add(number);
                 break;
             case ACTION_SUBTRACT:
-                assert (mCells.size() == 2);
+                assert mCells.size() == 2;
                 for (int i1 = 1; i1 <= gridSize; i1++)
                     for (int i2 = i1 + 1; i2 <= gridSize; i2++)
                         if (i2 - i1 == mResult || i1 - i2 == mResult) {
-                            int numbers[] = {i1, i2};
+                            int[] numbers = {i1, i2};
                             AllResults.add(numbers);
                             numbers = new int[]{i2, i1};
                             AllResults.add(numbers);
                         }
                 break;
             case ACTION_DIVIDE:
-                assert (mCells.size() == 2);
+                assert mCells.size() == 2;
                 for (int i1 = 1; i1 <= gridSize; i1++)
                     for (int i2 = i1 + 1; i2 <= gridSize; i2++)
                         if (mResult * i1 == i2 || mResult * i2 == i1) {
-                            int numbers[] = {i1, i2};
+                            int[] numbers = {i1, i2};
                             AllResults.add(numbers);
                             numbers = new int[]{i2, i1};
                             AllResults.add(numbers);
@@ -521,7 +513,7 @@ public class GridCage {
 
         int gridSize = mGrid.getGridSize();
 
-        boolean constraints[] = new boolean[gridSize * gridSize * 2];
+        boolean[] constraints = new boolean[gridSize * gridSize * 2];
         int constraint_num;
         for (int i = 0; i < this.mCells.size(); i++) {
             constraint_num = gridSize * (test_nums[i] - 1)
@@ -559,7 +551,7 @@ public class GridCage {
                     + SolvingAttemptDatabaseAdapter.FIELD_DELIMITER_LEVEL2;
         }
         storageString += SolvingAttemptDatabaseAdapter.FIELD_DELIMITER_LEVEL1
-                + Boolean.toString(isOperatorHidden());
+                + isOperatorHidden();
 
         return storageString;
     }

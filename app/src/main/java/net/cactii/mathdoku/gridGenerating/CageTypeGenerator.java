@@ -31,10 +31,9 @@ public class CageTypeGenerator {
 
     // Singleton reference for the cage type generator.
     private static CageTypeGenerator mCageTypeGeneratorSingletonInstance = null;
-
+    private final ArrayList<GridCageType>[] mCageTypes;
     // All available cage types.
     private GridCageType mSingleCellCageType;
-    private ArrayList<GridCageType>[] mCageTypes;
 
     /**
      * Creates a new instance of {@link CageTypeGenerator} containing cage types
@@ -50,7 +49,7 @@ public class CageTypeGenerator {
         }
 
         // Start with a cage consisting of a single cell.
-        boolean singleCageTypeMatrix[][] = new boolean[1][1];
+        boolean[][] singleCageTypeMatrix = new boolean[1][1];
         singleCageTypeMatrix[0][0] = true;
         if (addCageTypeIfNotExists(singleCageTypeMatrix)) {
             mSingleCellCageType = mCageTypes[0].get(0);
@@ -63,7 +62,7 @@ public class CageTypeGenerator {
                 // Add a cell to each existing cage type having just one cell
                 // less than size of the grid type that we need to be create
                 // now.
-                boolean newCageTypeMatrix[][] = cageType
+                boolean[][] newCageTypeMatrix = cageType
                         .getExtendedCageTypeMatrix();
                 for (int row = 0; row < newCageTypeMatrix.length; row++) {
                     for (int col = 0; col < newCageTypeMatrix[row].length; col++) {
@@ -207,8 +206,8 @@ public class CageTypeGenerator {
      */
     public int size(int maxCageSize) {
         int totalCageTypes = 0;
-        maxCageSize = (maxCageSize > MAX_CAGE_SIZE ? MAX_CAGE_SIZE
-                : maxCageSize);
+        maxCageSize = maxCageSize > MAX_CAGE_SIZE ? MAX_CAGE_SIZE
+                : maxCageSize;
         for (int i = 0; i < maxCageSize; i++) {
             totalCageTypes += mCageTypes[i].size();
         }
@@ -229,9 +228,9 @@ public class CageTypeGenerator {
      */
     public GridCageType getRandomCageType(int cellsUsed, int maxWidth,
                                           int maxHeight, Random random) {
-        assert (cellsUsed > 0);
-        assert (maxWidth >= 0);
-        assert (maxHeight >= 0);
+        assert cellsUsed > 0;
+        assert maxWidth >= 0;
+        assert maxHeight >= 0;
         if (maxWidth > 0 && maxHeight > 0 && maxWidth * maxHeight < cellsUsed) {
             // No such grid cage type can exist as more cells are requested than
             // the maximum space can contain.
@@ -239,9 +238,9 @@ public class CageTypeGenerator {
         }
 
         // Determine which cageTypeArray to use
-        ArrayList<GridCageType> gridCageTypes = (cellsUsed - 1 < mCageTypes.length ? mCageTypes[cellsUsed - 1]
-                : mCageTypes[mCageTypes.length - 1]);
-        assert (gridCageTypes != null);
+        ArrayList<GridCageType> gridCageTypes = cellsUsed - 1 < mCageTypes.length ? mCageTypes[cellsUsed - 1]
+                : mCageTypes[mCageTypes.length - 1];
+        assert gridCageTypes != null;
 
         // Choose a random cage type in the array which fits within the given
         // maximum dimensions
@@ -282,7 +281,7 @@ public class CageTypeGenerator {
      */
     private GridCageType deriveNewCageType(GridCageType cageType,
                                            int extendWithCells, int maxWidth, int maxHeight, Random random) {
-        boolean newCageTypeMatrix[][] = cageType.getExtendedCageTypeMatrix();
+        boolean[][] newCageTypeMatrix = cageType.getExtendedCageTypeMatrix();
 
         // Determine which used cells can be extended.
         int numberOfCellsPerRow = newCageTypeMatrix[0].length;
@@ -321,7 +320,7 @@ public class CageTypeGenerator {
                         // Check to right
                         if (!newCageTypeMatrix[row][col + 1]) {
                             int cellnumber = (row * numberOfCellsPerRow)
-                                    + (col + 1);
+                                    + col + 1;
                             if (!extendIndexes.contains(cellnumber)) {
                                 extendIndexes.add(cellnumber);
                             }

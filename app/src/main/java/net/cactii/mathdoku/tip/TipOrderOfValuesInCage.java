@@ -8,8 +8,8 @@ import net.cactii.mathdoku.grid.GridCage;
 
 public class TipOrderOfValuesInCage extends TipDialog {
 
+    private static final TipPriority TIP_PRIORITY = TipPriority.LOW;
     public static String TIP_NAME = "Tip.OrderOfValuesInCage.DisplayAgain";
-    private static TipPriority TIP_PRIORITY = TipPriority.LOW;
 
     /**
      * Creates a new tip dialog which explains that the order of values in the

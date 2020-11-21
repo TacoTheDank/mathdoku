@@ -160,7 +160,7 @@ public class MathDokuDLX extends DLX {
             }
         } else {
             initialize(false);
-            return (Solve(SolveType.MULTIPLE) == 1);
+            return Solve(SolveType.MULTIPLE) == 1;
         }
     }
 
@@ -328,7 +328,7 @@ public class MathDokuDLX extends DLX {
                     }
                 }
                 if (DEBUG_DLX) {
-                    Log.i(TAG, "*********** MOVE " + (moveCount++)
+                    Log.i(TAG, "*********** MOVE " + moveCount++
                             + " ***********");
                     for (int row = 0; row < this.mGridSize; row++) {
                         String line = "";

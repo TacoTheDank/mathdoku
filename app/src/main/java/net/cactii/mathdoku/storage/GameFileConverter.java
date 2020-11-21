@@ -38,16 +38,16 @@ public class GameFileConverter extends AsyncTask<Void, Void, Void> {
     @SuppressLint("SdCardPath")
     private static final String PATH_USAGE_LOGS = "/data/data/net.cactii.mathdoku/files/";
     private static final String USAGE_LOG_PREFIX = "usage_log_r";
+    // Last used revision number
+    private final int mCurrentVersion;
+    // New revision number
+    private final int mNewVersion;
     // Solving attempts to be converted
     ArrayList<Integer> solvingAttemptIds;
     // Database adapter for the statistics
     StatisticsDatabaseAdapter mStatisticsDatabaseAdapter;
     // The activity which started this task
     private PuzzleFragmentActivity mActivity;
-    // Last used revision number
-    private int mCurrentVersion;
-    // New revision number
-    private int mNewVersion;
     private String[] mGameFilesToBeDeleted;
     private String[] mUsageLogFilesToBeDeleted;
     // The dialog for this task
@@ -101,13 +101,13 @@ public class GameFileConverter extends AsyncTask<Void, Void, Void> {
         // Determine how much (old) game files and preview files have to be
         // deleted.
         mGameFilesToBeDeleted = getGameFilesToBeDeleted();
-        maxProgressCounter += (mGameFilesToBeDeleted == null ? 0
-                : mGameFilesToBeDeleted.length);
+        maxProgressCounter += mGameFilesToBeDeleted == null ? 0
+                : mGameFilesToBeDeleted.length;
 
         // Determine how much usage log files have to be deleted.
         mUsageLogFilesToBeDeleted = getUsageLogFilesToBeDeleted();
-        maxProgressCounter += (mUsageLogFilesToBeDeleted == null ? 0
-                : mUsageLogFilesToBeDeleted.length);
+        maxProgressCounter += mUsageLogFilesToBeDeleted == null ? 0
+                : mUsageLogFilesToBeDeleted.length;
 
         // Determine how many solving attempts in the database have to be
         // converted.
@@ -125,8 +125,8 @@ public class GameFileConverter extends AsyncTask<Void, Void, Void> {
                     .setMessage(mActivity
                             .getResources()
                             .getString(
-                                    (mCurrentVersion < 369 ? R.string.dialog_converting_cleanup_v1_message
-                                            : R.string.dialog_converting_saved_games_message)));
+                                    mCurrentVersion < 369 ? R.string.dialog_converting_cleanup_v1_message
+                                            : R.string.dialog_converting_saved_games_message));
             mProgressDialog.setIcon(android.R.drawable.ic_dialog_info);
             mProgressDialog.setIndeterminate(false);
             mProgressDialog.setCancelable(false);
@@ -264,7 +264,7 @@ public class GameFileConverter extends AsyncTask<Void, Void, Void> {
             }
         };
         File dir = new File(path);
-        return (dir == null ? null : dir.list(filter));
+        return dir == null ? null : dir.list(filter);
     }
 
     /**
@@ -278,14 +278,10 @@ public class GameFileConverter extends AsyncTask<Void, Void, Void> {
         FilenameFilter filter = new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                if (name.startsWith(USAGE_LOG_PREFIX)) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return name.startsWith(USAGE_LOG_PREFIX);
             }
         };
         File dir = new File(path);
-        return (dir == null ? null : dir.list(filter));
+        return dir == null ? null : dir.list(filter);
     }
 }

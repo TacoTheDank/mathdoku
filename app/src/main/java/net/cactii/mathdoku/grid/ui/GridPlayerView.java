@@ -393,16 +393,16 @@ public class GridPlayerView extends GridViewerView implements OnTouchListener {
         // Get information about position of the cell in the grid.
         int gridSize = mGrid.getGridSize();
         GridCell selectedCell = mGrid.getSelectedCell();
-        boolean isTopRow = (selectedCell.getRow() == 0);
-        boolean isBottomRow = (selectedCell.getRow() == gridSize - 1);
-        boolean isLeftColumn = (selectedCell.getColumn() == 0);
-        boolean isRightColumn = (selectedCell.getColumn() == gridSize - 1);
+        boolean isTopRow = selectedCell.getRow() == 0;
+        boolean isBottomRow = selectedCell.getRow() == gridSize - 1;
+        boolean isLeftColumn = selectedCell.getColumn() == 0;
+        boolean isRightColumn = selectedCell.getColumn() == gridSize - 1;
 
         // In case the digit is on an outer row or column of the grid an
         // additional hint has to be shown.
         if (isTopRow || isBottomRow || isLeftColumn || isRightColumn) {
             // List for all digits which can not be shown.
-            boolean digitNotVisible[] = {false, false, false, false, false,
+            boolean[] digitNotVisible = {false, false, false, false, false,
                     false, false, false, false, false, false, false};
 
             // Determine invisible digits in case the selected cell is in the
@@ -471,9 +471,9 @@ public class GridPlayerView extends GridViewerView implements OnTouchListener {
                                     .getString(
                                             R.string.connector_last_two_elements,
                                             digits) + " "
-                                    + Integer.toString(i);
+                                    + i;
                         } else {
-                            digits += ", " + Integer.toString(i);
+                            digits += ", " + i;
                         }
                     }
                 }
@@ -495,8 +495,8 @@ public class GridPlayerView extends GridViewerView implements OnTouchListener {
      * Toggle the input mode to the other mode
      */
     public void toggleInputMode() {
-        mInputMode = (mInputMode == GridInputMode.NORMAL ? GridInputMode.MAYBE
-                : GridInputMode.NORMAL);
+        mInputMode = mInputMode == GridInputMode.NORMAL ? GridInputMode.MAYBE
+                : GridInputMode.NORMAL;
         invalidate();
 
         // Inform listeners about change in input mode
@@ -536,7 +536,7 @@ public class GridPlayerView extends GridViewerView implements OnTouchListener {
     }
 
     public interface OnInputModeChangedListener {
-        public abstract void onInputModeChanged(GridInputMode inputMode);
+        void onInputModeChanged(GridInputMode inputMode);
     }
 
     public abstract class OnGridTouchListener {

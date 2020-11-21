@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import net.cactii.mathdoku.R;
 import net.cactii.mathdoku.grid.Grid;
@@ -68,7 +67,7 @@ public class SharedPuzzleActivity extends AppFragmentActivity {
         Painter.getInstance().setTheme(mMathDokuPreferences.getTheme());
 
         // set color
-        ((Button) findViewById(R.id.shared_puzzle_play_button))
+        findViewById(R.id.shared_puzzle_play_button)
                 .setBackgroundColor(Painter.getInstance()
                         .getButtonBackgroundColor());
 
@@ -77,7 +76,7 @@ public class SharedPuzzleActivity extends AppFragmentActivity {
                 .loadNewGrid(mGrid);
 
         // Display the difficulty rating.
-        final VerticalRatingBar puzzleParameterDifficultyRatingBar = (VerticalRatingBar) findViewById(R.id.puzzleParameterDifficultyRatingBar);
+        final VerticalRatingBar puzzleParameterDifficultyRatingBar = findViewById(R.id.puzzleParameterDifficultyRatingBar);
         puzzleParameterDifficultyRatingBar.setEnabled(false);
         switch (mGrid.getPuzzleComplexity()) {
             case VERY_EASY:

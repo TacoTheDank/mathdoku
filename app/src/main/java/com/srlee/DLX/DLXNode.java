@@ -1,8 +1,8 @@
 package com.srlee.DLX;
 
 public class DLXNode extends LL2DNode {
-    private DLXColumn C; // Pointer to Column Header
-    private int RowIdx; // Index to row
+    private final DLXColumn C; // Pointer to Column Header
+    private final int RowIdx; // Index to row
 
     public DLXNode(DLXColumn col, int ri) {
         RowIdx = ri;

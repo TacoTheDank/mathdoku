@@ -8,26 +8,24 @@ import net.cactii.mathdoku.developmentHelper.DevelopmentHelper.Mode;
 
 public class Cheat {
 
+    private final Resources mResources;
+    // The type of cheat
+    private final CheatType mCheatType;
+    // The penalty consists of a base penalty and an optionally a penalty per
+    // occurrence of a certain condition relevant for the cheat.
+    private final int mConditionalOccurrences;
+    // Penalty time in mili seconds
+    private final long mPenaltyTimeMilisBase;
+    private final long mPenaltyTimeMilisPerOccurrence;
     // Constants to convert milisecond to calendar units
     long MILIS_PER_DAY = 24 * 60 * 60 * 1000;
-
-    ;
     long MILIS_PER_HOUR = 60 * 60 * 1000;
     long MILIS_PER_MINUTE = 60 * 1000;
     long MILIS_PER_SECOND = 1000;
-    private Resources mResources;
-    // The type of cheat
-    private CheatType mCheatType;
     // The name of the cheat. This is used to build the name of the
     // tip-preference associated with this cheat. Do not alter without
     // converting the preferences as well.
     private String mName;
-    // The penalty consists of a base penalty and an optionally a penalty per
-    // occurrence of a certain condition relevant for the cheat.
-    private int mConditionalOccurrences;
-    // Penalty time in mili seconds
-    private long mPenaltyTimeMilisBase;
-    private long mPenaltyTimeMilisPerOccurrence;
     // Title and text to be used in tip dialogs.
     private String mTipTitle;
     private String mTipText;
@@ -185,7 +183,7 @@ public class Cheat {
         // Determine number of days
         long days = penaltyTime / MILIS_PER_DAY;
         if (days > 1) {
-            penaltyTimeText = Long.toString(days) + " "
+            penaltyTimeText = days + " "
                     + mResources.getString(R.string.time_unit_days_plural);
         } else if (days == 1) {
             penaltyTimeText = "1 "
@@ -193,7 +191,7 @@ public class Cheat {
         } else {
             penaltyTimeText = "";
         }
-        penaltyTime -= (days * MILIS_PER_DAY);
+        penaltyTime -= days * MILIS_PER_DAY;
 
         if (penaltyTime > 0) {
             // Determine number of hours
@@ -209,7 +207,7 @@ public class Cheat {
             } else {
                 penaltyTimeText += "";
             }
-            penaltyTime -= (hours * MILIS_PER_HOUR);
+            penaltyTime -= hours * MILIS_PER_HOUR;
 
             // Determine number of minutes
             if (penaltyTime > 0) {
@@ -228,7 +226,7 @@ public class Cheat {
                 } else {
                     penaltyTimeText += "";
                 }
-                penaltyTime -= (minutes * MILIS_PER_MINUTE);
+                penaltyTime -= minutes * MILIS_PER_MINUTE;
 
                 // Determine number of seconds
                 if (penaltyTime > 0) {

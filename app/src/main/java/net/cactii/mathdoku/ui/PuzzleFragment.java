@@ -136,38 +136,38 @@ public class PuzzleFragment extends Fragment implements
         mMathDokuPreferences.mSharedPreferences
                 .registerOnSharedPreferenceChangeListener(this);
 
-        mPuzzleGridLayout = (RelativeLayout) mRootView
+        mPuzzleGridLayout = mRootView
                 .findViewById(R.id.puzzleGrid);
-        mGridPlayerView = (GridPlayerView) mRootView
+        mGridPlayerView = mRootView
                 .findViewById(R.id.grid_player_view);
-        mTimerText = (TextView) mRootView.findViewById(R.id.timerText);
+        mTimerText = mRootView.findViewById(R.id.timerText);
 
-        mButtonsLayout = (LinearLayout) mRootView.findViewById(R.id.digitButtons);
-        mDigit1 = (Button) mRootView.findViewById(R.id.digit1);
-        mDigit2 = (Button) mRootView.findViewById(R.id.digit2);
-        mDigit3 = (Button) mRootView.findViewById(R.id.digit3);
-        mDigit4 = (Button) mRootView.findViewById(R.id.digit4);
-        mDigit5 = (Button) mRootView.findViewById(R.id.digit5);
-        mDigit6 = (Button) mRootView.findViewById(R.id.digit6);
-        mDigit7 = (Button) mRootView.findViewById(R.id.digit7);
-        mDigit8 = (Button) mRootView.findViewById(R.id.digit8);
-        mDigit9 = (Button) mRootView.findViewById(R.id.digit9);
-        mDigitC = (ImageButton) mRootView.findViewById(R.id.digitC);
-        mDigitM = (ImageButton) mRootView.findViewById(R.id.digitM);
-        mDigitU = (ImageButton) mRootView.findViewById(R.id.digitU);
+        mButtonsLayout = mRootView.findViewById(R.id.digitButtons);
+        mDigit1 = mRootView.findViewById(R.id.digit1);
+        mDigit2 = mRootView.findViewById(R.id.digit2);
+        mDigit3 = mRootView.findViewById(R.id.digit3);
+        mDigit4 = mRootView.findViewById(R.id.digit4);
+        mDigit5 = mRootView.findViewById(R.id.digit5);
+        mDigit6 = mRootView.findViewById(R.id.digit6);
+        mDigit7 = mRootView.findViewById(R.id.digit7);
+        mDigit8 = mRootView.findViewById(R.id.digit8);
+        mDigit9 = mRootView.findViewById(R.id.digit9);
+        mDigitC = mRootView.findViewById(R.id.digitC);
+        mDigitM = mRootView.findViewById(R.id.digitM);
+        mDigitU = mRootView.findViewById(R.id.digitU);
         for (View button : allButtons(false)) {
             button.setBackgroundColor(mPainter.getButtonBackgroundColor());
         }
 
-        mClearButton = (Button) mRootView.findViewById(R.id.clearButton);
+        mClearButton = mRootView.findViewById(R.id.clearButton);
         mClearButton.setBackgroundColor(mPainter.getButtonBackgroundColor());
 
-        mUndoButton = (Button) mRootView.findViewById(R.id.undoButton);
+        mUndoButton = mRootView.findViewById(R.id.undoButton);
         mUndoButton.setBackgroundColor(mPainter.getButtonBackgroundColor());
 
-        mClearUndo = (LinearLayout) mRootView.findViewById(R.id.clearUndo);
+        mClearUndo = mRootView.findViewById(R.id.clearUndo);
 
-        mTickerTape = (TickerTape) mRootView.findViewById(R.id.tickerTape);
+        mTickerTape = mRootView.findViewById(R.id.tickerTape);
         mGridPlayerView.setTickerTape(mTickerTape);
 
         mSoundEffectViews = new View[]{mGridPlayerView, mClearButton,
@@ -305,9 +305,9 @@ public class PuzzleFragment extends Fragment implements
         mGridPlayerView.setFocusableInTouchMode(true);
 
         // Initialize the input mode
-        mInputModeImageView = (ImageView) mRootView
+        mInputModeImageView = mRootView
                 .findViewById(R.id.input_mode_image);
-        mInputModeText = (TextView) mRootView
+        mInputModeText = mRootView
                 .findViewById(R.id.input_mode_text);
         setInputModeTextVisibility();
         mInputModeText.setOnClickListener(new OnClickListener() {
@@ -447,7 +447,7 @@ public class PuzzleFragment extends Fragment implements
      * otherwise.
      */
     protected boolean showClearGrid() {
-        return (mGrid != null && mGrid.isActive() && mGrid.isEmpty(true) == false);
+        return mGrid != null && mGrid.isActive() && mGrid.isEmpty(true) == false;
     }
 
     /**
@@ -516,7 +516,7 @@ public class PuzzleFragment extends Fragment implements
                     setInactiveGridLoaded();
 
                     // Set the text view which will be animated
-                    final TextView textView = (TextView) mRootView
+                    final TextView textView = mRootView
                             .findViewById(R.id.solvedText);
                     textView.setText(R.string.main_ui_solved_messsage);
                     textView.setTextColor(Painter.getInstance()
@@ -580,8 +580,8 @@ public class PuzzleFragment extends Fragment implements
                 }
                 startTimer();
 
-                setClearAndUndoButtonVisibility((mGrid == null ? null : mGrid
-                        .getSelectedCell()));
+                setClearAndUndoButtonVisibility(mGrid == null ? null : mGrid
+                        .getSelectedCell());
 
                 setDigitButtons();
 
@@ -676,7 +676,6 @@ public class PuzzleFragment extends Fragment implements
             for (View button : allButtons(true)) {
                 Button tb = (Button) button;
                 tb.setTextColor(mPainter.getDigitFgColor());
-                ;
             }
             if (mDigitM != null) {
                 mDigitM.setColorFilter(0x00000000);
@@ -685,7 +684,6 @@ public class PuzzleFragment extends Fragment implements
             for (View button : allButtons(true)) {
                 Button tb = (Button) button;
                 tb.setTextColor(mPainter.getDigitFgMaybeColor());
-                ;
             }
             if (mDigitM != null) {
                 mDigitM.setColorFilter(0xaaffc000);
@@ -756,7 +754,7 @@ public class PuzzleFragment extends Fragment implements
      * @return
      */
     protected boolean showRevealCell() {
-        return (mGrid != null && mGrid.isActive() && mGrid.getSelectedCell() != null);
+        return mGrid != null && mGrid.isActive() && mGrid.getSelectedCell() != null;
     }
 
     /**
@@ -811,7 +809,7 @@ public class PuzzleFragment extends Fragment implements
 
         // Determine current selected cage.
         GridCage selectedGridCage = mGrid.getCageForSelectedCell();
-        return (selectedGridCage != null && selectedGridCage.isOperatorHidden());
+        return selectedGridCage != null && selectedGridCage.isOperatorHidden();
     }
 
     /**
@@ -865,7 +863,7 @@ public class PuzzleFragment extends Fragment implements
      * @return
      */
     protected boolean showCheckProgress() {
-        return (mGrid != null && mGrid.isActive() && !mGrid.isEmpty(false));
+        return mGrid != null && mGrid.isActive() && !mGrid.isEmpty(false);
     }
 
     /**
@@ -877,8 +875,8 @@ public class PuzzleFragment extends Fragment implements
         }
 
         boolean allUserValuesValid = mGrid.isSolutionValidSoFar();
-        int countNewInvalidChoices = (allUserValuesValid ? 0 : mGridPlayerView
-                .markInvalidChoices());
+        int countNewInvalidChoices = allUserValuesValid ? 0 : mGridPlayerView
+                .markInvalidChoices();
 
         // Create new cheat
         Cheat cheat = new Cheat(this.getActivity(),
@@ -988,7 +986,7 @@ public class PuzzleFragment extends Fragment implements
     }
 
     public boolean isActive() {
-        return (mGrid != null && mGrid.isActive());
+        return mGrid != null && mGrid.isActive();
     }
 
     public void prepareLoadNewGame() {
@@ -1008,7 +1006,7 @@ public class PuzzleFragment extends Fragment implements
      * otherwise.
      */
     protected boolean showRevealSolution() {
-        return (mGrid != null && mGrid.isActive());
+        return mGrid != null && mGrid.isActive();
     }
 
     /**
@@ -1088,7 +1086,6 @@ public class PuzzleFragment extends Fragment implements
                                                             }
                                                         }
 
-                                                        ;
                                                     }).show();
                                 } else {
                                     if (mGrid != null
@@ -1176,8 +1173,8 @@ public class PuzzleFragment extends Fragment implements
      * @return
      */
     protected boolean showInputModeNormal() {
-        return (mGrid != null && mGrid.isActive() && mGridPlayerView != null && mGridPlayerView
-                .getGridInputMode() == GridInputMode.MAYBE);
+        return mGrid != null && mGrid.isActive() && mGridPlayerView != null && mGridPlayerView
+                .getGridInputMode() == GridInputMode.MAYBE;
     }
 
     /**
@@ -1186,8 +1183,8 @@ public class PuzzleFragment extends Fragment implements
      * @return
      */
     protected boolean showInputModeMaybe() {
-        return (mGrid != null && mGrid.isActive() && mGridPlayerView != null && mGridPlayerView
-                .getGridInputMode() == GridInputMode.NORMAL);
+        return mGrid != null && mGrid.isActive() && mGridPlayerView != null && mGridPlayerView
+                .getGridInputMode() == GridInputMode.NORMAL;
     }
 
     @Override
@@ -1209,7 +1206,7 @@ public class PuzzleFragment extends Fragment implements
         }
         mInputModeText.invalidate();
         if (mGrid != null) {
-            mGrid.mMaybeMode = (inputMode == GridInputMode.MAYBE);
+            mGrid.mMaybeMode = inputMode == GridInputMode.MAYBE;
         }
     }
 
@@ -1231,9 +1228,9 @@ public class PuzzleFragment extends Fragment implements
         // Set the input mode image to the new value of the input mode
         if (mInputModeImageView != null && mPainter != null) {
             mInputModeImageView
-                    .setImageResource((inputMode == GridInputMode.NORMAL ? mPainter
+                    .setImageResource(inputMode == GridInputMode.NORMAL ? mPainter
                             .getNormalInputModeButton() : mPainter
-                            .getMaybeInputModeButton()));
+                            .getMaybeInputModeButton());
         }
     }
 
@@ -1291,6 +1288,6 @@ public class PuzzleFragment extends Fragment implements
 
     // Container Activity must implement these interfaces
     public interface OnGridFinishedListener {
-        public void onGridFinishedListener(int solvingAttemptId);
+        void onGridFinishedListener(int solvingAttemptId);
     }
 }

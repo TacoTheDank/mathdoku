@@ -37,7 +37,6 @@ public class TipDialog extends AlertDialog {
     // Priority of the tip relative to the other tip dialogs.
     private final TipPriority mPriority;
 
-    ;
     // Indicates whether this dialog should be displayed again.
     private final boolean mDisplayAgain;
     // Handler to be called when closing the dialog
@@ -149,7 +148,7 @@ public class TipDialog extends AlertDialog {
      * otherwise.
      */
     public static boolean isAvailable() {
-        return (mDisplayedDialog == null);
+        return mDisplayedDialog == null;
     }
 
     /**
@@ -196,11 +195,11 @@ public class TipDialog extends AlertDialog {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View tipView = inflater.inflate(R.layout.tip_dialog, null);
 
-        TextView textView = (TextView) tipView
+        TextView textView = tipView
                 .findViewById(R.id.dialog_tip_text);
         textView.setText(tipText);
 
-        ImageView imageView = (ImageView) tipView
+        ImageView imageView = tipView
                 .findViewById(R.id.dialog_tip_image);
         if (tipImage != null) {
             imageView.setImageDrawable(tipImage);
@@ -209,7 +208,7 @@ public class TipDialog extends AlertDialog {
             imageView.setVisibility(View.GONE);
         }
 
-        final CheckBox checkBoxView = (CheckBox) tipView
+        final CheckBox checkBoxView = tipView
                 .findViewById(R.id.dialog_tip_do_not_show_again);
 
         setIcon(R.drawable.help);
@@ -332,6 +331,6 @@ public class TipDialog extends AlertDialog {
     }
 
     public interface OnClickCloseListener {
-        public void onTipDialogClose();
+        void onTipDialogClose();
     }
 }

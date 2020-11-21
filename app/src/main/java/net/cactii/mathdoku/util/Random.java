@@ -320,7 +320,7 @@ public class Random implements java.io.Serializable {
      * @return the next pseudorandom float.
      */
     public float nextFloat() {
-        return next(24) / ((float) (1 << 24));
+        return next(24) / (float) (1 << 24);
     }
 
     /**

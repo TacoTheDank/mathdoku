@@ -78,8 +78,8 @@ public class MaybeValuePainter extends DigitPainter {
 
             // Compute the offsets at which the top left digit (1) will be
             // displayed within the cell if it is entered as a possible value.
-            mLeftOffset = (size - margin) - (cols * mMaybeDigitWidth);
-            mBottomOffset = (size - margin) - ((rows - 1) * mMaybeDigitHeight);
+            mLeftOffset = size - margin - (cols * mMaybeDigitWidth);
+            mBottomOffset = size - margin - ((rows - 1) * mMaybeDigitHeight);
         }
     }
 
@@ -123,7 +123,7 @@ public class MaybeValuePainter extends DigitPainter {
 
     @Override
     public Paint getTextPaintMaybeInputMode() {
-        return (mDigitPainterMode == DigitPainterMode.INPUT_MODE_BASED ? mTextPaintMaybeInputMode
-                : mTextPaintNormalInputMode);
+        return mDigitPainterMode == DigitPainterMode.INPUT_MODE_BASED ? mTextPaintMaybeInputMode
+                : mTextPaintNormalInputMode;
     }
 }

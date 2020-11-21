@@ -118,7 +118,7 @@ public class StatisticsBaseFragment extends Fragment {
         // Set title. The chart title of achartengine is not used.
         int titleHeightDIP = 0;
         if (title != null && title.isEmpty() == false) {
-            TextView textView = (TextView) sectionView
+            TextView textView = sectionView
                     .findViewById(R.id.statistics_section_title);
             if (textView != null) {
                 titleHeightDIP = textView.getPaddingTop()
@@ -131,7 +131,7 @@ public class StatisticsBaseFragment extends Fragment {
 
         // Add chart
         if (chart != null) {
-            LinearLayout linearLayout = (LinearLayout) sectionView
+            LinearLayout linearLayout = sectionView
                     .findViewById(R.id.statistics_section_chart);
             if (linearLayout != null) {
                 int paddingChartDIP = linearLayout.getPaddingTop()
@@ -150,8 +150,8 @@ public class StatisticsBaseFragment extends Fragment {
 
         // Add extra data
         if (extraDataView != null) {
-            LinearLayout linearLayout = ((LinearLayout) sectionView
-                    .findViewById(R.id.statistics_section_extra_data));
+            LinearLayout linearLayout = sectionView
+                    .findViewById(R.id.statistics_section_extra_data);
             if (linearLayout != null) {
                 linearLayout.setVisibility(View.VISIBLE);
                 linearLayout.addView(extraDataView);
@@ -161,7 +161,7 @@ public class StatisticsBaseFragment extends Fragment {
         // Add body text for explaining the chart
         if (explanation != null && explanation.isEmpty() == false
                 && mDisplayStatisticDescription) {
-            TextView textView = (TextView) sectionView
+            TextView textView = sectionView
                     .findViewById(R.id.statistics_section_explanation);
             if (textView != null) {
                 textView.setText(explanation);
@@ -258,7 +258,7 @@ public class StatisticsBaseFragment extends Fragment {
 
         // Subtract height (inclusive padding) of chart title and padding of the
         // chart itself
-        maxContentHeight -= (titleHeightPixels + paddingChartPixels);
+        maxContentHeight -= titleHeightPixels + paddingChartPixels;
 
         return maxContentHeight;
     }
@@ -279,8 +279,8 @@ public class StatisticsBaseFragment extends Fragment {
         // on the orientation of the device
         Configuration configuration = getActivity().getResources()
                 .getConfiguration();
-        float ratio = (configuration.orientation == Configuration.ORIENTATION_PORTRAIT ? (2f / 3f)
-                : (1f / 2f));
+        float ratio = configuration.orientation == Configuration.ORIENTATION_PORTRAIT ? (2f / 3f)
+                : (1f / 2f);
 
         // The actual height of the chart is preferrably equal to the ratio of
         // the width but it may never exceeds the maximum content height as the

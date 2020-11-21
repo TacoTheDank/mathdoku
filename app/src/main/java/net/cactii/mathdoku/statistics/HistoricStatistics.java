@@ -15,10 +15,8 @@ public class HistoricStatistics {
     public final static String DATA_COL_ID = "id";
     public final static String DATA_COL_ELAPSED_TIME_EXCLUDING_CHEAT_PENALTY = "elapsed_time_excluding_cheat_penalty";
 
-    ;
     public final static String DATA_COL_CHEAT_PENALTY = "cheat_penalty";
 
-    ;
     public final static String DATA_COL_SERIES = "serie";
     // Limit on XYSeries
     public final static int XYSERIES_NOT_LIMITED = -1;
@@ -269,8 +267,8 @@ public class HistoricStatistics {
 
         if (mSolvedSeriesSummary.getCount() > 0
                 || mUnfinishedSeriesSummary.getCount() > 0) {
-            return (Math.max(mSolvedSeriesSummary.getMaximum(),
-                    mUnfinishedSeriesSummary.getMaximum()) / scaleFactor);
+            return Math.max(mSolvedSeriesSummary.getMaximum(),
+                    mUnfinishedSeriesSummary.getMaximum()) / scaleFactor;
         } else {
             return mSolutionRevealedSeriesSummary.getMaximum() / scaleFactor;
         }
@@ -313,8 +311,8 @@ public class HistoricStatistics {
      * @return The slowest time in which a game was solved.
      */
     public long getSolvedSlowest() {
-        return (mSolvedSeriesSummary.getCount() > 0 ? mSolvedSeriesSummary
-                .getMaximum() : 0);
+        return mSolvedSeriesSummary.getCount() > 0 ? mSolvedSeriesSummary
+                .getMaximum() : 0;
     }
 
     /**
@@ -323,8 +321,8 @@ public class HistoricStatistics {
      * @return The fastest time in which a game was solved.
      */
     public long getSolvedFastest() {
-        return (mSolvedSeriesSummary.getCount() > 0 ? mSolvedSeriesSummary
-                .getMinimum() : 0);
+        return mSolvedSeriesSummary.getCount() > 0 ? mSolvedSeriesSummary
+                .getMinimum() : 0;
     }
 
     /**
@@ -333,8 +331,8 @@ public class HistoricStatistics {
      * @return The average time in which game have been solved.
      */
     public long getSolvedAverage() {
-        return (mSolvedSeriesSummary.getCount() > 0 ? mSolvedSeriesSummary
-                .getAverage() : 0);
+        return mSolvedSeriesSummary.getCount() > 0 ? mSolvedSeriesSummary
+                .getAverage() : 0;
     }
 
     /**
@@ -396,8 +394,8 @@ public class HistoricStatistics {
         public void addValue(DataPoint dataPoint) {
             long totalValue = dataPoint.mElapsedTimeExcludingCheatPenalty
                     + dataPoint.mCheatPenalty;
-            mMinValue = (totalValue < mMinValue ? totalValue : mMinValue);
-            mMaxValue = (totalValue > mMaxValue ? totalValue : mMaxValue);
+            mMinValue = totalValue < mMinValue ? totalValue : mMinValue;
+            mMaxValue = totalValue > mMaxValue ? totalValue : mMaxValue;
             mSumValue += totalValue;
             mCount++;
         }

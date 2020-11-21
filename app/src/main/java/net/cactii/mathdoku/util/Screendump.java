@@ -12,10 +12,9 @@ import java.io.IOException;
 public class Screendump extends Object {
     @SuppressWarnings("unused")
     private static final String TAG = "MathDoku.Screendump";
-
+    private final Context mContext;
     private boolean mSaved;
     private String mFilePath;
-    private Context mContext;
 
     /**
      * Creates a new instance of {@link Screendump}.
@@ -83,6 +82,6 @@ public class Screendump extends Object {
      * otherwise.
      */
     public String getFilePath() {
-        return (mSaved ? mFilePath : null);
+        return mSaved ? mFilePath : null;
     }
 }

@@ -44,9 +44,9 @@ public class SwipeMotion {
     private final float mGridCellSize;
     // Coordinates of the current coordinates (pixels) of the swipe.
     private final float[] mCurrentSwipePositionPixelCoordinates = {-1f, -1f};
+    private final Preferences mPrefs;
     // Status of the swipe motion
     private Status mStatus;
-
     // In case two consecutive touch downs on the same cell have been completed
     // within a small amount of time, this motion event might
     // Status of visibility of the swipe motion
@@ -69,7 +69,6 @@ public class SwipeMotion {
     // Event time at which the previous swipe position was advised to be updated
     private long mPreviousSwipePositionEventTime = -1l;
     private long mCurrentSwipePositionEventTime = -1l;
-    private Preferences mPrefs;
 
     /**
      * Creates a new instance of the {@see SwipeMotion}.
@@ -80,7 +79,7 @@ public class SwipeMotion {
                           float gridViewBorderWidth, float gridCellSize) {
         mGridPlayerView = gridPlayerView;
         Grid grid = mGridPlayerView.getGrid();
-        mGridSize = (grid == null ? 1 : grid.getGridSize());
+        mGridSize = grid == null ? 1 : grid.getGridSize();
 
         mGridPlayerViewBorderWidth = gridViewBorderWidth;
         mGridCellSize = gridCellSize;
@@ -163,9 +162,9 @@ public class SwipeMotion {
                         mTouchDownCellCoordinates[X_POS]);
             }
         }
-        mTouchDownCellCenterPixelCoordinates = (gridCell == null ? mTouchDownPixelCoordinates
+        mTouchDownCellCenterPixelCoordinates = gridCell == null ? mTouchDownPixelCoordinates
                 .clone() : gridCell
-                .getCellCentreCoordinates(mGridPlayerViewBorderWidth));
+                .getCellCentreCoordinates(mGridPlayerViewBorderWidth);
 
         // Determine whether a new double tap motion is started
         mDoubleTapDetected = false;
@@ -220,10 +219,10 @@ public class SwipeMotion {
      * @return True in case the coordinates match. False otherwise.
      */
     protected boolean equalsCoordinatesTouchDownCell(int[] coordinates) {
-        return (coordinates != null && mTouchDownCellCoordinates != null
+        return coordinates != null && mTouchDownCellCoordinates != null
                 && coordinates.length == 2
                 && mTouchDownCellCoordinates.length == 2
-                && coordinates[X_POS] == mTouchDownCellCoordinates[X_POS] && coordinates[Y_POS] == mTouchDownCellCoordinates[Y_POS]);
+                && coordinates[X_POS] == mTouchDownCellCoordinates[X_POS] && coordinates[Y_POS] == mTouchDownCellCoordinates[Y_POS];
     }
 
     /**
@@ -271,7 +270,7 @@ public class SwipeMotion {
      * False otherwise.
      */
     protected boolean isReleased() {
-        return (mStatus == Status.RELEASED);
+        return mStatus == Status.RELEASED;
     }
 
     /**
@@ -280,7 +279,7 @@ public class SwipeMotion {
      * @return True in case the motion has finished completely. False otherwise.
      */
     protected boolean isFinished() {
-        return (mStatus == Status.FINISHED);
+        return mStatus == Status.FINISHED;
     }
 
     /**
@@ -403,7 +402,7 @@ public class SwipeMotion {
         // the center of the touch down cell.
         double angle = Math.toDegrees(Math.atan2(deltaY, deltaX))
                 + (-1 * SWIPE_ANGLE_OFFSET_91);
-        int digit = (angle < 0 ? 9 : (int) (angle / SWIPE_SEGMENT_ANGLE) + 1);
+        int digit = angle < 0 ? 9 : (int) (angle / SWIPE_SEGMENT_ANGLE) + 1;
 
         if (DEBUG_SWIPE_MOTION) {
             Log.i(TAG, "getDigit");
@@ -428,7 +427,7 @@ public class SwipeMotion {
         }
 
         // Determine whether the digit should be accepted.
-        boolean acceptDigit = (inTouchDownCell ? false : true);
+        boolean acceptDigit = !inTouchDownCell;
         if (acceptDigit == false) {
             // Normally the digit is not accepted in case the swipe motion is
             // inside the touch down cell. In case a swipe motion is started and
@@ -448,7 +447,7 @@ public class SwipeMotion {
             // buttons are shown to the right of the grid view.
             switch (digit) {
                 case 1:
-                    acceptDigit = (mCurrentSwipePositionCellCoordinates[X_POS] == 0);
+                    acceptDigit = mCurrentSwipePositionCellCoordinates[X_POS] == 0;
                     break;
                 case 2:
                     break;
@@ -456,21 +455,21 @@ public class SwipeMotion {
                     break;
                 case 4: // fall through
                 case 5:
-                    acceptDigit = (mGridPlayerView.getOrientation() == Configuration.ORIENTATION_PORTRAIT && mCurrentSwipePositionCellCoordinates[X_POS] == mGridSize - 1);
+                    acceptDigit = mGridPlayerView.getOrientation() == Configuration.ORIENTATION_PORTRAIT && mCurrentSwipePositionCellCoordinates[X_POS] == mGridSize - 1;
                     break;
                 case 6:
                     acceptDigit = (mGridPlayerView.getOrientation() == Configuration.ORIENTATION_PORTRAIT && mCurrentSwipePositionCellCoordinates[X_POS] == mGridSize - 1)
                             || (mGridPlayerView.getOrientation() == Configuration.ORIENTATION_LANDSCAPE && mCurrentSwipePositionCellCoordinates[Y_POS] == mGridSize - 1);
                     break;
                 case 7:
-                    acceptDigit = (mGridPlayerView.getOrientation() == Configuration.ORIENTATION_LANDSCAPE && mCurrentSwipePositionCellCoordinates[Y_POS] == mGridSize - 1);
+                    acceptDigit = mGridPlayerView.getOrientation() == Configuration.ORIENTATION_LANDSCAPE && mCurrentSwipePositionCellCoordinates[Y_POS] == mGridSize - 1;
                     break;
                 case 8:
                     acceptDigit = (mCurrentSwipePositionCellCoordinates[X_POS] == 0)
                             || (mGridPlayerView.getOrientation() == Configuration.ORIENTATION_LANDSCAPE && mCurrentSwipePositionCellCoordinates[Y_POS] == mGridSize - 1);
                     break;
                 case 9:
-                    acceptDigit = (mCurrentSwipePositionCellCoordinates[X_POS] == 0);
+                    acceptDigit = mCurrentSwipePositionCellCoordinates[X_POS] == 0;
                     break;
             }
         }
@@ -526,7 +525,7 @@ public class SwipeMotion {
      * @return
      */
     protected boolean hasChangedDigit() {
-        return (mPreviousSwipePositionDigit != mCurrentSwipePositionDigit);
+        return mPreviousSwipePositionDigit != mCurrentSwipePositionDigit;
     }
 
     /**
@@ -576,7 +575,7 @@ public class SwipeMotion {
      * given range. False otherwise.
      */
     public boolean isResultDigitInRange(int minimum, int maximum) {
-        return (mCurrentSwipePositionDigit >= minimum && mCurrentSwipePositionDigit <= maximum);
+        return mCurrentSwipePositionDigit >= minimum && mCurrentSwipePositionDigit <= maximum;
     }
 
     /**

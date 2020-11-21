@@ -137,8 +137,8 @@ public class FileProvider extends ContentProvider {
         File file = new File(getContext().getFilesDir(),
                 uri.getLastPathSegment());
         if (file.exists()) {
-            return (ParcelFileDescriptor.open(file,
-                    ParcelFileDescriptor.MODE_READ_ONLY));
+            return ParcelFileDescriptor.open(file,
+                    ParcelFileDescriptor.MODE_READ_ONLY);
         }
         throw new FileNotFoundException(uri.getPath());
     }

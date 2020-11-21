@@ -7,8 +7,8 @@ import net.cactii.mathdoku.R;
 
 public class TipDuplicateValue extends TipDialog {
 
+    private static final TipPriority TIP_PRIORITY = TipPriority.MEDIUM;
     public static String TIP_NAME = "Tip.TipDuplicateValue.DisplayAgain";
-    private static TipPriority TIP_PRIORITY = TipPriority.MEDIUM;
 
     /**
      * Creates a new tip dialog which explains that a duplicate value has been

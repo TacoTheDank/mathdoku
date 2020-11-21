@@ -179,7 +179,7 @@ public class GridCageType {
         for (int row = 0; row < mRows; row++) {
             result += "  ";
             for (int col = 0; col < mCols; col++) {
-                result += (mUsedCells[row][col] ? " X" : " -");
+                result += mUsedCells[row][col] ? " X" : " -";
             }
             result += "\n";
         }
