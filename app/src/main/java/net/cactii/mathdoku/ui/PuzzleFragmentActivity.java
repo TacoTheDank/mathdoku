@@ -1096,7 +1096,7 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
 
     // Object to save data on a configuration change. Note: for the puzzle
     // fragment the RetainInstance property is set to true.
-    private class ConfigurationInstanceState {
+    private static class ConfigurationInstanceState {
         private final DialogPresentingGridGenerator mDialogPresentingGridGenerator;
         private final GameFileConverter mGameFileConverter;
 

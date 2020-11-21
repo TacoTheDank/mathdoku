@@ -1163,7 +1163,7 @@ public class GridGenerator extends AsyncTask<Void, String, Void> {
 
     // The grid generator options are used in development mode only to generate
     // fake games.
-    public class GridGeneratorOptions {
+    public static class GridGeneratorOptions {
         // The number of games to be generated.
         public int numberOfGamesToGenerate;
 

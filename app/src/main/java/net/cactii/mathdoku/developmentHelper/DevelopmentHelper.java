@@ -123,7 +123,7 @@ public class DevelopmentHelper {
                 Util.getPackageVersionNumber());
         if (DevelopmentHelper.mMode == Mode.DEVELOPMENT) {
             // Set the options for the grid generator
-            GridGenerator.GridGeneratorOptions gridGeneratorOptions = puzzleFragmentActivity.mDialogPresentingGridGenerator.new GridGeneratorOptions();
+            GridGenerator.GridGeneratorOptions gridGeneratorOptions = new GridGenerator.GridGeneratorOptions();
             gridGeneratorOptions.createFakeUserGameFiles = true;
             gridGeneratorOptions.numberOfGamesToGenerate = 8;
 

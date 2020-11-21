@@ -1389,7 +1389,7 @@ public class Grid {
         return mGridGeneratingParameters.mPuzzleComplexity;
     }
 
-    public abstract class OnSolvedListener {
+    public abstract static class OnSolvedListener {
         public abstract void puzzleSolved();
     }
 }

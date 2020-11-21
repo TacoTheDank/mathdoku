@@ -536,7 +536,7 @@ public class GridPlayerView extends GridViewerView implements OnTouchListener {
         void onInputModeChanged(GridInputMode inputMode);
     }
 
-    public abstract class OnGridTouchListener {
+    public abstract static class OnGridTouchListener {
         public abstract void gridTouched(GridCell cell);
     }
 }

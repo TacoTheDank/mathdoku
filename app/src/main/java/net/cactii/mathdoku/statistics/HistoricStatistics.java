@@ -364,14 +364,14 @@ public class HistoricStatistics {
     }
 
     // Internal structure to store data points retrieved from database
-    private class DataPoint {
+    private static class DataPoint {
         public long mElapsedTimeExcludingCheatPenalty;
         public long mCheatPenalty;
         public Serie mSerie;
     }
 
     // Internal data structure to store data per serie
-    private class SeriesSummary {
+    private static class SeriesSummary {
         private long mMinValue;
         private long mMaxValue;
         private long mSumValue;
