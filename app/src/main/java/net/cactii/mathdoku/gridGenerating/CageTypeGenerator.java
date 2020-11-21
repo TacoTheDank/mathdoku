@@ -281,81 +281,82 @@ public class CageTypeGenerator {
      */
     private GridCageType deriveNewCageType(GridCageType cageType,
                                            int extendWithCells, int maxWidth, int maxHeight, Random random) {
-        boolean[][] newCageTypeMatrix = cageType.getExtendedCageTypeMatrix();
+        while (true) {
+            boolean[][] newCageTypeMatrix = cageType.getExtendedCageTypeMatrix();
 
-        // Determine which used cells can be extended.
-        int numberOfCellsPerRow = newCageTypeMatrix[0].length;
-        ArrayList<Integer> extendIndexes = new ArrayList<>();
-        for (int row = 0; row < newCageTypeMatrix.length; row++) {
-            for (int col = 0; col < newCageTypeMatrix[row].length; col++) {
-                if (newCageTypeMatrix[row][col]) {
-                    // This cell was already occupied in the
-                    // original grid. Check which cells can be extended.
+            // Determine which used cells can be extended.
+            int numberOfCellsPerRow = newCageTypeMatrix[0].length;
+            ArrayList<Integer> extendIndexes = new ArrayList<>();
+            for (int row = 0; row < newCageTypeMatrix.length; row++) {
+                for (int col = 0; col < newCageTypeMatrix[row].length; col++) {
+                    if (newCageTypeMatrix[row][col]) {
+                        // This cell was already occupied in the
+                        // original grid. Check which cells can be extended.
 
-                    // Check above and below current occupied cell in case the
-                    // base cage type has not yet reached its maximum height.
-                    if (cageType.getHeight() < maxHeight) {
-                        // Check above
-                        if (!newCageTypeMatrix[row - 1][col]) {
-                            int cellnumber = ((row - 1) * numberOfCellsPerRow)
-                                    + col;
-                            if (!extendIndexes.contains(cellnumber)) {
-                                extendIndexes.add(cellnumber);
+                        // Check above and below current occupied cell in case the
+                        // base cage type has not yet reached its maximum height.
+                        if (cageType.getHeight() < maxHeight) {
+                            // Check above
+                            if (!newCageTypeMatrix[row - 1][col]) {
+                                int cellnumber = ((row - 1) * numberOfCellsPerRow)
+                                        + col;
+                                if (!extendIndexes.contains(cellnumber)) {
+                                    extendIndexes.add(cellnumber);
+                                }
                             }
-                        }
-                        // Check below
-                        if (cageType.getHeight() < maxHeight
-                                && !newCageTypeMatrix[row + 1][col]) {
-                            int cellnumber = ((row + 1) * numberOfCellsPerRow)
-                                    + col;
-                            if (!extendIndexes.contains(cellnumber)) {
-                                extendIndexes.add(cellnumber);
-                            }
-                        }
-                    }
-
-                    // Check to right and left of current occupied cell in case
-                    // the base cage type has not yet reached its maximum width.
-                    if (cageType.getWidth() < maxWidth) {
-                        // Check to right
-                        if (!newCageTypeMatrix[row][col + 1]) {
-                            int cellnumber = (row * numberOfCellsPerRow)
-                                    + col + 1;
-                            if (!extendIndexes.contains(cellnumber)) {
-                                extendIndexes.add(cellnumber);
+                            // Check below
+                            if (cageType.getHeight() < maxHeight
+                                    && !newCageTypeMatrix[row + 1][col]) {
+                                int cellnumber = ((row + 1) * numberOfCellsPerRow)
+                                        + col;
+                                if (!extendIndexes.contains(cellnumber)) {
+                                    extendIndexes.add(cellnumber);
+                                }
                             }
                         }
 
-                        // Check to left
-                        if (!newCageTypeMatrix[row][col - 1]) {
-                            int cellnumber = (row * numberOfCellsPerRow)
-                                    + (col - 1);
-                            if (!extendIndexes.contains(cellnumber)) {
-                                extendIndexes.add(cellnumber);
+                        // Check to right and left of current occupied cell in case
+                        // the base cage type has not yet reached its maximum width.
+                        if (cageType.getWidth() < maxWidth) {
+                            // Check to right
+                            if (!newCageTypeMatrix[row][col + 1]) {
+                                int cellnumber = (row * numberOfCellsPerRow)
+                                        + col + 1;
+                                if (!extendIndexes.contains(cellnumber)) {
+                                    extendIndexes.add(cellnumber);
+                                }
+                            }
+
+                            // Check to left
+                            if (!newCageTypeMatrix[row][col - 1]) {
+                                int cellnumber = (row * numberOfCellsPerRow)
+                                        + (col - 1);
+                                if (!extendIndexes.contains(cellnumber)) {
+                                    extendIndexes.add(cellnumber);
+                                }
                             }
                         }
                     }
                 }
             }
-        }
 
-        // Select one of the cell index numbers to which the given cage type can
-        // be extended
-        int extendToCellnumber = extendIndexes.get(random.nextInt(extendIndexes
-                .size()));
-        int col = extendToCellnumber % numberOfCellsPerRow;
-        int row = extendToCellnumber / numberOfCellsPerRow;
-        newCageTypeMatrix[row][col] = true;
+            // Select one of the cell index numbers to which the given cage type can
+            // be extended
+            int extendToCellnumber = extendIndexes.get(random.nextInt(extendIndexes
+                    .size()));
+            int col = extendToCellnumber % numberOfCellsPerRow;
+            int row = extendToCellnumber / numberOfCellsPerRow;
+            newCageTypeMatrix[row][col] = true;
 
-        GridCageType newCageType = new GridCageType();
-        newCageType.setMatrix(newCageTypeMatrix);
+            GridCageType newCageType = new GridCageType();
+            newCageType.setMatrix(newCageTypeMatrix);
 
-        if (extendWithCells == 1) {
-            return newCageType;
-        } else {
+            if (extendWithCells == 1) {
+                return newCageType;
+            }
             // An extra level of extension is needed.
-            return deriveNewCageType(newCageType, extendWithCells - 1,
-                    maxWidth, maxHeight, random);
+            extendWithCells = extendWithCells - 1;
+            cageType = newCageType;
         }
     }
 }
