@@ -172,7 +172,7 @@ public class PuzzleFragment extends Fragment implements
         setNoGridLoaded();
 
         mGridPlayerView
-                .setOnGridTouchListener(mGridPlayerView.new OnGridTouchListener() {
+                .setOnGridTouchListener(new GridPlayerView.OnGridTouchListener() {
                     @Override
                     public void gridTouched(GridCell cell) {
                         setClearAndUndoButtonVisibility(cell);
@@ -414,8 +414,7 @@ public class PuzzleFragment extends Fragment implements
         if (mGrid == null) {
             return;
         }
-
-        mGrid.setSolvedHandler(mGrid.new OnSolvedListener() {
+        mGrid.setSolvedHandler(new Grid.OnSolvedListener() {
             @Override
             public void puzzleSolved() {
                 // Stop the time and unselect the current cell and cage. Finally
