@@ -42,7 +42,7 @@ public class UserValuePainter extends DigitPainter {
 
         // Compute the offsets at which the user value will be displayed within
         // the cell
-        mLeftOffset = size / 2 - userValueTextSize / 4;
+        mLeftOffset = size / 2 - userValueTextSize / 4.0f;
 
         mBottomOffset = size - bottomMargin;
     }

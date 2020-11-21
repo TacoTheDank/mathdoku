@@ -431,7 +431,7 @@ public class ArchiveFragment extends StatisticsBaseFragment implements
         xyMultipleSeriesRenderer.setYAxisMax(maxYValue + 1);
         xyMultipleSeriesRenderer.setYLabels(Math.min(4, maxYValue + 1));
         xyMultipleSeriesRenderer
-                .setBarWidth(getElementWidth(MAX_CATEGORIES_BAR_CHART) / 2);
+                .setBarWidth(getElementWidth(MAX_CATEGORIES_BAR_CHART) / 2.0f);
 
         // Add new statistics section to the activity
         addStatisticsSection(AVOIDABLE_MOVES_CHART_TAG_ID, getResources()
@@ -571,7 +571,7 @@ public class ArchiveFragment extends StatisticsBaseFragment implements
         xyMultipleSeriesRenderer.setYAxisMax(maxYValue + 1);
         xyMultipleSeriesRenderer.setYLabels(Math.min(4, maxYValue + 1));
         xyMultipleSeriesRenderer
-                .setBarWidth(getElementWidth(MAX_CATEGORIES_BAR_CHART) / 2);
+                .setBarWidth(getElementWidth(MAX_CATEGORIES_BAR_CHART) / 2.0f);
 
         addStatisticsSection(
                 CHEATS_CHART_TAG_ID,
@@ -591,7 +591,7 @@ public class ArchiveFragment extends StatisticsBaseFragment implements
 
         // Assume 90% of screen width is actually available to display all
         // elements
-        return (int) ((float) 0.90 * displayMetrics.widthPixels / elements);
+        return (int) (0.90f * displayMetrics.widthPixels / elements);
     }
 
     /**

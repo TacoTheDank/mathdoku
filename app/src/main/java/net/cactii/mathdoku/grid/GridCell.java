@@ -697,8 +697,8 @@ public class GridCell {
                 // Find the lower left corner of the space in which the digit
                 // has to
                 // be drawn.
-                offsetX += centerX - (drawSwipeOverlay_bounds.width() / 2);
-                offsetY += centerY + (drawSwipeOverlay_bounds.height() / 2);
+                offsetX += centerX - (drawSwipeOverlay_bounds.width() / 2.0f);
+                offsetY += centerY + (drawSwipeOverlay_bounds.height() / 2.0f);
 
                 // Draw the text at the lower left corner
                 canvas.drawText(Integer.toString(i), offsetX, offsetY,
@@ -729,7 +729,7 @@ public class GridCell {
 
         // Draw a line from the middle of the selected cell to the current swipe
         // position to indicate which digit will be selected on release.
-        canvas.drawLine(left + (cellSize / 2), top + (cellSize / 2),
+        canvas.drawLine(left + (cellSize / 2.0f), top + (cellSize / 2.0f),
                 mXPosSwipe, mYPosSwipe, mSwipeBorderPainter.getSwipeLinePaint());
     }
 
@@ -1125,7 +1125,7 @@ public class GridCell {
         float left = Math.round(gridBorderWidth + cellSize * this.mColumn);
         // float right = this.mPosX + cellSize;
 
-        return new float[]{left + (cellSize / 2), top + (cellSize / 2)};
+        return new float[]{left + (cellSize / 2.0f), top + (cellSize / 2.0f)};
     }
 
     /**

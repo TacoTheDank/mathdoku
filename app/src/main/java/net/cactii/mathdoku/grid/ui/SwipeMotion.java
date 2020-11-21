@@ -67,8 +67,8 @@ public class SwipeMotion {
     private int mCurrentSwipePositionDigit;
     private boolean mDoubleTapDetected;
     // Event time at which the previous swipe position was advised to be updated
-    private long mPreviousSwipePositionEventTime = -1l;
-    private long mCurrentSwipePositionEventTime = -1l;
+    private long mPreviousSwipePositionEventTime = -1L;
+    private long mCurrentSwipePositionEventTime = -1L;
 
     /**
      * Creates a new instance of the {@see SwipeMotion}.

@@ -117,9 +117,9 @@ public class Util {
     @SuppressLint("DefaultLocale")
     public static String durationTimeToString(long elapsedTime) {
         // Convert to whole seconds
-        int seconds = (int) Math.floor(elapsedTime / 1000) % 60;
-        int minutes = (int) Math.floor(elapsedTime / (1000 * 60)) % 60;
-        int hours = (int) Math.floor(elapsedTime / (1000 * 60 * 60));
+        int seconds = (int) Math.floor(elapsedTime / 1000.0f) % 60;
+        int minutes = (int) Math.floor(elapsedTime / (1000.0f * 60.0f)) % 60;
+        int hours = (int) Math.floor(elapsedTime / (1000.0f * 60.0f * 60.0f));
 
         // Build time string and ignore hours if not applicable.
         String duration = "";

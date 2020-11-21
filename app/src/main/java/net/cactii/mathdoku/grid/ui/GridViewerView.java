@@ -224,7 +224,7 @@ public class GridViewerView extends View {
             // outer edge of the grid is selected. As the width of the swipe
             // border equals 50% of a normal cell, the entire width is dived by
             // the grid size + 1.
-            mGridCellSize = (float) Math.floor(maxSize / (mGridSize + 1));
+            mGridCellSize = (float) Math.floor(maxSize / (mGridSize + 1.0f));
 
             // The grid border needs to be at least 50% of a normal cell in
             // order to display the swipe border entirely.

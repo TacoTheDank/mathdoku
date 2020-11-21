@@ -18,11 +18,11 @@ public class GameTimer extends AsyncTask<Void, Long, Long> {
     public Long mStartTime;
 
     // Time elapsed while (dis)playing the current grid.
-    public Long mElapsedTime = (long) 0;
+    public Long mElapsedTime = 0L;
 
     // Time added to the real playing time because of using cheats. Effectively
     // the starting time of the game is decreased.
-    public Long mCheatPenaltyTime = (long) 0;
+    public Long mCheatPenaltyTime = 0L;
 
     public GameTimer(PuzzleFragment puzzleFragmentActivity) {
         mPuzzleFragment = puzzleFragmentActivity;
