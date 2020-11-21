@@ -1,7 +1,5 @@
 package net.cactii.mathdoku.ui;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -9,6 +7,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 import androidx.core.app.TaskStackBuilder;
 
@@ -16,7 +16,7 @@ import net.cactii.mathdoku.Preferences;
 import net.cactii.mathdoku.storage.database.DatabaseHelper;
 import net.cactii.mathdoku.util.Util;
 
-public class AppActivity extends Activity implements
+public class AppActivity extends AppCompatActivity implements
         OnSharedPreferenceChangeListener {
 
     // Preferences
@@ -39,7 +39,7 @@ public class AppActivity extends Activity implements
         setKeepScreenOnWindowFlag();
 
         // Set up the action bar.
-        final ActionBar actionBar = getActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -128,7 +128,7 @@ public class AppActivity extends Activity implements
 
     @Override
     public void setTitle(int resId) {
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);

@@ -1,7 +1,5 @@
 package net.cactii.mathdoku.util;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -12,6 +10,9 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import net.cactii.mathdoku.Preferences;
 import net.cactii.mathdoku.R;
@@ -41,7 +42,7 @@ public class FeedbackEmail {
     private static final String EOL_DELIMITER = "\n"; // Separate objects
     private static final String FIELD_DELIMITER_LEVEL1 = "|"; // Separate fields
     private static final String FIELD_DELIMITER_LEVEL2 = "="; // Separate values
-    private final Activity mActivity;
+    private final AppCompatActivity mActivity;
     // Date format for log file
     DateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
             Locale.US);
@@ -54,7 +55,7 @@ public class FeedbackEmail {
      *
      * @param activity The activity context in which the UsageLogging is created.
      */
-    public FeedbackEmail(Activity activity) {
+    public FeedbackEmail(AppCompatActivity activity) {
         mActivity = activity;
     }
 
@@ -64,7 +65,7 @@ public class FeedbackEmail {
      * @param activity The activity which started this usage logger.
      * @return True in case an email client is installed. False otherwise.
      */
-    public static boolean isEmailIntentAvailable(Activity activity) {
+    public static boolean isEmailIntentAvailable(AppCompatActivity activity) {
         final PackageManager packageManager = activity.getPackageManager();
         final Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("message/rfc822");

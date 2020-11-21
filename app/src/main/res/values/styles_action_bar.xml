@@ -19,18 +19,18 @@
 
 <resources>
 
-    <style name="ActionBar.SemiTransparent.Action_bar" parent="@android:style/Widget.Holo.ActionBar">
+    <style name="ActionBar.SemiTransparent.Action_bar" parent="Widget.AppCompat.ActionBar">
 
         <!-- The semi transparent action bar has a top action bar which is transparent and a tab -->
         <!-- view bar which is solid. The transparent top action bar is needed for the puzzle -->
         <!-- fragment activity as it draws the thin blue line between action bar and content. The -->
         <!-- solid tab bar is needed for the statistics fragment activity. -->
-        <item name="android:background">@drawable/ab_transparent_action_bar</item>
-        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_action_bar</item>
+        <item name="background">@drawable/ab_transparent_action_bar</item>
+        <item name="backgroundStacked">@drawable/ab_stacked_solid_action_bar</item>
     </style>
 
-    <style name="ActionBarTabStyle.Action_bar" parent="@android:style/Widget.Holo.ActionBar.TabView">
-        <item name="android:background">@drawable/tab_indicator_ab_action_bar</item>
+    <style name="ActionBarTabStyle.Action_bar" parent="Widget.AppCompat.ActionBar.TabView">
+        <item name="background">@drawable/tab_indicator_ab_action_bar</item>
     </style>
 
 </resources>

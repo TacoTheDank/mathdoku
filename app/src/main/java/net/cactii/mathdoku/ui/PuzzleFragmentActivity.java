@@ -1,7 +1,5 @@
 package net.cactii.mathdoku.ui;
 
-import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -22,7 +20,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -93,7 +94,7 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
         }
 
         // Set up the action bar.
-        final ActionBar actionBar = getActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
             actionBar.setSubtitle(getResources().getString(
@@ -263,19 +264,15 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
                         && mPuzzleFragment.showClearGrid());
 
         // Determine position of new game button
-        menu.findItem(R.id.action_new_game)
-                .setVisible(!drawerOpen)
-                .setShowAsAction(
-                        mPuzzleFragment != null && mPuzzleFragment.isActive() ? MenuItem.SHOW_AS_ACTION_NEVER
-                                : MenuItem.SHOW_AS_ACTION_ALWAYS);
+        MenuItemCompat.setShowAsAction(menu.findItem(R.id.action_new_game)
+                .setVisible(!drawerOpen), mPuzzleFragment != null && mPuzzleFragment.isActive() ? MenuItem.SHOW_AS_ACTION_NEVER
+                : MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         // Display the share button on the action bar dependent on the fragment
         // being showed.
-        menu.findItem(R.id.action_share)
-                .setVisible(!drawerOpen)
-                .setShowAsAction(
-                        mArchiveFragment != null ? MenuItem.SHOW_AS_ACTION_IF_ROOM
-                                : MenuItem.SHOW_AS_ACTION_NEVER);
+        MenuItemCompat.setShowAsAction(menu.findItem(R.id.action_share)
+                .setVisible(!drawerOpen), mArchiveFragment != null ? MenuItem.SHOW_AS_ACTION_IF_ROOM
+                : MenuItem.SHOW_AS_ACTION_NEVER);
 
         // When running in development mode, an extra menu is available.
         if (DevelopmentHelper.mMode == Mode.DEVELOPMENT) {
@@ -639,7 +636,7 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
     private void setActionBarVisibility(boolean force) {
         // For small screens, when digit buttons are enabled, hide the action bar and
         // force portrait.
-        final ActionBar actionBar = getActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         if (force) {
             actionBar.show();
             return;
@@ -1010,7 +1007,7 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
 
         // Set up the action bar for displaying the drawer icon and making the
         // app icon clickable in order to display the drawer.
-        final ActionBar actionBar = getActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null && mDrawerIconVisible) {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);

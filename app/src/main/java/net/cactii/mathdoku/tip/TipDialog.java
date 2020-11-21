@@ -1,6 +1,5 @@
 package net.cactii.mathdoku.tip;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
@@ -10,6 +9,8 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
 
 import net.cactii.mathdoku.Preferences;
 import net.cactii.mathdoku.R;

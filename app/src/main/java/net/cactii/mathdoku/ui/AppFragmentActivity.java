@@ -5,13 +5,13 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import net.cactii.mathdoku.Preferences;
 import net.cactii.mathdoku.storage.database.DatabaseHelper;
 import net.cactii.mathdoku.util.Util;
 
-public class AppFragmentActivity extends FragmentActivity implements
+public class AppFragmentActivity extends AppCompatActivity implements
         OnSharedPreferenceChangeListener {
 
     // Preferences

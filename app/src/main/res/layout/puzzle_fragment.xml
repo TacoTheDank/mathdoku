@@ -243,7 +243,7 @@
                     android:layout_weight="1"
                     android:contentDescription="@string/main_ui_clear"
                     android:scaleType="fitCenter"
-                    android:src="@android:drawable/ic_menu_delete"
+                    mathdoku:srcCompat="@android:drawable/ic_menu_delete"
                     tools:ignore="ButtonStyle" />
             </LinearLayout>
         </LinearLayout>

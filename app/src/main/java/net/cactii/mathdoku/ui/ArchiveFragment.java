@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import net.cactii.mathdoku.Preferences;
 import net.cactii.mathdoku.R;
 import net.cactii.mathdoku.grid.DigitPositionGrid;
@@ -586,7 +588,7 @@ public class ArchiveFragment extends StatisticsBaseFragment implements
 
     private int getElementWidth(int elements) {
         // Get screen width
-        DisplayMetrics displayMetrics = new Util(getActivity())
+        DisplayMetrics displayMetrics = new Util((AppCompatActivity) getActivity())
                 .getDisplayMetrics();
 
         // Assume 90% of screen width is actually available to display all

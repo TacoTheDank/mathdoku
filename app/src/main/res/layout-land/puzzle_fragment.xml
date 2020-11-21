@@ -132,7 +132,7 @@
                     android:layout_weight="1"
                     android:contentDescription="@string/main_ui_maybe"
                     android:scaleType="fitCenter"
-                    android:src="@android:drawable/ic_menu_edit"
+                    mathdoku:srcCompat="@android:drawable/ic_menu_edit"
                     tools:ignore="ButtonStyle" />
             </LinearLayout>
 
@@ -186,7 +186,7 @@
                     android:layout_weight="1"
                     android:contentDescription="@string/main_ui_clear"
                     android:scaleType="fitCenter"
-                    android:src="@android:drawable/ic_menu_delete"
+                    mathdoku:srcCompat="@android:drawable/ic_menu_delete"
                     tools:ignore="ButtonStyle" />
             </LinearLayout>
 
@@ -240,7 +240,7 @@
                     android:layout_weight="1"
                     android:contentDescription="@string/main_ui_undo"
                     android:scaleType="fitCenter"
-                    android:src="@android:drawable/ic_menu_revert"
+                    mathdoku:srcCompat="@android:drawable/ic_menu_revert"
                     tools:ignore="ButtonStyle" />
             </LinearLayout>
         </LinearLayout>

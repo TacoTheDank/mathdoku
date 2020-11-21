@@ -16,8 +16,6 @@
 
 package net.cactii.mathdoku.ui;
 
-import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -31,6 +29,8 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NavUtils;
 import androidx.core.app.TaskStackBuilder;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -94,7 +94,7 @@ public class ArchiveFragmentActivity extends AppFragmentActivity {
         mArchiveFragmentStatePagerAdapter.setSizeFilter(mMathDokuPreferences
                 .getArchiveSizeFilterLastValueUsed());
 
-        mActionBar = getActionBar();
+        mActionBar = getSupportActionBar();
         if (mActionBar != null) {
             mActionBar.setDisplayHomeAsUpEnabled(true);
             mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);

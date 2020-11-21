@@ -1,9 +1,10 @@
 package net.cactii.mathdoku.util;
 
-import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.util.DisplayMetrics;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Util {
     public final static String TAG = "MathDoku.Util";
@@ -22,7 +23,7 @@ public class Util {
 
     private static String mBasePath;
 
-    public Util(Activity activity) {
+    public Util(AppCompatActivity activity) {
         // Get package name and version
         mPackageVersionNumber = -1;
         mPackageVersionName = "";

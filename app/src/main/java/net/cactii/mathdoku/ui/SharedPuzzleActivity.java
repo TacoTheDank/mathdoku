@@ -1,7 +1,5 @@
 package net.cactii.mathdoku.ui;
 
-import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +7,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 
 import net.cactii.mathdoku.R;
 import net.cactii.mathdoku.grid.Grid;
@@ -48,7 +49,7 @@ public class SharedPuzzleActivity extends AppFragmentActivity {
         setContentView(R.layout.shared_puzzle_fragment);
 
         // Setup the action bar
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
             actionBar.setDisplayHomeAsUpEnabled(false);

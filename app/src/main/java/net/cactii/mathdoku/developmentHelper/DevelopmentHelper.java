@@ -1,7 +1,8 @@
 package net.cactii.mathdoku.developmentHelper;
 
-import android.app.AlertDialog;
 import android.content.SharedPreferences.Editor;
+
+import androidx.appcompat.app.AlertDialog;
 
 import net.cactii.mathdoku.Preferences;
 import net.cactii.mathdoku.R;
