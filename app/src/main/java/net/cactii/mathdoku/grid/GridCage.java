@@ -71,7 +71,7 @@ public class GridCage {
         mPossibles = null;
         mUserMathCorrect = true;
         mSelected = false;
-        mCells = new ArrayList<GridCell>();
+        mCells = new ArrayList<>();
     }
 
     @Override
@@ -330,7 +330,7 @@ public class GridCage {
      * this cage.
      */
     private ArrayList<int[]> setPossibleNumsNoOperator() {
-        ArrayList<int[]> AllResults = new ArrayList<int[]>();
+        ArrayList<int[]> AllResults = new ArrayList<>();
 
         // Single cell cages can only contain the value of the single cell.
         if (mCells.size() == 1) {
@@ -386,7 +386,7 @@ public class GridCage {
      * column/row
      */
     private ArrayList<int[]> setPossibleNums() {
-        ArrayList<int[]> AllResults = new ArrayList<int[]>();
+        ArrayList<int[]> AllResults = new ArrayList<>();
 
         int gridSize = mGrid.getGridSize();
 
@@ -431,7 +431,7 @@ public class GridCage {
     private ArrayList<int[]> getAllAddCombos(int max_val, int target_sum,
                                              int n_cells) {
         getAllCombos_Numbers = new int[n_cells];
-        getAllCombos_ResultSet = new ArrayList<int[]>();
+        getAllCombos_ResultSet = new ArrayList<>();
         getAddCombos(max_val, target_sum, n_cells);
         return getAllCombos_ResultSet;
     }
@@ -466,7 +466,7 @@ public class GridCage {
     private ArrayList<int[]> getAllMultiplyCombos(int max_val, int target_sum,
                                                   int n_cells) {
         getAllCombos_Numbers = new int[n_cells];
-        getAllCombos_ResultSet = new ArrayList<int[]>();
+        getAllCombos_ResultSet = new ArrayList<>();
         getMultiplyCombos(max_val, target_sum, n_cells);
 
         return getAllCombos_ResultSet;

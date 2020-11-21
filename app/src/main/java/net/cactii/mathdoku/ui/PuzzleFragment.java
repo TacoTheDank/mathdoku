@@ -603,7 +603,7 @@ public class PuzzleFragment extends Fragment implements
     }
 
     private ArrayList<View> allButtons(boolean onlyDigits) {
-        ArrayList<View> usedbuttons = new ArrayList<View>();
+        ArrayList<View> usedbuttons = new ArrayList<>();
         View[] buttons = {mDigit1, mDigit2, mDigit3, mDigit4, mDigit5, mDigit6,
                 mDigit7, mDigit8, mDigit9, mDigitC, mDigitM, mDigitU};
         int length;

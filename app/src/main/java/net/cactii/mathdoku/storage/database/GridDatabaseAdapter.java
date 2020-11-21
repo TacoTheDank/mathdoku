@@ -192,20 +192,14 @@ public class GridDatabaseAdapter extends DatabaseAdapter {
      */
     public GridRow get(int id) {
         GridRow gridRow = null;
-        Cursor cursor = null;
-        try {
-            cursor = mSqliteDatabase.query(true, TABLE, allColumns, KEY_ROWID
-                    + "=" + id, null, null, null, null, null);
+        try (Cursor cursor = mSqliteDatabase.query(true, TABLE, allColumns, KEY_ROWID
+                + "=" + id, null, null, null, null, null)) {
             gridRow = toGridRow(cursor);
         } catch (SQLiteException e) {
             if (DevelopmentHelper.mMode == Mode.DEVELOPMENT) {
                 e.printStackTrace();
             }
             return null;
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
         }
         return gridRow;
     }
@@ -218,21 +212,15 @@ public class GridDatabaseAdapter extends DatabaseAdapter {
      */
     public GridRow getByGridDefinition(String definition) {
         GridRow gridRow = null;
-        Cursor cursor = null;
-        try {
-            cursor = mSqliteDatabase.query(true, TABLE, allColumns,
-                    KEY_DEFINITION + "=" + stringBetweenQuotes(definition),
-                    null, null, null, null, null);
+        try (Cursor cursor = mSqliteDatabase.query(true, TABLE, allColumns,
+                KEY_DEFINITION + "=" + stringBetweenQuotes(definition),
+                null, null, null, null, null)) {
             gridRow = toGridRow(cursor);
         } catch (SQLiteException e) {
             if (DevelopmentHelper.mMode == Mode.DEVELOPMENT) {
                 e.printStackTrace();
             }
             return null;
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
         }
         return gridRow;
     }
@@ -345,11 +333,9 @@ public class GridDatabaseAdapter extends DatabaseAdapter {
 
         // Convert results in cursor to array of grid id's
         int[][] gridIds = null;
-        Cursor cursor = null;
-        try {
-            cursor = sqliteQueryBuilder.query(mSqliteDatabase,
-                    projection.getAllColumnNames(), selection, null, null,
-                    null, null);
+        try (Cursor cursor = sqliteQueryBuilder.query(mSqliteDatabase,
+                projection.getAllColumnNames(), selection, null, null,
+                null, null)) {
             if (cursor.moveToFirst()) {
                 gridIds = new int[cursor.getCount()][2];
                 int i = 0;
@@ -370,10 +356,6 @@ public class GridDatabaseAdapter extends DatabaseAdapter {
                 e.printStackTrace();
             }
             return null;
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
         }
         return gridIds;
     }
@@ -451,10 +433,8 @@ public class GridDatabaseAdapter extends DatabaseAdapter {
 
         // Convert results in cursor to array of grid id's
         StatusFilter[] statuses = null;
-        Cursor cursor = null;
-        try {
-            cursor = sqliteQueryBuilder.query(mSqliteDatabase, columnsData,
-                    selection, null, KEY_STATUS_FILTER, null, null);
+        try (Cursor cursor = sqliteQueryBuilder.query(mSqliteDatabase, columnsData,
+                selection, null, KEY_STATUS_FILTER, null, null)) {
             if (cursor.moveToFirst()) {
                 statuses = new StatusFilter[cursor.getCount() + 1];
                 statuses[0] = StatusFilter.ALL;
@@ -477,10 +457,6 @@ public class GridDatabaseAdapter extends DatabaseAdapter {
                 e.printStackTrace();
             }
             return null;
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
         }
         return statuses;
     }
@@ -525,10 +501,8 @@ public class GridDatabaseAdapter extends DatabaseAdapter {
 
         // Convert results in cursor to array of grid id's
         SizeFilter[] sizes = null;
-        Cursor cursor = null;
-        try {
-            cursor = sqliteQueryBuilder.query(mSqliteDatabase, columnsData,
-                    selection, null, KEY_GRID_SIZE, null, null);
+        try (Cursor cursor = sqliteQueryBuilder.query(mSqliteDatabase, columnsData,
+                selection, null, KEY_GRID_SIZE, null, null)) {
             if (cursor.moveToFirst()) {
                 sizes = new SizeFilter[cursor.getCount() + 1];
                 sizes[0] = SizeFilter.ALL;
@@ -563,10 +537,6 @@ public class GridDatabaseAdapter extends DatabaseAdapter {
                 e.printStackTrace();
             }
             return null;
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
         }
         return sizes;
     }
@@ -642,11 +612,9 @@ public class GridDatabaseAdapter extends DatabaseAdapter {
      */
     public int countGrids() {
         int count = 0;
-        Cursor cursor = null;
-        try {
-            cursor = mSqliteDatabase.query(true, TABLE,
-                    new String[]{"COUNT(1)"}, null, null, null, null, null,
-                    null);
+        try (Cursor cursor = mSqliteDatabase.query(true, TABLE,
+                new String[]{"COUNT(1)"}, null, null, null, null, null,
+                null)) {
 
             if (cursor == null || !cursor.moveToFirst()) {
                 // No record found
@@ -660,10 +628,6 @@ public class GridDatabaseAdapter extends DatabaseAdapter {
                 e.printStackTrace();
             }
             return 0;
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
         }
         return count;
     }

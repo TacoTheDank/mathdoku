@@ -279,7 +279,7 @@ public class ArchiveFragmentActivity extends AppFragmentActivity {
             usedStatusesDescription[i] = getResources().getStringArray(
                     R.array.archive_status_filter)[usedStatuses[i].ordinal()];
         }
-        ArrayAdapter<String> adapterStatus = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapterStatus = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, usedStatusesDescription);
         adapterStatus
                 .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -365,7 +365,7 @@ public class ArchiveFragmentActivity extends AppFragmentActivity {
             usedSizesDescription[i] = getResources().getStringArray(
                     R.array.archive_size_filter)[usedSizes[i].ordinal()];
         }
-        ArrayAdapter<String> adapterStatus = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapterStatus = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, usedSizesDescription);
         adapterStatus
                 .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

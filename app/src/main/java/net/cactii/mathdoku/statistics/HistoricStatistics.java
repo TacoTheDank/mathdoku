@@ -39,7 +39,7 @@ public class HistoricStatistics {
      * @param summary
      */
     public HistoricStatistics(Cursor data) {
-        dataPoints = new ArrayList<DataPoint>();
+        dataPoints = new ArrayList<>();
         mAllSeriesSummary = new SeriesSummary();
         mSolvedSeriesSummary = new SeriesSummary();
         mSolutionRevealedSeriesSummary = new SeriesSummary();

@@ -156,9 +156,9 @@ public class Grid {
         mRowId = -1;
         mSolvingAttemptId = -1;
         mGridSize = 0;
-        mCells = new ArrayList<GridCell>();
-        mCages = new ArrayList<GridCage>();
-        mMoves = new ArrayList<CellChange>();
+        mCells = new ArrayList<>();
+        mCages = new ArrayList<>();
+        mMoves = new ArrayList<>();
         mClearRedundantPossiblesInSameRowOrColumnCount = 0;
         mSolvedListener = null;
         mGridGeneratingParameters = new GridGeneratingParameters();
@@ -304,7 +304,7 @@ public class Grid {
 
     // Return the list of cells that are highlighted as invalid
     public ArrayList<GridCell> invalidsHighlighted() {
-        ArrayList<GridCell> invalids = new ArrayList<GridCell>();
+        ArrayList<GridCell> invalids = new ArrayList<>();
         for (GridCell cell : this.mCells)
             if (cell.hasInvalidUserValueHighlight())
                 invalids.add(cell);
@@ -314,7 +314,7 @@ public class Grid {
 
     public void addMove(CellChange move) {
         if (mMoves == null) {
-            mMoves = new ArrayList<CellChange>();
+            mMoves = new ArrayList<>();
         }
 
         boolean identicalToLastMove = false;

@@ -240,20 +240,14 @@ public class StatisticsDatabaseAdapter extends DatabaseAdapter {
      */
     public GridStatistics get(int id) {
         GridStatistics gridStatistics = null;
-        Cursor cursor = null;
-        try {
-            cursor = mSqliteDatabase.query(true, TABLE, allColumns, KEY_ROWID
-                    + "=" + id, null, null, null, null, null);
+        try (Cursor cursor = mSqliteDatabase.query(true, TABLE, allColumns, KEY_ROWID
+                + "=" + id, null, null, null, null, null)) {
             gridStatistics = toGridStatistics(cursor);
         } catch (SQLiteException e) {
             if (DevelopmentHelper.mMode == Mode.DEVELOPMENT) {
                 e.printStackTrace();
             }
             return null;
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
         }
         return gridStatistics;
     }
@@ -267,20 +261,14 @@ public class StatisticsDatabaseAdapter extends DatabaseAdapter {
      */
     public GridStatistics getMostRecent(int gridId) {
         GridStatistics gridStatistics = null;
-        Cursor cursor = null;
-        try {
-            cursor = mSqliteDatabase.query(true, TABLE, allColumns, KEY_GRID_ID
-                    + "=" + gridId, null, null, null, KEY_ROWID + " DESC", "1");
+        try (Cursor cursor = mSqliteDatabase.query(true, TABLE, allColumns, KEY_GRID_ID
+                + "=" + gridId, null, null, null, KEY_ROWID + " DESC", "1")) {
             gridStatistics = toGridStatistics(cursor);
         } catch (SQLiteException e) {
             if (DevelopmentHelper.mMode == Mode.DEVELOPMENT) {
                 e.printStackTrace();
             }
             return null;
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
         }
         return gridStatistics;
     }

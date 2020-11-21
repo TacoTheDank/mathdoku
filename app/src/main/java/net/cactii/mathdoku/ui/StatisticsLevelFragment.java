@@ -316,7 +316,7 @@ public class StatisticsLevelFragment extends StatisticsBaseFragment implements
         // Create object for category series and the series renderer
         XYMultipleSeriesDataset xyMultipleSeriesDataset = new XYMultipleSeriesDataset();
 
-        ArrayList<String> typesList = new ArrayList<String>();
+        ArrayList<String> typesList = new ArrayList<>();
 
         // Add series for elapsed time (including cheat time) of solved games
         if (historicStatistics.isXYSeriesUsed(Serie.SOLVED, true, true)) {

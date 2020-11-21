@@ -783,7 +783,7 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
 
         // Populate the spinner. Initial value is set to value used for
         // generating the previous puzzle.
-        ArrayAdapter<String> adapterStatus = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapterStatus = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, puzzleSizes);
         adapterStatus
                 .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -1018,7 +1018,7 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
         // Determine the item which have to be shown in the drawer.
         boolean openDrawer = false;
         boolean mDrawerIconVisible = false;
-        ArrayList<String> navigationDrawerItems = new ArrayList<String>();
+        ArrayList<String> navigationDrawerItems = new ArrayList<>();
         navigationDrawerItems.add(getResources().getString(
                 R.string.action_bar_subtitle_puzzle_fragment));
         if (mMathDokuPreferences.isArchiveAvailable()) {
@@ -1099,7 +1099,7 @@ public class PuzzleFragmentActivity extends AppFragmentActivity implements
                 .getNavigationDrawerPainter().getBackgroundColor());
 
         // Set the adapter for the list view containing the navigation items
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(this,
+        mDrawerListView.setAdapter(new ArrayAdapter<>(this,
                 R.layout.navigation_drawer_list_item, mNavigationDrawerItems));
 
         // Set the list's click listener

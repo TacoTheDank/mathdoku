@@ -115,7 +115,7 @@ public class FeedbackEmail {
      * @param activity The activity used to get device info.
      */
     public void logDevice() {
-        SortedMap<String, String> sortedMap = new TreeMap<String, String>();
+        SortedMap<String, String> sortedMap = new TreeMap<>();
 
         sortedMap.put("Android.Version", android.os.Build.VERSION.CODENAME);
         sortedMap.put("Android.SDK_INT",
@@ -138,7 +138,7 @@ public class FeedbackEmail {
      * Logs information about a configuration.
      */
     public void logConfiguration() {
-        SortedMap<String, String> sortedMap = new TreeMap<String, String>();
+        SortedMap<String, String> sortedMap = new TreeMap<>();
 
         Configuration configuration = mActivity.getResources()
                 .getConfiguration();
@@ -160,7 +160,7 @@ public class FeedbackEmail {
         Preferences preferences = Preferences.getInstance();
 
         if (preferences != null) {
-            SortedMap<String, String> sortedMap = new TreeMap<String, String>();
+            SortedMap<String, String> sortedMap = new TreeMap<>();
 
             for (Map.Entry<String, ?> entry : preferences
                     .getAllSharedPreferences().entrySet()) {
@@ -306,7 +306,7 @@ public class FeedbackEmail {
                                                 R.string.feedback_email_body));
 
                                 if (createLogFile(FileProvider.FEEDBACK_LOG_FILE_NAME)) {
-                                    ArrayList<Uri> uris = new ArrayList<Uri>();
+                                    ArrayList<Uri> uris = new ArrayList<>();
                                     uris.add(FileProvider
                                             .getUri(FileProvider.FEEDBACK_LOG_FILE_NAME));
                                     uris.add(FileProvider

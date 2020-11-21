@@ -61,7 +61,7 @@ public class MathDokuDLX extends DLX {
         // because this has a major impact on the time it will take to find a
         // solution. Cage should be ordered on increasing number of possible
         // moves.
-        ArrayList<GridCage> sortedCages = new ArrayList<GridCage>(mCages);
+        ArrayList<GridCage> sortedCages = new ArrayList<>(mCages);
         Collections.sort(sortedCages, new SortCagesOnNumberOfMoves());
         if (DEBUG_DLX) {
             for (GridCage gridCage : sortedCages) {
@@ -76,7 +76,7 @@ public class MathDokuDLX extends DLX {
         // puzzle are shared, register details of all moves. Maybe all relevant
         // data is already stored but I can't find out how.
         if (uncoverSolution) {
-            mMoves = new ArrayList<Move>();
+            mMoves = new ArrayList<>();
         } else {
             mMoves = null;
         }

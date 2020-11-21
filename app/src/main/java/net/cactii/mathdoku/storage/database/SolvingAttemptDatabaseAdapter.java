@@ -185,10 +185,8 @@ public class SolvingAttemptDatabaseAdapter extends DatabaseAdapter {
      */
     public SolvingAttemptData getData(int solvingAttemptId) {
         SolvingAttemptData solvingAttemptData = null;
-        Cursor cursor = null;
-        try {
-            cursor = mSqliteDatabase.query(true, TABLE, dataColumns, KEY_ROWID
-                    + "=" + solvingAttemptId, null, null, null, null, null);
+        try (Cursor cursor = mSqliteDatabase.query(true, TABLE, dataColumns, KEY_ROWID
+                + "=" + solvingAttemptId, null, null, null, null, null)) {
 
             if (cursor == null || !cursor.moveToFirst()) {
                 // No record found for this grid.
@@ -214,10 +212,6 @@ public class SolvingAttemptDatabaseAdapter extends DatabaseAdapter {
                 e.printStackTrace();
             }
             return null;
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
         }
         return solvingAttemptData;
     }
@@ -230,11 +224,9 @@ public class SolvingAttemptDatabaseAdapter extends DatabaseAdapter {
      */
     public int getMostRecentPlayedId() {
         int id = -1;
-        Cursor cursor = null;
-        try {
-            cursor = mSqliteDatabase.query(true, TABLE,
-                    new String[]{KEY_ROWID}, null, null, null, null,
-                    KEY_DATE_UPDATED + " DESC", "1");
+        try (Cursor cursor = mSqliteDatabase.query(true, TABLE,
+                new String[]{KEY_ROWID}, null, null, null, null,
+                KEY_DATE_UPDATED + " DESC", "1")) {
 
             if (cursor == null || !cursor.moveToFirst()) {
                 // No record found
@@ -248,10 +240,6 @@ public class SolvingAttemptDatabaseAdapter extends DatabaseAdapter {
                 e.printStackTrace();
             }
             return -1;
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
         }
         return id;
     }
@@ -291,13 +279,11 @@ public class SolvingAttemptDatabaseAdapter extends DatabaseAdapter {
      */
     public ArrayList<Integer> getAllToBeConverted() {
         ArrayList<Integer> idArrayList = null;
-        Cursor cursor = null;
         String[] columns = {KEY_ROWID};
-        try {
+        try (Cursor cursor = mSqliteDatabase.query(true, TABLE, columns, null, null,
+                null, null, null, null)) {
             // Currently all solving attempts are returned. In future this can
             // be restricted to games which are not solved.
-            cursor = mSqliteDatabase.query(true, TABLE, columns, null, null,
-                    null, null, null, null);
 
             if (cursor == null || !cursor.moveToFirst()) {
                 // No record found for this grid.
@@ -305,7 +291,7 @@ public class SolvingAttemptDatabaseAdapter extends DatabaseAdapter {
             }
 
             // Convert cursor records to an array list of id's.
-            idArrayList = new ArrayList<Integer>();
+            idArrayList = new ArrayList<>();
             do {
                 idArrayList.add(cursor.getInt(cursor
                         .getColumnIndexOrThrow(KEY_ROWID)));
@@ -315,10 +301,6 @@ public class SolvingAttemptDatabaseAdapter extends DatabaseAdapter {
                 e.printStackTrace();
             }
             return null;
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
         }
         return idArrayList;
     }
@@ -357,11 +339,9 @@ public class SolvingAttemptDatabaseAdapter extends DatabaseAdapter {
      */
     public int countSolvingAttemptForGrid(int gridId) {
         int count = 0;
-        Cursor cursor = null;
-        try {
-            cursor = mSqliteDatabase.query(true, TABLE,
-                    new String[]{"COUNT(1)"}, KEY_GRID_ID + "=" + gridId,
-                    null, null, null, null, null);
+        try (Cursor cursor = mSqliteDatabase.query(true, TABLE,
+                new String[]{"COUNT(1)"}, KEY_GRID_ID + "=" + gridId,
+                null, null, null, null, null)) {
 
             if (cursor == null || !cursor.moveToFirst()) {
                 // No record found for this grid.
@@ -375,10 +355,6 @@ public class SolvingAttemptDatabaseAdapter extends DatabaseAdapter {
                 e.printStackTrace();
             }
             return 0;
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
         }
         return count;
     }

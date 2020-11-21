@@ -159,7 +159,7 @@ public class SharedPuzzle {
                                     .findViewWithTag(ArchiveFragment.AVOIDABLE_MOVES_CHART_TAG_ID),
                             FileProvider.AVOIDABLE_MOVES_CHART_FILE_NAME)) {
                 if (mUris == null) {
-                    mUris = new ArrayList<Uri>();
+                    mUris = new ArrayList<>();
                 }
                 mUris.add(FileProvider
                         .getUri(FileProvider.AVOIDABLE_MOVES_CHART_FILE_NAME));
@@ -170,7 +170,7 @@ public class SharedPuzzle {
                     view.findViewWithTag(ArchiveFragment.CHEATS_CHART_TAG_ID),
                     FileProvider.CHEATS_CHART_FILE_NAME)) {
                 if (mUris == null) {
-                    mUris = new ArrayList<Uri>();
+                    mUris = new ArrayList<>();
                 }
                 mUris.add(FileProvider
                         .getUri(FileProvider.CHEATS_CHART_FILE_NAME));

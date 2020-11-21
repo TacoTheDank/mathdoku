@@ -45,7 +45,7 @@ public class CageTypeGenerator {
         // Initialize all cage type array lists
         mCageTypes = new ArrayList[MAX_CAGE_SIZE];
         for (int i = 0; i < MAX_CAGE_SIZE; i++) {
-            mCageTypes[i] = new ArrayList<GridCageType>();
+            mCageTypes[i] = new ArrayList<>();
         }
 
         // Start with a cage consisting of a single cell.
@@ -285,7 +285,7 @@ public class CageTypeGenerator {
 
         // Determine which used cells can be extended.
         int numberOfCellsPerRow = newCageTypeMatrix[0].length;
-        ArrayList<Integer> extendIndexes = new ArrayList<Integer>();
+        ArrayList<Integer> extendIndexes = new ArrayList<>();
         for (int row = 0; row < newCageTypeMatrix.length; row++) {
             for (int col = 0; col < newCageTypeMatrix[row].length; col++) {
                 if (newCageTypeMatrix[row][col]) {

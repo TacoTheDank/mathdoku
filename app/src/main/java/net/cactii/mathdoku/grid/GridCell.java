@@ -96,7 +96,7 @@ public class GridCell {
         mDuplicateValueHighlight = false;
         mRevealed = false;
         mInvalidUserValueHighlight = false;
-        mPossibles = new ArrayList<Integer>();
+        mPossibles = new ArrayList<>();
         mPosX = 0;
         mPosY = 0;
 

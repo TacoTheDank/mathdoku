@@ -138,7 +138,7 @@ public class GameFileConverter extends AsyncTask<Void, Void, Void> {
         }
 
         // Initialize conversion results.
-        mGridDefinitions = new ArrayList<String>();
+        mGridDefinitions = new ArrayList<>();
     }
 
     @Override

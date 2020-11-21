@@ -254,7 +254,7 @@ public abstract class DatabaseAdapter {
         // Build the list of columns for the new version of the table.
         List<String> currentColumnList = getTableColumns(sqliteDatabase,
                 tableName);
-        List<String> newColumnList = new ArrayList<String>(currentColumnList);
+        List<String> newColumnList = new ArrayList<>(currentColumnList);
         if (!newColumnList.removeAll(Arrays.asList(columnsToDropped))
                 || newColumnList.isEmpty()
                 || newColumnList.equals(currentColumnList)) {
@@ -318,7 +318,7 @@ public abstract class DatabaseAdapter {
         Cursor cur = sqliteDatabase.rawQuery(cmd, null);
 
         // Convert columns to list.
-        ArrayList<String> columns = new ArrayList<String>();
+        ArrayList<String> columns = new ArrayList<>();
         while (cur.moveToNext()) {
             columns.add(cur.getString(cur.getColumnIndex("name")));
         }

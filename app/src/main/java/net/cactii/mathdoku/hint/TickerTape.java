@@ -31,7 +31,7 @@ public class TickerTape extends HorizontalScrollView {
 
     // Speed of horizontal scrolling
     private final int mScrollStepSize = 100;
-    private final ArrayList<TextView> mTextViewList = new ArrayList<TextView>();
+    private final ArrayList<TextView> mTextViewList = new ArrayList<>();
     // Flag whether ticker tape has been cancelled and should stop moving.
     private boolean mCancelled;
     // The number of items which have been displayed completely.

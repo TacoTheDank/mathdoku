@@ -22,7 +22,7 @@ public class DLX {
     private SolveType solvetype;
 
     public DLX() {
-        trysolution = new ArrayList<Integer>();
+        trysolution = new ArrayList<>();
         isValid = true;
     }
 
@@ -161,7 +161,7 @@ public class DLX {
         // A solution is found in case all columns are covered
         if (root.GetRight() == root) {
             NumSolns++;
-            foundsolution = new ArrayList<Integer>(trysolution);
+            foundsolution = new ArrayList<>(trysolution);
             if (MathDokuDLX.DEBUG_DLX) {
                 Log.i(TAG, "Solution " + NumSolns
                         + " found which consists of following moves: "

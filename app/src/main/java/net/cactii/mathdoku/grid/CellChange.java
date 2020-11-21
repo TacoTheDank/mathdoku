@@ -35,7 +35,7 @@ public class CellChange {
     public CellChange() {
         this.mGridCell = null;
         this.mPreviousUserValue = -1;
-        this.mPreviousPossibleValues = new ArrayList<Integer>();
+        this.mPreviousPossibleValues = new ArrayList<>();
         this.mRelatedCellChanges = null;
     }
 
@@ -50,7 +50,7 @@ public class CellChange {
                       ArrayList<Integer> previousPossibleValues) {
         this.mGridCell = cell;
         this.mPreviousUserValue = previousUserValue;
-        this.mPreviousPossibleValues = new ArrayList<Integer>(
+        this.mPreviousPossibleValues = new ArrayList<>(
                 previousPossibleValues);
         this.mRelatedCellChanges = null;
     }
@@ -80,7 +80,7 @@ public class CellChange {
      */
     public void addRelatedMove(CellChange relatedCellChange) {
         if (this.mRelatedCellChanges == null) {
-            this.mRelatedCellChanges = new ArrayList<CellChange>();
+            this.mRelatedCellChanges = new ArrayList<>();
         }
         this.mRelatedCellChanges.add(relatedCellChange);
     }

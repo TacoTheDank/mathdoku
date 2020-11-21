@@ -207,7 +207,7 @@ public class GridGenerator extends AsyncTask<Void, String, Void> {
 
             handleNewAttemptStarted(num_attempts);
 
-            mCells = new ArrayList<GridCell>();
+            mCells = new ArrayList<>();
             int cellnum = 0;
             for (int i = 0; i < mGridSize * mGridSize; i++) {
                 mCells.add(new GridCell(mGrid, cellnum++));
@@ -222,7 +222,7 @@ public class GridGenerator extends AsyncTask<Void, String, Void> {
             }
 
             // Create the cages.
-            this.mCages = new ArrayList<GridCage>();
+            this.mCages = new ArrayList<>();
             if (!createCages(mGridGeneratingParameters.mHideOperators)
                     && !isCancelled()) {
                 // For some reason the creation of the cages was not successful.
@@ -591,7 +591,7 @@ public class GridGenerator extends AsyncTask<Void, String, Void> {
 
         // Store indexes of all defined cages types, except cage type 0 which is
         // a single cell, in a temporary list of available cages.
-        ArrayList<Integer> availableCages = new ArrayList<Integer>();
+        ArrayList<Integer> availableCages = new ArrayList<>();
         for (int i = 1; i < mGridCageTypeGenerator
                 .size(mGridGeneratingParameters.mMaxCageSize); i++) {
             availableCages.add(i);
@@ -806,7 +806,7 @@ public class GridGenerator extends AsyncTask<Void, String, Void> {
 
                         // Cages which are already checked during processing of
                         // this column of the new cage, can be skipped.
-                        ArrayList<Integer> cagesChecked = new ArrayList<Integer>();
+                        ArrayList<Integer> cagesChecked = new ArrayList<>();
 
                         // Iterate all cells in the column from top to bottom.
                         for (int row = 0; row < this.mGridSize; row++) {
@@ -836,7 +836,7 @@ public class GridGenerator extends AsyncTask<Void, String, Void> {
                                 }
 
                                 // Determine which values are used in both cages
-                                ArrayList<Integer> duplicateValues = new ArrayList<Integer>();
+                                ArrayList<Integer> duplicateValues = new ArrayList<>();
                                 for (int i = 0; i < this.mGridSize; i++) {
                                     if (valuesUsed[i] > 1) {
                                         // Value (i+1) has been used in both
@@ -900,7 +900,7 @@ public class GridGenerator extends AsyncTask<Void, String, Void> {
 
                         // Cages which are already checked during processing of
                         // this row of the new cage, can be skipped.
-                        ArrayList<Integer> cagesChecked = new ArrayList<Integer>();
+                        ArrayList<Integer> cagesChecked = new ArrayList<>();
 
                         // Iterate all cells in the row from left to right.
                         for (int col = 0; col < this.mGridSize; col++) {
@@ -932,7 +932,7 @@ public class GridGenerator extends AsyncTask<Void, String, Void> {
                                 }
 
                                 // Determine which values are used in both cages
-                                ArrayList<Integer> duplicateValues = new ArrayList<Integer>();
+                                ArrayList<Integer> duplicateValues = new ArrayList<>();
                                 for (int i = 0; i < this.mGridSize; i++) {
                                     if (valuesUsed[i] > 1) {
                                         // Value (i+1) has been used in both
@@ -1087,7 +1087,7 @@ public class GridGenerator extends AsyncTask<Void, String, Void> {
         for (GridCell cell : this.mCells) {
             cell.clearCage();
         }
-        this.mCages = new ArrayList<GridCage>();
+        this.mCages = new ArrayList<>();
     }
 
     /* Clear any cells containing the given number. */
